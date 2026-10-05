@@ -16,6 +16,10 @@ import type {
 export interface FinanceClassificationService {
   getCategories(): Promise<readonly CategoryNode[]>;
   createCategory(input: CreateCategoryInput): Promise<UUID>;
+  updateCategory(
+    categoryId: UUID,
+    input: Omit<CreateCategoryInput, "kind">,
+  ): Promise<void>;
   archiveCategory(categoryId: UUID, recursive?: boolean): Promise<void>;
   restoreCategory(categoryId: UUID): Promise<void>;
 
@@ -31,6 +35,10 @@ export interface FinanceClassificationService {
 
   getRules(): Promise<readonly ClassificationRule[]>;
   createRule(input: CreateClassificationRuleInput): Promise<UUID>;
+  updateRule(
+    ruleId: UUID,
+    input: CreateClassificationRuleInput & { enabled: boolean },
+  ): Promise<void>;
   deleteRule(ruleId: UUID): Promise<void>;
   resolve(
     scope: ClassificationScope,
