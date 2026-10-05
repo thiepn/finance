@@ -5,9 +5,13 @@
   "type": "module",
   "description": "THIEPN Finance personal finance and receipt-intelligence application",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/processing/german-receipt-parser.test.js"
   },
   "devDependencies": {
     "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "tesseract.js": "7.0.0"
   }
 }
