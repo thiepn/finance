@@ -8,6 +8,8 @@
   "include": [
     "src/domain/**/*.ts",
     "src/processing/german-receipt-parser.ts",
-    "src/processing/german-receipt-parser.test.ts"
+    "src/processing/german-receipt-parser.test.ts",
+    "src/processing/product-normalizer.ts",
+    "src/processing/product-normalizer.test.ts"
   ]
 }
