@@ -11,6 +11,7 @@ import "../spending-explorer/spending-explorer.css";
 import "../product-intelligence/product-intelligence.css";
 import "../recurring/recurring.css";
 import "../planning/planning.css";
+import "../wealth/wealth.css";
 
 const root = document.getElementById("root");
 if (!root) {
