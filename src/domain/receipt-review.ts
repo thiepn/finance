@@ -122,6 +122,7 @@ export interface ReceiptReviewItem {
 export interface ReceiptReviewEvent {
   id: UUID;
   receiptItemId: UUID | null;
+  processingRunId: UUID | null;
   eventType: string;
   fieldName: string | null;
   beforeValue: unknown;
