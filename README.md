@@ -31,6 +31,7 @@ Core principles:
 - **P10** — live deterministic Overview, period comparison, financial status, attention engine, planning pace and P1–P9 data integration: complete
 - **P11** — deterministic analytics read models, comparison engine, responsive chart primitives, chart/table parity and live Overview trend visualization: complete
 - **P12** — recursive Spending Explorer, scoped trends, category/merchant/necessity drill-down, product evidence and individual purchase navigation: complete
+- **P13** — searchable product catalog, price/frequency analytics, merchant comparison, normalized family variants and deep-linked product detail: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
