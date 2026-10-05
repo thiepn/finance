@@ -27,6 +27,12 @@
     "src/overview/overview-model.test.ts",
     "src/services/overview.ts",
     "src/services/supabase-overview.ts",
-    "src/overview/supabase-overview.test.ts"
+    "src/overview/supabase-overview.test.ts",
+    "src/domain/analytics.ts",
+    "src/services/analytics.ts",
+    "src/services/supabase-analytics.ts",
+    "src/analytics/analytics-model.ts",
+    "src/analytics/analytics-model.test.ts",
+    "src/analytics/supabase-analytics.test.ts"
   ]
 }
