@@ -12,7 +12,7 @@ const client: SupabaseRpcClient = {
     functionName: string,
     args?: Record<string, unknown>,
   ): Promise<{ data: T | null; error: null }> {
-    calls.push({ name: functionName, args });
+    calls.push(args ? { name: functionName, args } : { name: functionName });
 
     if (functionName === "finance_get_analytics_time_series") {
       return {
