@@ -21,6 +21,9 @@
     "src/activity/activity-controller.ts",
     "src/ui/format/money.ts",
     "src/ui/theme/theme.ts",
-    "src/ui/ui-foundation.test.ts"
+    "src/ui/ui-foundation.test.ts",
+    "src/domain/overview.ts",
+    "src/overview/overview-model.ts",
+    "src/overview/overview-model.test.ts"
   ]
 }
