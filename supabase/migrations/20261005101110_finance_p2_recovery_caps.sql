@@ -1,11 +1,17 @@
--- P2 cumulative refund/reimbursement hardening.
--- Prevents total or per-category recovery from exceeding the original expense.
 
-CREATE OR REPLACE FUNCTION finance.create_refund(p_original_transaction_id uuid, p_account_id uuid, p_amount_minor bigint, p_allocations jsonb DEFAULT NULL::jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.create_refund(
+  p_original_transaction_id uuid,
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb default null,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_original finance.transactions%rowtype;
@@ -213,14 +219,21 @@ begin
 
   return v_tx_id;
 end;
-$function$
+$$;
 
-
-CREATE OR REPLACE FUNCTION finance.create_reimbursement(p_original_transaction_id uuid, p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.create_reimbursement(
+  p_original_transaction_id uuid,
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_original finance.transactions%rowtype;
@@ -381,5 +394,4 @@ begin
 
   return v_tx_id;
 end;
-$function$
-
+$$;
