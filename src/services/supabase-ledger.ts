@@ -1,5 +1,6 @@
 import type {
   AccountBalance,
+  CategoryAllocation,
   CreateAccountInput,
   CreateExpenseInput,
   CreateIncomeInput,
@@ -25,7 +26,7 @@ function isoOrNow(value?: string): string {
 }
 
 function allocationPayload(
-  allocations: readonly { categoryId: UUID; amountMinor: number; memo?: string }[],
+  allocations: readonly CategoryAllocation[],
 ): Array<Record<string, unknown>> {
   return allocations.map((allocation) => ({
     category_id: allocation.categoryId,
