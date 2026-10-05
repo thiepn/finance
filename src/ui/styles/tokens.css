@@ -45,6 +45,14 @@
   --f-accent-soft: #eeedff;
   --f-accent-text: #3730a3;
 
+  --f-chart-1: #4f46e5;
+  --f-chart-2: #64748b;
+  --f-chart-3: #0f766e;
+  --f-chart-4: #b45309;
+  --f-chart-5: #7c3aed;
+  --f-chart-6: #2563eb;
+  --f-chart-grid: rgb(119 128 142 / 0.18);
+
   --f-positive: #087f5b;
   --f-positive-soft: #e8f7f1;
   --f-negative: #c92a2a;
@@ -85,6 +93,14 @@
   --f-accent-pressed: #b0acff;
   --f-accent-soft: #27254e;
   --f-accent-text: #c7c4ff;
+
+  --f-chart-1: #9b95ff;
+  --f-chart-2: #94a3b8;
+  --f-chart-3: #5eead4;
+  --f-chart-4: #fbbf24;
+  --f-chart-5: #c4b5fd;
+  --f-chart-6: #93c5fd;
+  --f-chart-grid: rgb(184 192 204 / 0.16);
 
   --f-positive: #5dd6ae;
   --f-positive-soft: #15382f;
