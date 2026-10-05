@@ -22,6 +22,7 @@ Core principles:
 - **P1** — Supabase domain foundation, RLS, balanced ledger, audit trail: complete
 - **P2** — ledger services, account lifecycle, transfers, refunds, reimbursements and split transactions: complete
 - **P3** — categories, tags, merchant intelligence, split-level necessity and deterministic classification rules: complete
+- **P4** — private receipt capture, multi-page uploads, offline drafts and camera/storage pipeline: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
