@@ -12,6 +12,7 @@ import "../product-intelligence/product-intelligence.css";
 import "../recurring/recurring.css";
 import "../planning/planning.css";
 import "../wealth/wealth.css";
+import "../imports/imports.css";
 
 const root = document.getElementById("root");
 if (!root) {
