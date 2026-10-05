@@ -52,6 +52,14 @@ const client: SupabaseRpcClient = {
             price_increase_count: 1,
             attention_count: 1,
           },
+          categories: [{
+            category_id: "category-1",
+            category_name: "Subscriptions",
+            monthly_minor: 1499,
+            annualized_minor: 17988,
+            pattern_count: 1,
+            share: 1,
+          }],
           trend: [{
             month_start: "2026-11-01",
             expense_minor: 1499,
@@ -217,6 +225,10 @@ assert(sync.transactionsLinked === 1, "sync parsing failed");
 const dashboard = await service.getDashboard("2026-11-05", 45);
 assert(dashboard.summary.monthlyExpenseMinor === 1499, "summary parsing failed");
 assert(dashboard.summary.creepDeltaMinor === 200, "creep parsing failed");
+assert(
+  dashboard.categories[0]?.categoryName === "Subscriptions",
+  "category breakdown parsing failed",
+);
 assert(dashboard.patterns[0]?.priceDirection === "up", "price direction parsing failed");
 assert(dashboard.patterns[0]?.subscription?.billingFrequency === "monthly", "subscription parsing failed");
 assert(dashboard.attention[0]?.kind === "price_increase", "attention parsing failed");
