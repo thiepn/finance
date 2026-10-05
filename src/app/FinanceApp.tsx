@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge, Surface } from "../ui/components/Primitives.js";
 import { Icon, type IconName } from "../ui/icons/Icon.js";
 import { AppShell } from "../ui/layout/AppShell.js";
 import { OverviewPage } from "../overview/OverviewPage.js";
 import { SpendingExplorerPage } from "../spending-explorer/SpendingExplorerPage.js";
+import { ProductIntelligencePage } from "../product-intelligence/ProductIntelligencePage.js";
 
 const routeMeta: Record<string, { title: string; icon: IconName }> = {
   overview: { title: "Overview", icon: "overview" },
@@ -25,9 +26,25 @@ const routeMeta: Record<string, { title: string; icon: IconName }> = {
   settings: { title: "Settings", icon: "settings" },
 };
 
-function currentHashRoute(): string {
-  if (typeof window === "undefined") return "overview";
-  return window.location.hash.replace(/^#/, "") || "overview";
+interface FinanceRouteSnapshot {
+  key: string;
+  productId: string | null;
+}
+
+function currentHashRoute(): FinanceRouteSnapshot {
+  if (typeof window === "undefined") {
+    return { key: "overview", productId: null };
+  }
+
+  const raw = window.location.hash.replace(/^#/, "") || "overview";
+  const [key = "overview", query = ""] = raw.split("?", 2);
+  const params = new URLSearchParams(query);
+
+  return {
+    key,
+    productId:
+      key === "products" ? params.get("product") : null,
+  };
 }
 
 function RouteFoundation({ routeKey }: { routeKey: string }) {
@@ -54,7 +71,44 @@ function RouteFoundation({ routeKey }: { routeKey: string }) {
 }
 
 export function FinanceApp() {
-  const [activeKey, setActiveKey] = useState(currentHashRoute);
+  const initialRoute = useMemo(currentHashRoute, []);
+  const [activeKey, setActiveKey] = useState(initialRoute.key);
+  const [focusedProductId, setFocusedProductId] = useState<string | null>(
+    initialRoute.productId,
+  );
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      const route = currentHashRoute();
+      setActiveKey(route.key);
+      setFocusedProductId(route.productId);
+    };
+
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
+
+  const navigate = (key: string) => {
+    setActiveKey(key);
+    if (key !== "products") {
+      setFocusedProductId(null);
+    }
+  };
+
+  const openProduct = (productId: string | null) => {
+    setActiveKey("products");
+    setFocusedProductId(productId);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(
+        null,
+        "",
+        productId
+          ? `#products?product=${encodeURIComponent(productId)}`
+          : "#products",
+      );
+    }
+  };
+
   const title = useMemo(
     () => routeMeta[activeKey]?.title ?? "Finance",
     [activeKey],
@@ -63,17 +117,27 @@ export function FinanceApp() {
   return (
     <AppShell
       activeKey={activeKey}
-      onNavigate={setActiveKey}
+      onNavigate={navigate}
       title={title}
     >
       {activeKey === "overview" ? (
-        <OverviewPage onNavigate={setActiveKey} />
+        <OverviewPage onNavigate={navigate} />
       ) : activeKey === "insights" ? (
-        <SpendingExplorerPage onNavigate={setActiveKey} />
+        <SpendingExplorerPage
+          onNavigate={navigate}
+          onOpenProduct={openProduct}
+        />
       ) : activeKey === "categories" ? (
         <SpendingExplorerPage
           initialCategoryMode
-          onNavigate={setActiveKey}
+          onNavigate={navigate}
+          onOpenProduct={openProduct}
+        />
+      ) : activeKey === "products" ? (
+        <ProductIntelligencePage
+          onNavigate={navigate}
+          onProductChange={openProduct}
+          selectedProductId={focusedProductId}
         />
       ) : (
         <RouteFoundation routeKey={activeKey} />
