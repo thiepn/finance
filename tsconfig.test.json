@@ -10,6 +10,10 @@
     "src/processing/german-receipt-parser.ts",
     "src/processing/german-receipt-parser.test.ts",
     "src/processing/product-normalizer.ts",
-    "src/processing/product-normalizer.test.ts"
+    "src/processing/product-normalizer.test.ts",
+    "src/services/receipt-capture.ts",
+    "src/services/receipt-review.ts",
+    "src/review/receipt-review-controller.ts",
+    "src/review/receipt-review-controller.test.ts"
   ]
 }
