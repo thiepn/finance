@@ -4,12 +4,14 @@ import {
   type SupabaseClient,
 } from "@supabase/supabase-js";
 import { SupabaseFinanceOverviewService } from "../services/supabase-overview.js";
+import { SupabaseFinanceAnalyticsService } from "../services/supabase-analytics.js";
 import type { SupabaseRpcClient } from "../services/supabase-ledger.js";
 
 export interface FinanceBrowserRuntime {
   client: SupabaseClient;
   rpcClient: SupabaseRpcClient;
   overview: SupabaseFinanceOverviewService;
+  analytics: SupabaseFinanceAnalyticsService;
   ensureInitialized(): Promise<void>;
 }
 
@@ -92,11 +94,16 @@ export function createFinanceBrowserRuntime():
     rpcClient,
     ensureInitialized,
   );
+  const analytics = new SupabaseFinanceAnalyticsService(
+    rpcClient,
+    ensureInitialized,
+  );
 
   runtime = {
     client,
     rpcClient,
     overview,
+    analytics,
     ensureInitialized,
   };
 
