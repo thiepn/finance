@@ -48,6 +48,10 @@
     "src/domain/planning.ts",
     "src/services/planning.ts",
     "src/services/supabase-planning.ts",
-    "src/planning/supabase-planning.test.ts"
+    "src/planning/supabase-planning.test.ts",
+    "src/domain/wealth.ts",
+    "src/services/wealth.ts",
+    "src/services/supabase-wealth.ts",
+    "src/wealth/supabase-wealth.test.ts"
   ]
 }
