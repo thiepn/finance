@@ -6,12 +6,21 @@
   "description": "THIEPN Finance personal finance and receipt-intelligence application",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/processing/*.test.js .tmp-test/review/*.test.js .tmp-test/activity/*.test.js"
+    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/processing/*.test.js .tmp-test/review/*.test.js .tmp-test/activity/*.test.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "7.0.2"
+    "typescript": "7.0.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.3.1"
   },
   "dependencies": {
-    "tesseract.js": "7.0.0"
+    "tesseract.js": "7.0.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   }
 }
