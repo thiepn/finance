@@ -37,6 +37,9 @@
     "src/domain/spending-explorer.ts",
     "src/services/spending-explorer.ts",
     "src/services/supabase-spending-explorer.ts",
-    "src/spending-explorer/supabase-spending-explorer.test.ts"
+    "src/spending-explorer/supabase-spending-explorer.test.ts",
+    "src/services/product-intelligence.ts",
+    "src/services/supabase-product-intelligence.ts",
+    "src/product-intelligence/supabase-product-intelligence.test.ts"
   ]
 }
