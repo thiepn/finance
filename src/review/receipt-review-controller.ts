@@ -200,7 +200,7 @@ export class ReceiptReviewController {
     return this.decorate(
       await this.reviewService.assignProduct(receiptItemId, productId, {
         learnMerchantAlias: true,
-        note,
+        note: note ?? null,
       }),
     );
   }
