@@ -6,5 +6,8 @@
   "description": "THIEPN Finance personal finance and receipt-intelligence application",
   "scripts": {
     "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
   }
 }
