@@ -18,7 +18,7 @@ import {
   ChartFrame,
   FinanceChartTable,
 } from "../ui/charts/ChartFrame.js";
-import { FinanceLineChart } from "../ui/charts/FinanceCharts.js";
+import { FinanceDonutChart, FinanceLineChart } from "../ui/charts/FinanceCharts.js";
 import type {
   ChartViewMode,
   FinanceChartDatum,
@@ -338,6 +338,17 @@ export function RecurringPage({
     },
   ];
 
+  const categoryDonut = dashboard.categories.map(
+    (category, index) => ({
+      key: category.categoryId ?? "uncategorized",
+      label: category.categoryName,
+      value: category.monthlyMinor,
+      tone: (
+        ["primary", "secondary", "tertiary", "quaternary"] as const
+      )[index % 4],
+    }),
+  );
+
   const patterns = dashboard.patterns.filter((pattern) =>
     filterPattern(pattern, filter),
   );
@@ -532,6 +543,80 @@ export function RecurringPage({
             />
           )}
         </ChartFrame>
+      </Surface>
+
+      <Surface>
+        <div className="f-section-heading">
+          <div>
+            <span className="f-section-heading__kicker">
+              Cost structure
+            </span>
+            <h2>Recurring expense by category</h2>
+          </div>
+          <Badge tone="neutral">
+            Monthly equivalent
+          </Badge>
+        </div>
+
+        {dashboard.categories.length === 0 ? (
+          <div className="f-overview-inline-empty">
+            No active recurring expense categories yet.
+          </div>
+        ) : (
+          <div className="f-recurring-category-composition">
+            <FinanceDonutChart
+              ariaLabel="Recurring expense category composition"
+              data={categoryDonut}
+              height={230}
+              valueFormatter={(value) =>
+                formatMoneyMinor(
+                  value,
+                  dashboard.profile.currencyCode,
+                  { locale: dashboard.profile.locale },
+                )
+              }
+            />
+            <div className="f-recurring-category-list">
+              {dashboard.categories.map((category) => (
+                <div
+                  className="f-recurring-category-row"
+                  key={category.categoryId ?? "uncategorized"}
+                >
+                  <span>
+                    <strong>{category.categoryName}</strong>
+                    <small>
+                      {category.patternCount} pattern
+                      {category.patternCount === 1 ? "" : "s"}
+                      {category.share === null
+                        ? ""
+                        : " · " +
+                          formatPercent(
+                            category.share,
+                            dashboard.profile.locale,
+                            0,
+                          )}
+                    </small>
+                  </span>
+                  <span>
+                    <Money
+                      amountMinor={category.monthlyMinor}
+                      currencyCode={dashboard.profile.currencyCode}
+                      locale={dashboard.profile.locale}
+                    />
+                    <small>
+                      {formatMoneyMinor(
+                        category.annualizedMinor,
+                        dashboard.profile.currencyCode,
+                        { locale: dashboard.profile.locale },
+                      )}{" "}
+                      / year
+                    </small>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </Surface>
 
       <div className="f-recurring-grid">
