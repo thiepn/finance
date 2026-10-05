@@ -44,5 +44,8 @@ The repository mirrors the exact SQL stored in Supabase migration history.
 36. `20261005120130_finance_p7_reprocessing_review_reset`
 37. `20261005120351_finance_p7_review_event_fk_index_hardening`
 38. `20261005120410_finance_p7_review_event_run_exposure`
+39. `20261005121409_finance_p8_activity_foundation`
+40. `20261005121649_finance_p8_activity_services`
+41. `20261005121709_finance_p8_activity_rpc_facade`
 
 Raw Finance tables remain outside the Data API. Browser-facing database access is provided through the narrow authenticated `public.finance_*` RPC facade. Receipt binaries use the private `finance-receipts` Storage bucket under Storage RLS.
