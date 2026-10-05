@@ -33,6 +33,10 @@
     "src/services/supabase-analytics.ts",
     "src/analytics/analytics-model.ts",
     "src/analytics/analytics-model.test.ts",
-    "src/analytics/supabase-analytics.test.ts"
+    "src/analytics/supabase-analytics.test.ts",
+    "src/domain/spending-explorer.ts",
+    "src/services/spending-explorer.ts",
+    "src/services/supabase-spending-explorer.ts",
+    "src/spending-explorer/supabase-spending-explorer.test.ts"
   ]
 }
