@@ -8,6 +8,7 @@ import "./app.css";
 import "../overview/overview.css";
 import "../ui/charts/charts.css";
 import "../spending-explorer/spending-explorer.css";
+import "../product-intelligence/product-intelligence.css";
 
 const root = document.getElementById("root");
 if (!root) {
