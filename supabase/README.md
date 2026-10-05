@@ -67,5 +67,7 @@ The repository mirrors the exact SQL stored in Supabase migration history.
 59. `20261005203230_finance_p16_wealth_foundation`
 60. `20261005203258_finance_p16_wealth_services`
 61. `20261005203449_finance_p16_observation_null_time_hardening`
+62. `20261005224829_finance_p17_import_foundation`
+63. `20261005224850_finance_p17_import_services`
 
-Raw Finance tables remain outside the Data API. Browser-facing database access is provided through the narrow authenticated `public.finance_*` RPC facade. Receipt binaries use the private `finance-receipts` Storage bucket under Storage RLS.
+Raw Finance tables remain outside the Data API. Browser-facing database access is provided through the narrow authenticated `public.finance_*` RPC facade. Receipt binaries use the private `finance-receipts` Storage bucket; bank import source files use the private `finance-imports` bucket. Both are protected by Storage RLS.
