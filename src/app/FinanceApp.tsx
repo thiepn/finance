@@ -6,6 +6,7 @@ import { OverviewPage } from "../overview/OverviewPage.js";
 import { SpendingExplorerPage } from "../spending-explorer/SpendingExplorerPage.js";
 import { ProductIntelligencePage } from "../product-intelligence/ProductIntelligencePage.js";
 import { RecurringPage } from "../recurring/RecurringPage.js";
+import { PlanningPage } from "../planning/PlanningPage.js";
 
 const routeMeta: Record<string, { title: string; icon: IconName }> = {
   overview: { title: "Overview", icon: "overview" },
@@ -142,6 +143,10 @@ export function FinanceApp() {
         />
       ) : activeKey === "recurring" ? (
         <RecurringPage onNavigate={navigate} />
+      ) : activeKey === "budget" ? (
+        <PlanningPage mode="budget" onNavigate={navigate} />
+      ) : activeKey === "goals" ? (
+        <PlanningPage mode="goals" onNavigate={navigate} />
       ) : (
         <RouteFoundation routeKey={activeKey} />
       )}
