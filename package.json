@@ -22,6 +22,8 @@
     "tesseract.js": "7.0.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "@supabase/supabase-js": "2.117.2"
+    "@supabase/supabase-js": "2.117.2",
+    "recharts": "3.10.1",
+    "react-is": "19.3.0"
   }
 }
