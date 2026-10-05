@@ -48,6 +48,15 @@ export interface RecurringTrendPoint {
   subscriptionMinor: number;
 }
 
+export interface RecurringCategoryBreakdown {
+  categoryId: UUID | null;
+  categoryName: string;
+  monthlyMinor: number;
+  annualizedMinor: number;
+  patternCount: number;
+  share: number | null;
+}
+
 export interface RecurringAttentionItem {
   patternId: UUID;
   kind: "missing" | "late" | "price_increase";
@@ -139,6 +148,7 @@ export interface RecurringDashboard {
   anchorDate: string;
   horizonDays: number;
   summary: RecurringDashboardSummary;
+  categories: readonly RecurringCategoryBreakdown[];
   trend: readonly RecurringTrendPoint[];
   attention: readonly RecurringAttentionItem[];
   upcoming: readonly RecurringUpcomingItem[];
