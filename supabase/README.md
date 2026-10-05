@@ -7,6 +7,6 @@ Live Finance migration history:
 1. `20261005094813_finance_p1_domain_foundation`
 2. `20261005095015_finance_p1_security_invariants`
 3. `20261005095121_finance_p1_fk_index_hardening`
-4. `20261005100417_finance_p2_ledger_services`
+4. `20261005100417_finance_p2_ledger_services`\n5. `20261005100720_finance_p2_rpc_facade`\n6. `20261005101110_finance_p2_recovery_caps`
 
 The repository was created after P1 was already deployed. P2 and later product-owned migration source should be committed here as work continues.
