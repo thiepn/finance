@@ -263,11 +263,13 @@ function ProductRow({
 
 export interface SpendingExplorerPageProps {
   onNavigate: (key: string) => void;
+  onOpenProduct?: (productId: string) => void;
   initialCategoryMode?: boolean;
 }
 
 export function SpendingExplorerPage({
   onNavigate,
+  onOpenProduct,
   initialCategoryMode = false,
 }: SpendingExplorerPageProps) {
   const [periodKind, setPeriodKind] =
@@ -921,15 +923,31 @@ export function SpendingExplorerPage({
                     {evidence.evidence.product.name}
                   </h2>
                 </div>
-                <Button
-                  onClick={() =>
-                    setSelectedProductId(null)
-                  }
-                  size="sm"
-                  variant="ghost"
-                >
-                  Close
-                </Button>
+                <div className="f-explorer-evidence__actions">
+                  {onOpenProduct ? (
+                    <Button
+                      icon="products"
+                      onClick={() =>
+                        onOpenProduct(
+                          evidence.evidence!.product.productId,
+                        )
+                      }
+                      size="sm"
+                      variant="secondary"
+                    >
+                      Product analytics
+                    </Button>
+                  ) : null}
+                  <Button
+                    onClick={() =>
+                      setSelectedProductId(null)
+                    }
+                    size="sm"
+                    variant="ghost"
+                  >
+                    Close
+                  </Button>
+                </div>
               </div>
 
               <div className="f-explorer-evidence__meta">
