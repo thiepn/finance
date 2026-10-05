@@ -30,6 +30,7 @@ function allocationPayload(
   return allocations.map((allocation) => ({
     category_id: allocation.categoryId,
     amount_minor: allocation.amountMinor,
+    ...(allocation.necessity ? { necessity: allocation.necessity } : {}),
     ...(allocation.memo ? { memo: allocation.memo } : {}),
   }));
 }
