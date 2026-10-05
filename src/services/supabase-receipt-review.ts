@@ -174,6 +174,7 @@ function parseEvent(raw: Record<string, unknown>): ReceiptReviewEvent {
   return {
     id: String(raw.id),
     receiptItemId: nullableString(raw.receipt_item_id),
+    processingRunId: nullableString(raw.processing_run_id),
     eventType: String(raw.event_type),
     fieldName: nullableString(raw.field_name),
     beforeValue: raw.before_value ?? null,
