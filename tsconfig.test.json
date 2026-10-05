@@ -40,6 +40,10 @@
     "src/spending-explorer/supabase-spending-explorer.test.ts",
     "src/services/product-intelligence.ts",
     "src/services/supabase-product-intelligence.ts",
-    "src/product-intelligence/supabase-product-intelligence.test.ts"
+    "src/product-intelligence/supabase-product-intelligence.test.ts",
+    "src/domain/recurring.ts",
+    "src/services/recurring.ts",
+    "src/services/supabase-recurring.ts",
+    "src/recurring/supabase-recurring.test.ts"
   ]
 }
