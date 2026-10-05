@@ -5,6 +5,7 @@ import "../ui/styles/base.css";
 import "../ui/styles/components.css";
 import "../ui/styles/shell.css";
 import "./app.css";
+import "../overview/overview.css";
 
 const root = document.getElementById("root");
 if (!root) {
