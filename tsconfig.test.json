@@ -14,6 +14,10 @@
     "src/services/receipt-capture.ts",
     "src/services/receipt-review.ts",
     "src/review/receipt-review-controller.ts",
-    "src/review/receipt-review-controller.test.ts"
+    "src/review/receipt-review-controller.test.ts",
+    "src/services/activity.ts",
+    "src/activity/activity-query.ts",
+    "src/activity/activity-query.test.ts",
+    "src/activity/activity-controller.ts"
   ]
 }
