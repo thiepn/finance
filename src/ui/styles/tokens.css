@@ -1,0 +1,102 @@
+:root {
+  --f-font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --f-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --f-space-1: 0.25rem;
+  --f-space-2: 0.5rem;
+  --f-space-3: 0.75rem;
+  --f-space-4: 1rem;
+  --f-space-5: 1.25rem;
+  --f-space-6: 1.5rem;
+  --f-space-8: 2rem;
+  --f-space-10: 2.5rem;
+  --f-space-12: 3rem;
+
+  --f-radius-xs: 6px;
+  --f-radius-sm: 9px;
+  --f-radius-md: 12px;
+  --f-radius-lg: 16px;
+  --f-radius-xl: 20px;
+  --f-radius-pill: 999px;
+
+  --f-sidebar-width: 248px;
+  --f-content-max: 1540px;
+  --f-mobile-nav-height: 74px;
+  --f-header-height: 64px;
+
+  --f-bg: #f5f6f8;
+  --f-surface: #ffffff;
+  --f-surface-raised: #ffffff;
+  --f-surface-subtle: #f8f9fb;
+  --f-surface-hover: #f1f3f6;
+  --f-surface-pressed: #e9ecf1;
+
+  --f-text: #12151b;
+  --f-text-secondary: #4d5562;
+  --f-text-tertiary: #77808e;
+  --f-text-inverse: #ffffff;
+
+  --f-border: #e1e4e9;
+  --f-border-strong: #cbd0d8;
+
+  --f-accent: #4f46e5;
+  --f-accent-hover: #4338ca;
+  --f-accent-pressed: #3730a3;
+  --f-accent-soft: #eeedff;
+  --f-accent-text: #3730a3;
+
+  --f-positive: #087f5b;
+  --f-positive-soft: #e8f7f1;
+  --f-negative: #c92a2a;
+  --f-negative-soft: #fff0f0;
+  --f-warning: #a35b00;
+  --f-warning-soft: #fff5df;
+
+  --f-focus: #2563eb;
+  --f-overlay: rgb(10 13 20 / 0.42);
+
+  --f-shadow-xs: 0 1px 2px rgb(18 21 27 / 0.05);
+  --f-shadow-sm: 0 3px 10px rgb(18 21 27 / 0.06);
+  --f-shadow-md: 0 14px 35px rgb(18 21 27 / 0.10);
+
+  --f-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --f-duration-fast: 120ms;
+  --f-duration-base: 180ms;
+}
+
+:root[data-theme="dark"] {
+  --f-bg: #0d1015;
+  --f-surface: #151920;
+  --f-surface-raised: #1a1f27;
+  --f-surface-subtle: #11151b;
+  --f-surface-hover: #202630;
+  --f-surface-pressed: #282f3a;
+
+  --f-text: #f2f4f7;
+  --f-text-secondary: #b8c0cc;
+  --f-text-tertiary: #858f9d;
+  --f-text-inverse: #111318;
+
+  --f-border: #2a3039;
+  --f-border-strong: #3a424e;
+
+  --f-accent: #8b85ff;
+  --f-accent-hover: #9e99ff;
+  --f-accent-pressed: #b0acff;
+  --f-accent-soft: #27254e;
+  --f-accent-text: #c7c4ff;
+
+  --f-positive: #5dd6ae;
+  --f-positive-soft: #15382f;
+  --f-negative: #ff8585;
+  --f-negative-soft: #422326;
+  --f-warning: #ffc56d;
+  --f-warning-soft: #402f16;
+
+  --f-focus: #8ab4ff;
+  --f-overlay: rgb(0 0 0 / 0.62);
+
+  --f-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.24);
+  --f-shadow-sm: 0 4px 14px rgb(0 0 0 / 0.28);
+  --f-shadow-md: 0 16px 40px rgb(0 0 0 / 0.36);
+}
