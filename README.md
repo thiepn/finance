@@ -23,8 +23,11 @@ Core principles:
 - **P2** — ledger services, account lifecycle, transfers, refunds, reimbursements and split transactions: complete
 - **P3** — categories, tags, merchant intelligence, split-level necessity and deterministic classification rules: complete
 - **P4** — private receipt capture, multi-page uploads, offline drafts and camera/storage pipeline: complete
-- **P5** — local OCR, structured receipt extraction, line-item parsing, reconciliation and versioned processing: complete\n- **P6** — product normalization, families, aliases, correction learning and price intelligence: complete\n- **P7** — exception-driven receipt review, corrections, waivers, audit trail and confirmation gate: complete
+- **P5** — local OCR, structured receipt extraction, line-item parsing, reconciliation and versioned processing: complete
+- **P6** — product normalization, families, aliases, correction learning and price intelligence: complete
+- **P7** — exception-driven receipt review, corrections, waivers, audit trail and confirmation gate: complete
 - **P8** — unified Activity ledger, deduplicated receipt evidence, structured search, filters, keyset pagination and detail expansion: complete
+- **P9** — React/Vite application shell, Finance design system, responsive navigation, themes, financial typography and reusable UI primitives: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
