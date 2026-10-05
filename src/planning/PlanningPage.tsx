@@ -1,6 +1,5 @@
 import {
   useEffect,
-  useMemo,
   useState,
   type FormEvent,
 } from "react";
@@ -911,26 +910,24 @@ export function PlanningPage({
   const dashboard = workspace.dashboard;
   const budget = dashboard.budget;
 
-  const goalTotals = useMemo(() => {
-    return dashboard.goals.reduce(
-      (acc, goal) => {
-        acc.target += goal.targetMinor;
-        acc.funded += goal.fundedMinor;
-        acc.periodRemaining +=
-          goal.status === "active"
-            ? goal.periodRemainingMinor
-            : 0;
-        if (goal.kind === "sinking_fund") acc.sinking += 1;
-        return acc;
-      },
-      {
-        target: 0,
-        funded: 0,
-        periodRemaining: 0,
-        sinking: 0,
-      },
-    );
-  }, [dashboard.goals]);
+  const goalTotals = dashboard.goals.reduce(
+    (acc, goal) => {
+      acc.target += goal.targetMinor;
+      acc.funded += goal.fundedMinor;
+      acc.periodRemaining +=
+        goal.status === "active"
+          ? goal.periodRemainingMinor
+          : 0;
+      if (goal.kind === "sinking_fund") acc.sinking += 1;
+      return acc;
+    },
+    {
+      target: 0,
+      funded: 0,
+      periodRemaining: 0,
+      sinking: 0,
+    },
+  );
 
   const forecastData: FinanceChartDatum[] =
     dashboard.forecast.map((point) => ({
