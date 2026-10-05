@@ -6,7 +6,7 @@
   "description": "THIEPN Finance personal finance and receipt-intelligence application",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/processing/*.test.js .tmp-test/review/*.test.js .tmp-test/activity/*.test.js .tmp-test/overview/*.test.js .tmp-test/analytics/*.test.js .tmp-test/spending-explorer/*.test.js .tmp-test/ui/*.test.js",
+    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/processing/*.test.js .tmp-test/review/*.test.js .tmp-test/activity/*.test.js .tmp-test/overview/*.test.js .tmp-test/analytics/*.test.js .tmp-test/spending-explorer/*.test.js .tmp-test/product-intelligence/*.test.js .tmp-test/ui/*.test.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
