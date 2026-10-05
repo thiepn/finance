@@ -1,91 +1,164 @@
--- Narrow authenticated RPC facade for the private Finance schema.
 
-CREATE OR REPLACE FUNCTION public.finance_archive_account(p_account_id uuid)
- RETURNS void
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
-  select finance.archive_account(p_account_id);
-$function$
+create or replace function public.finance_initialize()
+returns void
+language sql
+security invoker
+set search_path = ''
+as $$
+  select finance.initialize_user();
+$$;
 
-
-CREATE OR REPLACE FUNCTION public.finance_create_account(p_name text, p_kind finance.account_kind, p_currency_code text DEFAULT 'EUR'::text, p_include_in_net_worth boolean DEFAULT true, p_institution_name text DEFAULT NULL::text, p_opening_balance_minor bigint DEFAULT 0)
- RETURNS uuid
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_create_account(
+  p_name text,
+  p_kind finance.account_kind,
+  p_currency_code text default 'EUR',
+  p_include_in_net_worth boolean default true,
+  p_institution_name text default null,
+  p_opening_balance_minor bigint default 0
+)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $$
   select finance.create_account(
     p_name, p_kind, p_currency_code, p_include_in_net_worth,
     p_institution_name, p_opening_balance_minor
   );
-$function$
+$$;
 
+create or replace function public.finance_archive_account(p_account_id uuid)
+returns void
+language sql
+security invoker
+set search_path = ''
+as $$
+  select finance.archive_account(p_account_id);
+$$;
 
-CREATE OR REPLACE FUNCTION public.finance_create_expense(p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_merchant_id uuid DEFAULT NULL::uuid, p_description text DEFAULT NULL::text, p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_restore_account(p_account_id uuid)
+returns void
+language sql
+security invoker
+set search_path = ''
+as $$
+  select finance.restore_account(p_account_id);
+$$;
+
+create or replace function public.finance_create_expense(
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_merchant_id uuid default null,
+  p_description text default null,
+  p_note text default null
+)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $$
   select finance.create_expense(
     p_account_id, p_amount_minor, p_allocations, p_occurred_at,
     p_merchant_id, p_description, p_note
   );
-$function$
+$$;
 
-
-CREATE OR REPLACE FUNCTION public.finance_create_income(p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_merchant_id uuid DEFAULT NULL::uuid, p_description text DEFAULT NULL::text, p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_create_income(
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_merchant_id uuid default null,
+  p_description text default null,
+  p_note text default null
+)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $$
   select finance.create_income(
     p_account_id, p_amount_minor, p_allocations, p_occurred_at,
     p_merchant_id, p_description, p_note
   );
-$function$
+$$;
 
+create or replace function public.finance_create_transfer(
+  p_from_account_id uuid,
+  p_to_account_id uuid,
+  p_amount_minor bigint,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $$
+  select finance.create_transfer(
+    p_from_account_id, p_to_account_id, p_amount_minor, p_occurred_at, p_note
+  );
+$$;
 
-CREATE OR REPLACE FUNCTION public.finance_create_refund(p_original_transaction_id uuid, p_account_id uuid, p_amount_minor bigint, p_allocations jsonb DEFAULT NULL::jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_create_refund(
+  p_original_transaction_id uuid,
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb default null,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $$
   select finance.create_refund(
     p_original_transaction_id, p_account_id, p_amount_minor,
     p_allocations, p_occurred_at, p_note
   );
-$function$
+$$;
 
-
-CREATE OR REPLACE FUNCTION public.finance_create_reimbursement(p_original_transaction_id uuid, p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_create_reimbursement(
+  p_original_transaction_id uuid,
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $$
   select finance.create_reimbursement(
     p_original_transaction_id, p_account_id, p_amount_minor,
     p_allocations, p_occurred_at, p_note
   );
-$function$
+$$;
 
+create or replace function public.finance_void_transaction(
+  p_transaction_id uuid,
+  p_reason text
+)
+returns void
+language sql
+security invoker
+set search_path = ''
+as $$
+  select finance.void_transaction(p_transaction_id, p_reason);
+$$;
 
-CREATE OR REPLACE FUNCTION public.finance_create_transfer(p_from_account_id uuid, p_to_account_id uuid, p_amount_minor bigint, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
-  select finance.create_transfer(
-    p_from_account_id, p_to_account_id, p_amount_minor, p_occurred_at, p_note
-  );
-$function$
-
-
-CREATE OR REPLACE FUNCTION public.finance_get_account_balances()
- RETURNS jsonb
- LANGUAGE sql
- STABLE
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_get_account_balances()
+returns jsonb
+language sql
+stable
+security invoker
+set search_path = ''
+as $$
   select coalesce(
     jsonb_agg(
       jsonb_build_object(
@@ -101,15 +174,18 @@ AS $function$
     '[]'::jsonb
   )
   from finance.account_balances ab;
-$function$
+$$;
 
-
-CREATE OR REPLACE FUNCTION public.finance_get_transactions(p_limit integer DEFAULT 100, p_before timestamp with time zone DEFAULT NULL::timestamp with time zone)
- RETURNS jsonb
- LANGUAGE plpgsql
- STABLE
- SET search_path TO ''
-AS $function$
+create or replace function public.finance_get_transactions(
+  p_limit integer default 100,
+  p_before timestamptz default null
+)
+returns jsonb
+language plpgsql
+stable
+security invoker
+set search_path = ''
+as $$
 declare
   v_limit integer := greatest(1, least(coalesce(p_limit,100), 500));
 begin
@@ -147,38 +223,11 @@ begin
     ) x
   );
 end;
-$function$
-
-
-CREATE OR REPLACE FUNCTION public.finance_initialize()
- RETURNS void
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
-  select finance.initialize_user();
-$function$
-
-
-CREATE OR REPLACE FUNCTION public.finance_restore_account(p_account_id uuid)
- RETURNS void
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
-  select finance.restore_account(p_account_id);
-$function$
-
-
-CREATE OR REPLACE FUNCTION public.finance_void_transaction(p_transaction_id uuid, p_reason text)
- RETURNS void
- LANGUAGE sql
- SET search_path TO ''
-AS $function$
-  select finance.void_transaction(p_transaction_id, p_reason);
-$function$
-
+$$;
 
 do $$
-declare f regprocedure;
+declare
+  f regprocedure;
 begin
   for f in
     select p.oid::regprocedure
@@ -186,9 +235,17 @@ begin
     join pg_namespace n on n.oid=p.pronamespace
     where n.nspname='public'
       and p.proname in (
-        'finance_initialize','finance_create_account','finance_archive_account','finance_restore_account',
-        'finance_create_expense','finance_create_income','finance_create_transfer','finance_create_refund',
-        'finance_create_reimbursement','finance_void_transaction','finance_get_account_balances',
+        'finance_initialize',
+        'finance_create_account',
+        'finance_archive_account',
+        'finance_restore_account',
+        'finance_create_expense',
+        'finance_create_income',
+        'finance_create_transfer',
+        'finance_create_refund',
+        'finance_create_reimbursement',
+        'finance_void_transaction',
+        'finance_get_account_balances',
         'finance_get_transactions'
       )
   loop
