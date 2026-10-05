@@ -34,6 +34,7 @@ Core principles:
 - **P13** — searchable product catalog, price/frequency analytics, merchant comparison, normalized family variants and deep-linked product detail: complete
 - **P14** — recurring detection, subscription analytics, monthly/annualized commitments, creep, upcoming/missing-charge intelligence and price-change alerts: complete
 - **P15** — rollover-aware budgets, safe-to-spend, recurring-aware forecasting, category pacing, savings goals and sinking funds: complete
+- **P16** — net worth, balance observations, account history, savings-rate trends, wealth bridge and investment balance reconciliation: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
