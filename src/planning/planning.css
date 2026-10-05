@@ -1,0 +1,553 @@
+.f-planning {
+  display: grid;
+  gap: var(--f-space-5);
+}
+
+.f-planning-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--f-space-8);
+}
+
+.f-planning-heading__meta,
+.f-planning-heading__actions,
+.f-planning-allocation__badges,
+.f-planning-summary-chips,
+.f-planning-goal__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--f-space-2);
+  flex-wrap: wrap;
+}
+
+.f-planning-heading__meta {
+  margin-bottom: var(--f-space-3);
+  color: var(--f-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.f-planning-heading h1 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 740;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.f-planning-heading p {
+  max-width: 760px;
+  margin-top: var(--f-space-3);
+  color: var(--f-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.f-planning-heading__actions {
+  justify-content: flex-end;
+}
+
+.f-planning-action-error {
+  display: flex;
+  align-items: center;
+  gap: var(--f-space-3);
+}
+
+.f-planning-action-error > span:last-child {
+  color: var(--f-text-secondary);
+  font-size: 0.8rem;
+}
+
+.f-planning-setup {
+  display: grid;
+  gap: var(--f-space-3);
+}
+
+.f-planning-setup > p,
+.f-planning-section-note,
+.f-planning-create-goal > p {
+  color: var(--f-text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.f-planning-form,
+.f-planning-goal-form,
+.f-planning-add-row {
+  display: grid;
+  gap: var(--f-space-3);
+}
+
+.f-planning-form {
+  grid-template-columns:
+    minmax(180px, 1fr)
+    minmax(150px, 0.6fr)
+    minmax(180px, 0.8fr)
+    auto;
+  align-items: end;
+  margin-top: var(--f-space-3);
+}
+
+.f-planning-goal-form {
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  align-items: end;
+  margin-top: var(--f-space-4);
+}
+
+.f-planning-add-row {
+  grid-template-columns:
+    minmax(220px, 1.2fr)
+    minmax(170px, 0.7fr)
+    minmax(220px, 1fr)
+    auto;
+  align-items: end;
+  margin-top: var(--f-space-4);
+  padding-top: var(--f-space-4);
+  border-top: 1px solid var(--f-border);
+}
+
+.f-planning-form label,
+.f-planning-goal-form label,
+.f-planning-add-row label,
+.f-planning-inline-editor label {
+  min-width: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.f-planning-form label > span,
+.f-planning-goal-form label > span,
+.f-planning-add-row label > span,
+.f-planning-inline-editor label > span {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.f-planning input,
+.f-planning select {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid var(--f-border);
+  border-radius: var(--f-radius-sm);
+  background: var(--f-surface);
+  color: var(--f-text);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0 0.72rem;
+}
+
+.f-planning input:focus,
+.f-planning select:focus {
+  border-color: var(--f-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--f-accent) 14%, transparent);
+}
+
+.f-planning-money-input {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  border: 1px solid var(--f-border);
+  border-radius: var(--f-radius-sm);
+  background: var(--f-surface);
+  overflow: hidden;
+}
+
+.f-planning-money-input:focus-within {
+  border-color: var(--f-accent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--f-accent) 14%, transparent);
+}
+
+.f-planning-money-input > span {
+  padding-left: 0.7rem;
+  color: var(--f-text-tertiary);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.f-planning-money-input input {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.f-planning-money-input input:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.f-planning-inline-editor {
+  display: flex;
+  align-items: end;
+  gap: var(--f-space-2);
+}
+
+.f-planning-inline-editor label {
+  min-width: 180px;
+}
+
+.f-planning-forecast-summary {
+  display: flex;
+  gap: var(--f-space-6);
+  flex-wrap: wrap;
+}
+
+.f-planning-forecast-summary > div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.f-planning-forecast-summary span {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.f-planning-forecast-summary strong {
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.f-planning-allocation-list {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--f-space-4);
+}
+
+.f-planning-allocation {
+  display: grid;
+  grid-template-columns:
+    minmax(190px, 0.8fr)
+    minmax(280px, 1.2fr)
+    minmax(290px, 1fr);
+  gap: var(--f-space-4);
+  align-items: center;
+  border-top: 1px solid var(--f-border);
+  padding: var(--f-space-4) var(--f-space-2);
+}
+
+.f-planning-allocation:first-child {
+  border-top: 0;
+}
+
+.f-planning-allocation__identity {
+  min-width: 0;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.f-planning-allocation__identity > strong {
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-weight: 710;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.f-planning-allocation__identity > small {
+  overflow: hidden;
+  color: var(--f-text-tertiary);
+  font-size: 0.7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.f-planning-allocation__progress {
+  min-width: 0;
+  display: grid;
+  gap: var(--f-space-2);
+}
+
+.f-planning-allocation__facts {
+  display: flex;
+  gap: var(--f-space-3);
+  flex-wrap: wrap;
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+}
+
+.f-planning-allocation__facts .f-money {
+  color: var(--f-text-secondary);
+  font-size: inherit;
+  font-weight: 680;
+}
+
+.f-planning-allocation__edit {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) auto auto auto;
+  gap: var(--f-space-2);
+  align-items: center;
+}
+
+.f-planning-checkbox {
+  display: inline-flex !important;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.45rem !important;
+  color: var(--f-text-secondary);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.f-planning-checkbox input {
+  width: 16px;
+  min-height: 16px;
+  accent-color: var(--f-accent);
+}
+
+.f-planning-checkbox--field {
+  min-height: 38px;
+  align-self: end;
+}
+
+.f-planning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--f-space-3);
+}
+
+.f-planning-commitment-list,
+.f-planning-reconciliation {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--f-space-4);
+}
+
+.f-planning-commitment {
+  width: 100%;
+  min-height: 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--f-space-3);
+  align-items: center;
+  border-top: 1px solid var(--f-border);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: var(--f-space-2);
+  text-align: left;
+}
+
+.f-planning-commitment:first-child {
+  border-top: 0;
+}
+
+.f-planning-commitment:hover {
+  background: var(--f-surface-hover);
+}
+
+.f-planning-commitment > span:first-child {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.f-planning-commitment strong {
+  font-size: 0.78rem;
+}
+
+.f-planning-commitment small {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+  text-transform: capitalize;
+}
+
+.f-planning-commitment .f-money {
+  font-size: 0.8rem;
+  font-weight: 690;
+}
+
+.f-planning-reconciliation > div {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--f-space-4);
+  border-top: 1px solid var(--f-border);
+  padding: var(--f-space-2);
+  color: var(--f-text-secondary);
+  font-size: 0.76rem;
+}
+
+.f-planning-reconciliation > div:first-child {
+  border-top: 0;
+}
+
+.f-planning-reconciliation .f-money {
+  font-size: 0.8rem;
+  font-weight: 690;
+}
+
+.f-planning-reconciliation__total {
+  margin-top: var(--f-space-2);
+  border-top: 1px solid var(--f-text-tertiary) !important;
+  color: var(--f-text) !important;
+}
+
+.f-planning-reconciliation__total .f-money {
+  font-size: 1rem;
+}
+
+.f-planning-goals-stack {
+  display: grid;
+  gap: var(--f-space-4);
+}
+
+.f-planning-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--f-space-3);
+  margin-top: var(--f-space-4);
+}
+
+.f-planning-goal {
+  display: grid;
+  gap: var(--f-space-4);
+}
+
+.f-planning-goal__top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--f-space-4);
+}
+
+.f-planning-goal__top h3 {
+  margin-top: var(--f-space-2);
+  font-size: 0.95rem;
+  font-weight: 720;
+}
+
+.f-planning-goal__top p {
+  margin-top: 0.24rem;
+  color: var(--f-text-tertiary);
+  font-size: 0.7rem;
+}
+
+.f-planning-goal__amount {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 0.1rem;
+  justify-items: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.f-planning-goal__amount .f-money {
+  font-size: 1rem;
+  font-weight: 730;
+}
+
+.f-planning-goal__amount > span:last-child {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+}
+
+.f-planning-goal__facts {
+  display: flex;
+  gap: var(--f-space-4);
+  flex-wrap: wrap;
+  color: var(--f-text-tertiary);
+  font-size: 0.7rem;
+}
+
+.f-planning-goal__facts .f-money {
+  font-size: inherit;
+  font-weight: 690;
+}
+
+.f-planning-goal__actions {
+  padding-top: var(--f-space-3);
+  border-top: 1px solid var(--f-border);
+}
+
+.f-planning-goal__actions .f-planning-money-input {
+  width: 150px;
+}
+
+.f-planning-create-goal {
+  display: grid;
+}
+
+@media (max-width: 1180px) {
+  .f-planning-allocation {
+    grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .f-planning-allocation__edit {
+    grid-column: 1 / -1;
+  }
+
+  .f-planning-goal-form {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .f-planning-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--f-space-4);
+  }
+
+  .f-planning-heading__actions {
+    justify-content: flex-start;
+  }
+
+  .f-planning-form,
+  .f-planning-add-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .f-planning-grid,
+  .f-planning-goal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .f-planning-inline-editor {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .f-planning-inline-editor label {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .f-planning-heading h1 {
+    font-size: 1.7rem;
+  }
+
+  .f-planning-form,
+  .f-planning-add-row,
+  .f-planning-goal-form,
+  .f-planning-allocation {
+    grid-template-columns: 1fr;
+  }
+
+  .f-planning-allocation__edit {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .f-planning-allocation__edit .f-planning-money-input {
+    grid-column: 1 / -1;
+  }
+
+  .f-planning-goal__top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .f-planning-goal__amount {
+    justify-items: start;
+  }
+
+  .f-planning-goal__actions .f-planning-money-input {
+    width: 100%;
+    flex-basis: 100%;
+  }
+}
