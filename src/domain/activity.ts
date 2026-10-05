@@ -163,7 +163,7 @@ export interface ActivityFilterCatalog {
 
 export interface TransactionActivityDetail {
   entityKind: "transaction";
-  activity: ActivityItem & Record<string, unknown>;
+  activity: ActivityItem;
   ledgerEntries: readonly Record<string, unknown>[];
   tags: readonly ActivityFilterTag[];
   receiptMatches: readonly Record<string, unknown>[];
