@@ -1,5 +1,6 @@
 export type UUID = string;
 export type CurrencyCode = string;
+export type Necessity = "essential" | "flexible" | "discretionary" | "unclassified";
 
 /**
  * Monetary values are integer minor units.
@@ -41,6 +42,7 @@ export type CategoryKind = "expense" | "income" | "both";
 export interface CategoryAllocation {
   categoryId: UUID;
   amountMinor: MinorUnits;
+  necessity?: Necessity;
   memo?: string;
 }
 
