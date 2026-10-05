@@ -10,6 +10,7 @@ import "../ui/charts/charts.css";
 import "../spending-explorer/spending-explorer.css";
 import "../product-intelligence/product-intelligence.css";
 import "../recurring/recurring.css";
+import "../planning/planning.css";
 
 const root = document.getElementById("root");
 if (!root) {
