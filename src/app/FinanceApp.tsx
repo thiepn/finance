@@ -5,6 +5,7 @@ import { AppShell } from "../ui/layout/AppShell.js";
 import { OverviewPage } from "../overview/OverviewPage.js";
 import { SpendingExplorerPage } from "../spending-explorer/SpendingExplorerPage.js";
 import { ProductIntelligencePage } from "../product-intelligence/ProductIntelligencePage.js";
+import { RecurringPage } from "../recurring/RecurringPage.js";
 
 const routeMeta: Record<string, { title: string; icon: IconName }> = {
   overview: { title: "Overview", icon: "overview" },
@@ -139,6 +140,8 @@ export function FinanceApp() {
           onProductChange={openProduct}
           selectedProductId={focusedProductId}
         />
+      ) : activeKey === "recurring" ? (
+        <RecurringPage onNavigate={navigate} />
       ) : (
         <RouteFoundation routeKey={activeKey} />
       )}
