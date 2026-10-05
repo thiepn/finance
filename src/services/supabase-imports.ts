@@ -294,6 +294,7 @@ export class SupabaseFinanceImportService
           closing_balance_minor: parsed.statement.closingBalanceMinor,
           closing_balance_at: parsed.statement.closingBalanceAt,
           metadata: parsed.statement.metadata,
+          mapping: parsed.csv?.mapping ?? {},
         },
       },
     );
