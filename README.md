@@ -21,6 +21,7 @@ Core principles:
 - **P0** — product architecture and finance invariants: complete
 - **P1** — Supabase domain foundation, RLS, balanced ledger, audit trail: complete
 - **P2** — ledger services, account lifecycle, transfers, refunds, reimbursements and split transactions: complete
+- **P3** — categories, tags, merchant intelligence, split-level necessity and deterministic classification rules: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
