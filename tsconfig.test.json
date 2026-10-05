@@ -52,6 +52,12 @@
     "src/domain/wealth.ts",
     "src/services/wealth.ts",
     "src/services/supabase-wealth.ts",
-    "src/wealth/supabase-wealth.test.ts"
+    "src/wealth/supabase-wealth.test.ts",
+    "src/domain/imports.ts",
+    "src/services/imports.ts",
+    "src/services/supabase-imports.ts",
+    "src/imports/parsers.ts",
+    "src/imports/parsers.test.ts",
+    "src/imports/supabase-imports.test.ts"
   ]
 }
