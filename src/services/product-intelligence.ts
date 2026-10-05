@@ -9,6 +9,10 @@ import type {
   ProductFamily,
   ProductNormalizationQueueItem,
   ProductSummary,
+  ProductAnalytics,
+  ProductAnalyticsRequest,
+  ProductCatalog,
+  ProductCatalogRequest,
 } from "../domain/product-intelligence.js";
 
 export interface UpsertProductFamilyInput {
@@ -77,4 +81,9 @@ export interface FinanceProductIntelligenceService {
   getProducts(): Promise<readonly ProductSummary[]>;
   getFamilies(): Promise<readonly ProductFamily[]>;
   getProductDetail(productId: UUID): Promise<ProductDetail>;
+
+  getCatalog(request?: ProductCatalogRequest): Promise<ProductCatalog>;
+  getProductAnalytics(
+    request: ProductAnalyticsRequest,
+  ): Promise<ProductAnalytics>;
 }
