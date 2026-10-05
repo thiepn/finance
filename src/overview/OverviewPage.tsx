@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type {
   OverviewAttentionItem,
   OverviewDashboard,
@@ -681,15 +681,19 @@ export function OverviewPage({ onNavigate }: OverviewPageProps) {
         ) : (
           <div className="f-overview-activity__rows">
             {dashboard.recentActivity.map((item) => {
-              const amount =
+              const isTransfer =
                 item.entityKind === "transaction" &&
-                item.transactionType === "income"
+                item.transactionType === "transfer";
+              const isInflow =
+                item.entityKind === "transaction" &&
+                (item.transactionType === "income" ||
+                  item.transactionType === "refund" ||
+                  item.transactionType === "reimbursement");
+              const amount = isTransfer
+                ? item.amountMinor ?? 0
+                : isInflow
                   ? item.amountMinor ?? 0
-                  : item.entityKind === "transaction" &&
-                      (item.transactionType === "refund" ||
-                        item.transactionType === "reimbursement")
-                    ? item.amountMinor ?? 0
-                    : -(item.amountMinor ?? 0);
+                  : -(item.amountMinor ?? 0);
 
               return (
                 <button
@@ -719,13 +723,15 @@ export function OverviewPage({ onNavigate }: OverviewPageProps) {
                     amountMinor={amount}
                     currencyCode={item.currencyCode}
                     locale={dashboard.profile.locale}
-                    showSign={amount > 0}
+                    showSign={!isTransfer && amount > 0}
                     tone={
-                      amount > 0
-                        ? "positive"
-                        : amount < 0
-                          ? "default"
-                          : "muted"
+                      isTransfer
+                        ? "muted"
+                        : amount > 0
+                          ? "positive"
+                          : amount < 0
+                            ? "default"
+                            : "muted"
                     }
                   />
                 </button>
