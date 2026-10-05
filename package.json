@@ -1,0 +1,10 @@
+{
+  "name": "@thiepn/finance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "THIEPN Finance personal finance and receipt-intelligence application",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}
