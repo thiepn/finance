@@ -1,0 +1,460 @@
+.f-wealth {
+  display: grid;
+  gap: var(--f-space-5);
+}
+
+.f-wealth-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--f-space-8);
+}
+
+.f-wealth-heading__meta,
+.f-wealth-heading__actions,
+.f-wealth-account-row__badges {
+  display: flex;
+  align-items: center;
+  gap: var(--f-space-2);
+  flex-wrap: wrap;
+}
+
+.f-wealth-heading__meta {
+  margin-bottom: var(--f-space-3);
+  color: var(--f-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.f-wealth-heading h1 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 740;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.f-wealth-heading p {
+  max-width: 780px;
+  margin-top: var(--f-space-3);
+  color: var(--f-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.f-wealth-heading__actions {
+  justify-content: flex-end;
+}
+
+.f-wealth-rate {
+  font-variant-numeric: tabular-nums;
+}
+
+.f-wealth-action-error {
+  display: flex;
+  align-items: center;
+  gap: var(--f-space-3);
+}
+
+.f-wealth-action-error > span:last-child {
+  color: var(--f-text-secondary);
+  font-size: 0.8rem;
+}
+
+.f-wealth-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(320px, 1.15fr);
+  gap: var(--f-space-3);
+}
+
+.f-wealth-chart-summary {
+  display: flex;
+  gap: var(--f-space-6);
+  flex-wrap: wrap;
+}
+
+.f-wealth-chart-summary > div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.f-wealth-chart-summary span {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.f-wealth-chart-summary strong {
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.f-wealth-bridge {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--f-space-4);
+}
+
+.f-wealth-bridge > div {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--f-space-4);
+  border-top: 1px solid var(--f-border);
+  padding: var(--f-space-2);
+  color: var(--f-text-secondary);
+  font-size: 0.76rem;
+}
+
+.f-wealth-bridge > div:first-child {
+  border-top: 0;
+}
+
+.f-wealth-bridge .f-money {
+  font-size: 0.82rem;
+  font-weight: 690;
+}
+
+.f-wealth-bridge__total {
+  margin-top: var(--f-space-2);
+  border-top: 1px solid var(--f-text-tertiary) !important;
+  color: var(--f-text) !important;
+}
+
+.f-wealth-bridge__total .f-money {
+  font-size: 1rem;
+}
+
+.f-wealth-form-note {
+  margin-top: var(--f-space-3);
+  color: var(--f-text-tertiary);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.f-wealth-create-account {
+  display: grid;
+}
+
+.f-wealth-account-form {
+  display: grid;
+  grid-template-columns:
+    minmax(170px, 1fr)
+    minmax(145px, 0.7fr)
+    minmax(100px, 0.42fr)
+    minmax(150px, 0.8fr)
+    minmax(175px, 0.8fr)
+    auto auto;
+  align-items: end;
+  gap: var(--f-space-3);
+  margin-top: var(--f-space-4);
+}
+
+.f-wealth-account-form label,
+.f-wealth-observation-form label {
+  min-width: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.f-wealth-account-form label > span,
+.f-wealth-observation-form label > span {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.f-wealth input,
+.f-wealth select {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid var(--f-border);
+  border-radius: var(--f-radius-sm);
+  background: var(--f-surface);
+  color: var(--f-text);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0 0.72rem;
+}
+
+.f-wealth input:focus,
+.f-wealth select:focus {
+  border-color: var(--f-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--f-accent) 14%, transparent);
+}
+
+.f-wealth input:disabled {
+  background: var(--f-surface-pressed);
+  color: var(--f-text-tertiary);
+}
+
+.f-wealth-money-input {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  border: 1px solid var(--f-border);
+  border-radius: var(--f-radius-sm);
+  background: var(--f-surface);
+  overflow: hidden;
+}
+
+.f-wealth-money-input:focus-within {
+  border-color: var(--f-accent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--f-accent) 14%, transparent);
+}
+
+.f-wealth-money-input > span {
+  padding-left: 0.7rem;
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.f-wealth-money-input input {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.f-wealth-money-input input:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.f-wealth-checkbox {
+  display: inline-flex !important;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.45rem !important;
+  min-height: 38px;
+  color: var(--f-text-secondary);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.f-wealth-checkbox input {
+  width: 16px;
+  min-height: 16px;
+  accent-color: var(--f-accent);
+}
+
+.f-wealth-account-list {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--f-space-4);
+}
+
+.f-wealth-account-row {
+  display: grid;
+  grid-template-columns:
+    minmax(190px, 0.9fr)
+    minmax(150px, 0.55fr)
+    minmax(190px, 0.8fr)
+    auto;
+  gap: var(--f-space-4);
+  align-items: center;
+  border-top: 1px solid var(--f-border);
+  padding: var(--f-space-4) var(--f-space-2);
+}
+
+.f-wealth-account-row:first-child {
+  border-top: 0;
+}
+
+.f-wealth-account-row__identity {
+  min-width: 0;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.f-wealth-account-row__identity > strong {
+  overflow: hidden;
+  font-size: 0.86rem;
+  font-weight: 710;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.f-wealth-account-row__identity > small,
+.f-wealth-account-row__meta small {
+  color: var(--f-text-tertiary);
+  font-size: 0.68rem;
+}
+
+.f-wealth-account-row__balance {
+  min-width: 0;
+  display: grid;
+  gap: 0.18rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.f-wealth-account-row__balance > span:first-child,
+.f-wealth-account-row__meta > span:first-child {
+  color: var(--f-text-tertiary);
+  font-size: 0.67rem;
+  font-weight: 650;
+}
+
+.f-wealth-account-row__balance .f-money {
+  font-size: 1rem;
+  font-weight: 730;
+}
+
+.f-wealth-account-row__balance small {
+  color: var(--f-text-tertiary);
+  font-size: 0.66rem;
+}
+
+.f-wealth-account-row__meta {
+  min-width: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.f-wealth-account-row__controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--f-space-2);
+  flex-wrap: wrap;
+}
+
+.f-wealth-observation-form {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 0.8fr)
+    minmax(170px, 0.7fr)
+    minmax(150px, 0.55fr)
+    auto;
+  align-items: end;
+  gap: var(--f-space-3);
+  margin-top: calc(var(--f-space-2) * -1);
+  padding: var(--f-space-3);
+  border-radius: var(--f-radius-sm);
+  background: var(--f-surface-subtle);
+}
+
+.f-wealth-investment-list {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--f-space-4);
+}
+
+.f-wealth-investment-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) repeat(4, minmax(120px, 0.65fr));
+  gap: var(--f-space-4);
+  align-items: center;
+  border-top: 1px solid var(--f-border);
+  padding: var(--f-space-3) var(--f-space-2);
+}
+
+.f-wealth-investment-row:first-child {
+  border-top: 0;
+}
+
+.f-wealth-investment-row > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.f-wealth-investment-row strong {
+  overflow: hidden;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.f-wealth-investment-row span,
+.f-wealth-investment-row small {
+  color: var(--f-text-tertiary);
+  font-size: 0.66rem;
+}
+
+.f-wealth-investment-row .f-money {
+  color: var(--f-text);
+  font-size: 0.78rem;
+  font-weight: 690;
+}
+
+.f-wealth-history-panel {
+  scroll-margin-top: 90px;
+}
+
+.f-wealth-coverage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--f-space-4);
+  margin-top: var(--f-space-4);
+}
+
+@media (max-width: 1220px) {
+  .f-wealth-account-form {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+  }
+
+  .f-wealth-account-row {
+    grid-template-columns: minmax(180px, 1fr) minmax(150px, 0.6fr);
+  }
+
+  .f-wealth-account-row__meta,
+  .f-wealth-account-row__controls {
+    justify-self: stretch;
+  }
+
+  .f-wealth-account-row__controls {
+    justify-content: flex-start;
+  }
+
+  .f-wealth-investment-row {
+    grid-template-columns: minmax(180px, 1fr) repeat(2, minmax(120px, 0.7fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .f-wealth-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--f-space-4);
+  }
+
+  .f-wealth-heading__actions {
+    justify-content: flex-start;
+  }
+
+  .f-wealth-grid,
+  .f-wealth-coverage {
+    grid-template-columns: 1fr;
+  }
+
+  .f-wealth-observation-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .f-wealth-heading h1 {
+    font-size: 1.7rem;
+  }
+
+  .f-wealth-account-form,
+  .f-wealth-account-row,
+  .f-wealth-observation-form,
+  .f-wealth-investment-row {
+    grid-template-columns: 1fr;
+  }
+
+  .f-wealth-account-row__controls {
+    justify-content: flex-start;
+  }
+
+  .f-wealth-observation-form {
+    grid-column: 1;
+  }
+}
