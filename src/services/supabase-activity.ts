@@ -76,7 +76,7 @@ function parseCategory(value: unknown): ActivityCategoryRef {
   };
 }
 
-function parseActivityItem(raw: Record<string, unknown>): ActivityItem {
+export function parseActivityItem(raw: Record<string, unknown>): ActivityItem {
   return {
     id: String(raw.id),
     entityKind: String(raw.entity_kind) as ActivityEntityKind,
