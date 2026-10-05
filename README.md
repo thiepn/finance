@@ -27,7 +27,7 @@ Core principles:
 - **P6** — product normalization, families, aliases, correction learning and price intelligence: complete
 - **P7** — exception-driven receipt review, corrections, waivers, audit trail and confirmation gate: complete
 - **P8** — unified Activity ledger, deduplicated receipt evidence, structured search, filters, keyset pagination and detail expansion: complete
-- **P9** — React/Vite application shell, Finance design system, responsive navigation, themes, financial typography and reusable UI primitives: complete
+- **P9** — React/Vite application shell, Finance design system, responsive navigation, themes, financial typography and reusable UI primitives: complete\n- **P10** — live deterministic Overview, period comparison, financial status, attention engine, planning pace and P1–P9 data integration: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
