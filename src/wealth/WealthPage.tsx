@@ -325,7 +325,9 @@ function AccountRow({
   const liability = account.position === "liability";
   const foreign = account.currencyCode !== reportingCurrency;
   const [balance, setBalance] = useState(
-    fromMinor(account.balanceMinor),
+    liability
+      ? fromMinor(account.balanceMinor)
+      : (account.balanceMinor / 100).toFixed(2),
   );
   const [exchangeRate, setExchangeRate] = useState("");
   const [source, setSource] =
