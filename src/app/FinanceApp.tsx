@@ -3,6 +3,7 @@ import { Badge, Surface } from "../ui/components/Primitives.js";
 import { Icon, type IconName } from "../ui/icons/Icon.js";
 import { AppShell } from "../ui/layout/AppShell.js";
 import { OverviewPage } from "../overview/OverviewPage.js";
+import { SpendingExplorerPage } from "../spending-explorer/SpendingExplorerPage.js";
 
 const routeMeta: Record<string, { title: string; icon: IconName }> = {
   overview: { title: "Overview", icon: "overview" },
@@ -67,6 +68,13 @@ export function FinanceApp() {
     >
       {activeKey === "overview" ? (
         <OverviewPage onNavigate={setActiveKey} />
+      ) : activeKey === "insights" ? (
+        <SpendingExplorerPage onNavigate={setActiveKey} />
+      ) : activeKey === "categories" ? (
+        <SpendingExplorerPage
+          initialCategoryMode
+          onNavigate={setActiveKey}
+        />
       ) : (
         <RouteFoundation routeKey={activeKey} />
       )}
