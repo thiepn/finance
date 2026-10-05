@@ -7,6 +7,7 @@ import "../ui/styles/shell.css";
 import "./app.css";
 import "../overview/overview.css";
 import "../ui/charts/charts.css";
+import "../spending-explorer/spending-explorer.css";
 
 const root = document.getElementById("root");
 if (!root) {
