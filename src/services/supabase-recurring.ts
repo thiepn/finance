@@ -1,6 +1,7 @@
 import type {
   ConfirmRecurringCandidateResult,
   RecurringAttentionItem,
+  RecurringCategoryBreakdown,
   RecurringDashboard,
   RecurringDashboardSummary,
   RecurringDetectionCandidate,
@@ -69,6 +70,21 @@ function parseTrend(value: unknown): RecurringTrendPoint {
     expenseMinor: Number(raw.expense_minor),
     incomeMinor: Number(raw.income_minor),
     subscriptionMinor: Number(raw.subscription_minor),
+  };
+}
+
+
+function parseCategoryBreakdown(
+  value: unknown,
+): RecurringCategoryBreakdown {
+  const raw = record(value, "recurring category breakdown");
+  return {
+    categoryId: nullableString(raw.category_id),
+    categoryName: String(raw.category_name),
+    monthlyMinor: Number(raw.monthly_minor),
+    annualizedMinor: Number(raw.annualized_minor),
+    patternCount: Number(raw.pattern_count),
+    share: nullableNumber(raw.share),
   };
 }
 
@@ -270,6 +286,9 @@ export class SupabaseFinanceRecurringService
       anchorDate: String(raw.anchor_date),
       horizonDays: Number(raw.horizon_days),
       summary: parseSummary(raw.summary),
+      categories: Array.isArray(raw.categories)
+        ? raw.categories.map(parseCategoryBreakdown)
+        : [],
       trend: Array.isArray(raw.trend) ? raw.trend.map(parseTrend) : [],
       attention: Array.isArray(raw.attention)
         ? raw.attention.map(parseAttention)
