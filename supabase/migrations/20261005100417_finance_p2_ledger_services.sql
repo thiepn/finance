@@ -1,5 +1,3 @@
--- P2 live migration source mirrored from THIEPN Core.
--- Depends on the P1 Finance schema.
 
 create type finance.transaction_relation_kind as enum (
   'refund_of','reimbursement_of','replacement_of','adjustment_for'
@@ -33,12 +31,12 @@ create index transactions_related_fk_idx
   on finance.transactions(related_transaction_id, user_id)
   where related_transaction_id is not null;
 
-CREATE OR REPLACE FUNCTION finance_private.guard_posted_ledger_immutability()
- RETURNS trigger
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO ''
-AS $function$
+create or replace function finance_private.guard_posted_ledger_immutability()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
 declare
   v_old_status finance.transaction_status;
   v_new_status finance.transaction_status;
@@ -69,15 +67,20 @@ begin
 
   return case when tg_op = 'DELETE' then old else new end;
 end;
-$function$
+$$;
 
+revoke all on function finance_private.guard_posted_ledger_immutability() from public, anon, authenticated;
 
-CREATE OR REPLACE FUNCTION finance_private.guard_transaction_state_transition()
- RETURNS trigger
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO ''
-AS $function$
+create trigger ledger_entries_immutable_after_post
+before insert or update or delete on finance.ledger_entries
+for each row execute function finance_private.guard_posted_ledger_immutability();
+
+create or replace function finance_private.guard_transaction_state_transition()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
 begin
   if tg_op <> 'UPDATE' then
     return new;
@@ -116,37 +119,27 @@ begin
 
   return new;
 end;
-$function$
+$$;
 
+revoke all on function finance_private.guard_transaction_state_transition() from public, anon, authenticated;
 
-CREATE OR REPLACE FUNCTION finance.archive_account(p_account_id uuid)
- RETURNS void
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
-declare
-  v_user_id uuid := auth.uid();
-begin
-  if v_user_id is null then
-    raise exception using errcode = '42501', message = 'authentication required';
-  end if;
+create trigger transactions_state_transition_guard
+before update on finance.transactions
+for each row execute function finance_private.guard_transaction_state_transition();
 
-  update finance.accounts
-  set is_archived = true
-  where id = p_account_id and user_id = v_user_id;
-
-  if not found then
-    raise exception using errcode = 'P0002', message = 'finance account not found';
-  end if;
-end;
-$function$
-
-
-CREATE OR REPLACE FUNCTION finance.create_account(p_name text, p_kind finance.account_kind, p_currency_code text DEFAULT 'EUR'::text, p_include_in_net_worth boolean DEFAULT true, p_institution_name text DEFAULT NULL::text, p_opening_balance_minor bigint DEFAULT 0)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.create_account(
+  p_name text,
+  p_kind finance.account_kind,
+  p_currency_code text default 'EUR',
+  p_include_in_net_worth boolean default true,
+  p_institution_name text default null,
+  p_opening_balance_minor bigint default 0
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_account_id uuid := gen_random_uuid();
@@ -221,14 +214,77 @@ begin
 
   return v_account_id;
 end;
-$function$
+$$;
 
+revoke all on function finance.create_account(text, finance.account_kind, text, boolean, text, bigint) from public, anon;
+grant execute on function finance.create_account(text, finance.account_kind, text, boolean, text, bigint) to authenticated, service_role;
 
-CREATE OR REPLACE FUNCTION finance.create_expense(p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_merchant_id uuid DEFAULT NULL::uuid, p_description text DEFAULT NULL::text, p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.archive_account(p_account_id uuid)
+returns void
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+declare
+  v_user_id uuid := auth.uid();
+begin
+  if v_user_id is null then
+    raise exception using errcode = '42501', message = 'authentication required';
+  end if;
+
+  update finance.accounts
+  set is_archived = true
+  where id = p_account_id and user_id = v_user_id;
+
+  if not found then
+    raise exception using errcode = 'P0002', message = 'finance account not found';
+  end if;
+end;
+$$;
+
+revoke all on function finance.archive_account(uuid) from public, anon;
+grant execute on function finance.archive_account(uuid) to authenticated, service_role;
+
+create or replace function finance.restore_account(p_account_id uuid)
+returns void
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+declare
+  v_user_id uuid := auth.uid();
+begin
+  if v_user_id is null then
+    raise exception using errcode = '42501', message = 'authentication required';
+  end if;
+
+  update finance.accounts
+  set is_archived = false
+  where id = p_account_id and user_id = v_user_id;
+
+  if not found then
+    raise exception using errcode = 'P0002', message = 'finance account not found';
+  end if;
+end;
+$$;
+
+revoke all on function finance.restore_account(uuid) from public, anon;
+grant execute on function finance.restore_account(uuid) to authenticated, service_role;
+
+create or replace function finance.create_expense(
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_merchant_id uuid default null,
+  p_description text default null,
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_account_currency text;
@@ -337,14 +393,25 @@ begin
 
   return v_tx_id;
 end;
-$function$
+$$;
 
+revoke all on function finance.create_expense(uuid, bigint, jsonb, timestamptz, uuid, text, text) from public, anon;
+grant execute on function finance.create_expense(uuid, bigint, jsonb, timestamptz, uuid, text, text) to authenticated, service_role;
 
-CREATE OR REPLACE FUNCTION finance.create_income(p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_merchant_id uuid DEFAULT NULL::uuid, p_description text DEFAULT NULL::text, p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.create_income(
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_merchant_id uuid default null,
+  p_description text default null,
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_account_currency text;
@@ -449,14 +516,97 @@ begin
 
   return v_tx_id;
 end;
-$function$
+$$;
 
+revoke all on function finance.create_income(uuid, bigint, jsonb, timestamptz, uuid, text, text) from public, anon;
+grant execute on function finance.create_income(uuid, bigint, jsonb, timestamptz, uuid, text, text) to authenticated, service_role;
 
-CREATE OR REPLACE FUNCTION finance.create_refund(p_original_transaction_id uuid, p_account_id uuid, p_amount_minor bigint, p_allocations jsonb DEFAULT NULL::jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.create_transfer(
+  p_from_account_id uuid,
+  p_to_account_id uuid,
+  p_amount_minor bigint,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+declare
+  v_user_id uuid := auth.uid();
+  v_from_currency text;
+  v_to_currency text;
+  v_reporting_currency text;
+  v_tx_id uuid := gen_random_uuid();
+begin
+  if v_user_id is null then
+    raise exception using errcode = '42501', message = 'authentication required';
+  end if;
+  if p_from_account_id = p_to_account_id then
+    raise exception using errcode = '23514', message = 'transfer accounts must differ';
+  end if;
+  if p_amount_minor <= 0 then
+    raise exception using errcode = '23514', message = 'transfer amount must be positive';
+  end if;
+
+  select currency_code into v_from_currency
+  from finance.accounts
+  where id = p_from_account_id and user_id = v_user_id and not is_archived;
+  if not found then raise exception using errcode='P0002', message='source account not found'; end if;
+
+  select currency_code into v_to_currency
+  from finance.accounts
+  where id = p_to_account_id and user_id = v_user_id and not is_archived;
+  if not found then raise exception using errcode='P0002', message='destination account not found'; end if;
+
+  select reporting_currency into v_reporting_currency
+  from finance.profiles where user_id = v_user_id;
+
+  if v_from_currency <> v_to_currency or v_from_currency <> v_reporting_currency then
+    raise exception using
+      errcode = '0A000',
+      message = 'P2 transfer convenience flow supports same-currency reporting-currency transfers only';
+  end if;
+
+  insert into finance.transactions (
+    id, user_id, type, status, occurred_at, description, note, source, reporting_currency
+  ) values (
+    v_tx_id, v_user_id, 'transfer', 'draft', p_occurred_at,
+    'Transfer', nullif(btrim(p_note), ''), 'manual', v_reporting_currency
+  );
+
+  insert into finance.ledger_entries (
+    user_id, transaction_id, entry_kind, account_id,
+    signed_amount_minor, currency_code, reporting_amount_minor
+  ) values
+    (v_user_id, v_tx_id, 'account', p_from_account_id, -p_amount_minor, v_from_currency, -p_amount_minor),
+    (v_user_id, v_tx_id, 'account', p_to_account_id, p_amount_minor, v_to_currency, p_amount_minor);
+
+  update finance.transactions
+  set status = 'posted', posted_at = now()
+  where id = v_tx_id and user_id = v_user_id;
+
+  return v_tx_id;
+end;
+$$;
+
+revoke all on function finance.create_transfer(uuid, uuid, bigint, timestamptz, text) from public, anon;
+grant execute on function finance.create_transfer(uuid, uuid, bigint, timestamptz, text) to authenticated, service_role;
+
+create or replace function finance.create_refund(
+  p_original_transaction_id uuid,
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb default null,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_original finance.transactions%rowtype;
@@ -583,14 +733,24 @@ begin
 
   return v_tx_id;
 end;
-$function$
+$$;
 
+revoke all on function finance.create_refund(uuid, uuid, bigint, jsonb, timestamptz, text) from public, anon;
+grant execute on function finance.create_refund(uuid, uuid, bigint, jsonb, timestamptz, text) to authenticated, service_role;
 
-CREATE OR REPLACE FUNCTION finance.create_reimbursement(p_original_transaction_id uuid, p_account_id uuid, p_amount_minor bigint, p_allocations jsonb, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.create_reimbursement(
+  p_original_transaction_id uuid,
+  p_account_id uuid,
+  p_amount_minor bigint,
+  p_allocations jsonb,
+  p_occurred_at timestamptz default now(),
+  p_note text default null
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_original finance.transactions%rowtype;
@@ -681,101 +841,20 @@ begin
 
   return v_tx_id;
 end;
-$function$
+$$;
 
+revoke all on function finance.create_reimbursement(uuid, uuid, bigint, jsonb, timestamptz, text) from public, anon;
+grant execute on function finance.create_reimbursement(uuid, uuid, bigint, jsonb, timestamptz, text) to authenticated, service_role;
 
-CREATE OR REPLACE FUNCTION finance.create_transfer(p_from_account_id uuid, p_to_account_id uuid, p_amount_minor bigint, p_occurred_at timestamp with time zone DEFAULT now(), p_note text DEFAULT NULL::text)
- RETURNS uuid
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
-declare
-  v_user_id uuid := auth.uid();
-  v_from_currency text;
-  v_to_currency text;
-  v_reporting_currency text;
-  v_tx_id uuid := gen_random_uuid();
-begin
-  if v_user_id is null then
-    raise exception using errcode = '42501', message = 'authentication required';
-  end if;
-  if p_from_account_id = p_to_account_id then
-    raise exception using errcode = '23514', message = 'transfer accounts must differ';
-  end if;
-  if p_amount_minor <= 0 then
-    raise exception using errcode = '23514', message = 'transfer amount must be positive';
-  end if;
-
-  select currency_code into v_from_currency
-  from finance.accounts
-  where id = p_from_account_id and user_id = v_user_id and not is_archived;
-  if not found then raise exception using errcode='P0002', message='source account not found'; end if;
-
-  select currency_code into v_to_currency
-  from finance.accounts
-  where id = p_to_account_id and user_id = v_user_id and not is_archived;
-  if not found then raise exception using errcode='P0002', message='destination account not found'; end if;
-
-  select reporting_currency into v_reporting_currency
-  from finance.profiles where user_id = v_user_id;
-
-  if v_from_currency <> v_to_currency or v_from_currency <> v_reporting_currency then
-    raise exception using
-      errcode = '0A000',
-      message = 'P2 transfer convenience flow supports same-currency reporting-currency transfers only';
-  end if;
-
-  insert into finance.transactions (
-    id, user_id, type, status, occurred_at, description, note, source, reporting_currency
-  ) values (
-    v_tx_id, v_user_id, 'transfer', 'draft', p_occurred_at,
-    'Transfer', nullif(btrim(p_note), ''), 'manual', v_reporting_currency
-  );
-
-  insert into finance.ledger_entries (
-    user_id, transaction_id, entry_kind, account_id,
-    signed_amount_minor, currency_code, reporting_amount_minor
-  ) values
-    (v_user_id, v_tx_id, 'account', p_from_account_id, -p_amount_minor, v_from_currency, -p_amount_minor),
-    (v_user_id, v_tx_id, 'account', p_to_account_id, p_amount_minor, v_to_currency, p_amount_minor);
-
-  update finance.transactions
-  set status = 'posted', posted_at = now()
-  where id = v_tx_id and user_id = v_user_id;
-
-  return v_tx_id;
-end;
-$function$
-
-
-CREATE OR REPLACE FUNCTION finance.restore_account(p_account_id uuid)
- RETURNS void
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
-declare
-  v_user_id uuid := auth.uid();
-begin
-  if v_user_id is null then
-    raise exception using errcode = '42501', message = 'authentication required';
-  end if;
-
-  update finance.accounts
-  set is_archived = false
-  where id = p_account_id and user_id = v_user_id;
-
-  if not found then
-    raise exception using errcode = 'P0002', message = 'finance account not found';
-  end if;
-end;
-$function$
-
-
-CREATE OR REPLACE FUNCTION finance.void_transaction(p_transaction_id uuid, p_reason text)
- RETURNS void
- LANGUAGE plpgsql
- SET search_path TO ''
-AS $function$
+create or replace function finance.void_transaction(
+  p_transaction_id uuid,
+  p_reason text
+)
+returns void
+language plpgsql
+security invoker
+set search_path = ''
+as $$
 declare
   v_user_id uuid := auth.uid();
 begin
@@ -798,77 +877,60 @@ begin
     raise exception using errcode='P0002', message='posted finance transaction not found';
   end if;
 end;
-$function$
+$$;
 
-
-CREATE TRIGGER ledger_entries_immutable_after_post BEFORE INSERT OR DELETE OR UPDATE ON finance.ledger_entries FOR EACH ROW EXECUTE FUNCTION finance_private.guard_posted_ledger_immutability();
-CREATE TRIGGER transactions_state_transition_guard BEFORE UPDATE ON finance.transactions FOR EACH ROW EXECUTE FUNCTION finance_private.guard_transaction_state_transition();
+revoke all on function finance.void_transaction(uuid, text) from public, anon;
+grant execute on function finance.void_transaction(uuid, text) to authenticated, service_role;
 
 create view finance.transaction_summary
 with (security_invoker = true)
 as
- SELECT t.id,
-    t.user_id,
-    t.type,
-    t.status,
-    t.occurred_at,
-    t.merchant_id,
-    t.description,
-    t.note,
-    t.source,
-    t.reporting_currency,
-    t.related_transaction_id,
-    t.relation_kind,
-    t.posted_at,
-    t.voided_at,
-    t.void_reason,
-    COALESCE(- sum(le.reporting_amount_minor) FILTER (WHERE le.entry_kind = 'account'::finance.entry_kind AND le.reporting_amount_minor < 0), sum(le.reporting_amount_minor) FILTER (WHERE le.entry_kind = 'account'::finance.entry_kind AND le.reporting_amount_minor > 0), 0::numeric)::bigint AS display_amount_minor,
-    count(le.id)::integer AS entry_count,
-    t.created_at,
-    t.updated_at
-   FROM finance.transactions t
-     LEFT JOIN finance.ledger_entries le ON le.transaction_id = t.id AND le.user_id = t.user_id
-  GROUP BY t.id;;
+select
+  t.id,
+  t.user_id,
+  t.type,
+  t.status,
+  t.occurred_at,
+  t.merchant_id,
+  t.description,
+  t.note,
+  t.source,
+  t.reporting_currency,
+  t.related_transaction_id,
+  t.relation_kind,
+  t.posted_at,
+  t.voided_at,
+  t.void_reason,
+  coalesce(
+    -sum(le.reporting_amount_minor) filter (where le.entry_kind='account' and le.reporting_amount_minor < 0),
+    sum(le.reporting_amount_minor) filter (where le.entry_kind='account' and le.reporting_amount_minor > 0),
+    0
+  )::bigint as display_amount_minor,
+  count(le.id)::integer as entry_count,
+  t.created_at,
+  t.updated_at
+from finance.transactions t
+left join finance.ledger_entries le
+  on le.transaction_id=t.id and le.user_id=t.user_id
+group by t.id;
 
 revoke all on finance.transaction_summary from anon, authenticated;
 grant select on finance.transaction_summary to authenticated, service_role;
 
-revoke all on function finance_private.guard_posted_ledger_immutability() from public, anon, authenticated;
-revoke all on function finance_private.guard_transaction_state_transition() from public, anon, authenticated;
-
-do $$
-declare f regprocedure;
-begin
-  for f in
-    select p.oid::regprocedure
-    from pg_proc p join pg_namespace n on n.oid=p.pronamespace
-    where n.nspname='finance'
-      and p.proname in (
-        'create_account','archive_account','restore_account','create_expense','create_income',
-        'create_transfer','create_refund','create_reimbursement','void_transaction'
-      )
-  loop
-    execute format('revoke all on function %s from public, anon', f);
-    execute format('grant execute on function %s to authenticated, service_role', f);
-  end loop;
-end $$;
-
+-- Posted financial history is modified through service functions, not direct table mutation.
 revoke insert, update on finance.ledger_entries from authenticated;
 revoke insert on finance.transactions from authenticated;
+grant update (merchant_id, description, note, metadata) on finance.transactions to authenticated;
 
-grant update (merchant_id, description, note, metadata)
-  on finance.transactions to authenticated;
-
+-- Service functions need table writes under invoker privileges, so expose narrowly scoped column operations.
 grant insert (
   id,user_id,type,status,occurred_at,merchant_id,description,note,source,
   source_external_id,reporting_currency,posted_at,metadata,
   related_transaction_id,relation_kind,voided_at,void_reason
 ) on finance.transactions to authenticated;
-
 grant update (
   status,posted_at,merchant_id,description,note,metadata,voided_at,void_reason
 ) on finance.transactions to authenticated;
-
 grant insert (
   id,user_id,transaction_id,entry_kind,account_id,category_id,system_code,
   signed_amount_minor,currency_code,reporting_amount_minor,exchange_rate,memo
