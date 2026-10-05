@@ -69,7 +69,7 @@ function parseAliasResolution(
 }
 
 function parseAssignment(raw: Record<string, unknown>): ProductAssignmentResult {
-  return {
+  const base = {
     receiptItemId: String(raw.receipt_item_id),
     productId: String(raw.product_id),
     productName: String(raw.product_name),
@@ -92,14 +92,18 @@ function parseAssignment(raw: Record<string, unknown>): ProductAssignmentResult 
         ? null
         : String(raw.category_id),
     necessity: String(raw.necessity) as Necessity,
-    ...(raw.match_type
-      ? {
-          matchType: String(
-            raw.match_type,
-          ) as ProductAssignmentResult["matchType"],
-        }
-      : {}),
   };
+
+  if (raw.match_type) {
+    return {
+      ...base,
+      matchType: String(
+        raw.match_type,
+      ) as NonNullable<ProductAssignmentResult["matchType"]>,
+    };
+  }
+
+  return base;
 }
 
 function parseQueueItem(raw: Record<string, unknown>): ProductNormalizationQueueItem {
