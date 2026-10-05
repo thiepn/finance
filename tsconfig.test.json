@@ -24,6 +24,9 @@
     "src/ui/ui-foundation.test.ts",
     "src/domain/overview.ts",
     "src/overview/overview-model.ts",
-    "src/overview/overview-model.test.ts"
+    "src/overview/overview-model.test.ts",
+    "src/services/overview.ts",
+    "src/services/supabase-overview.ts",
+    "src/overview/supabase-overview.test.ts"
   ]
 }
