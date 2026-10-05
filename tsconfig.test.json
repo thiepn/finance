@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".tmp-test",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/domain/**/*.ts",
+    "src/processing/german-receipt-parser.ts",
+    "src/processing/german-receipt-parser.test.ts"
+  ]
+}
