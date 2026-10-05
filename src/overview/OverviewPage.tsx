@@ -23,6 +23,7 @@ import {
   overviewStatusCopy,
 } from "./overview-model.js";
 import { useOverview, type OverviewLoadState } from "./use-overview.js";
+import { OverviewTrendPanel } from "../analytics/OverviewTrendPanel.js";
 
 const periodOptions = [
   { value: "week", label: "Week" },
@@ -366,6 +367,13 @@ export function OverviewPage({ onNavigate }: OverviewPageProps) {
           }
         />
       </div>
+
+      <Surface className="f-overview-trend">
+        <OverviewTrendPanel
+          dashboard={dashboard}
+          onNavigate={onNavigate}
+        />
+      </Surface>
 
       <div className="f-overview-primary-grid">
         <Surface className="f-overview-plan">
