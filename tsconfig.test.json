@@ -44,6 +44,10 @@
     "src/domain/recurring.ts",
     "src/services/recurring.ts",
     "src/services/supabase-recurring.ts",
-    "src/recurring/supabase-recurring.test.ts"
+    "src/recurring/supabase-recurring.test.ts",
+    "src/domain/planning.ts",
+    "src/services/planning.ts",
+    "src/services/supabase-planning.ts",
+    "src/planning/supabase-planning.test.ts"
   ]
 }
