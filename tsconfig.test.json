@@ -18,6 +18,9 @@
     "src/services/activity.ts",
     "src/activity/activity-query.ts",
     "src/activity/activity-query.test.ts",
-    "src/activity/activity-controller.ts"
+    "src/activity/activity-controller.ts",
+    "src/ui/format/money.ts",
+    "src/ui/theme/theme.ts",
+    "src/ui/ui-foundation.test.ts"
   ]
 }
