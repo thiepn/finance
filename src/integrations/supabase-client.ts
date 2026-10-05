@@ -8,6 +8,7 @@ import { SupabaseFinanceAnalyticsService } from "../services/supabase-analytics.
 import { SupabaseFinanceSpendingExplorerService } from "../services/supabase-spending-explorer.js";
 import { SupabaseFinanceProductIntelligenceService } from "../services/supabase-product-intelligence.js";
 import { SupabaseFinanceRecurringService } from "../services/supabase-recurring.js";
+import { SupabaseFinancePlanningService } from "../services/supabase-planning.js";
 import type { SupabaseRpcClient } from "../services/supabase-ledger.js";
 
 export interface FinanceBrowserRuntime {
@@ -18,6 +19,7 @@ export interface FinanceBrowserRuntime {
   spendingExplorer: SupabaseFinanceSpendingExplorerService;
   productIntelligence: SupabaseFinanceProductIntelligenceService;
   recurring: SupabaseFinanceRecurringService;
+  planning: SupabaseFinancePlanningService;
   ensureInitialized(): Promise<void>;
 }
 
@@ -116,6 +118,10 @@ export function createFinanceBrowserRuntime():
     rpcClient,
     ensureInitialized,
   );
+  const planning = new SupabaseFinancePlanningService(
+    rpcClient,
+    ensureInitialized,
+  );
 
   runtime = {
     client,
@@ -125,6 +131,7 @@ export function createFinanceBrowserRuntime():
     spendingExplorer,
     productIntelligence,
     recurring,
+    planning,
     ensureInitialized,
   };
 
