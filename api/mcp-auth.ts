@@ -12,6 +12,13 @@ interface TokenClaims {
   resource?: unknown;
 }
 
+const REQUIRED_SCOPES = [
+  "openid",
+  "email",
+  "profile",
+  "offline_access",
+] as const;
+
 export interface VerifiedMcpIdentity {
   token: string;
   userId: string;
@@ -163,6 +170,7 @@ export async function verifyMcpRequest(
 
   const expectedIssuer = `${accountUrl}/auth/v1`;
   const expectedResource = new URL("/api/mcp", request.url).href;
+  const grantedScopes = scopes(claims.scope);
 
   if (
     claims.iss !== expectedIssuer ||
@@ -177,6 +185,10 @@ export async function verifyMcpRequest(
     claims.exp <= Math.floor(Date.now() / 1000)
   ) {
     return unauthorized(request);
+  }
+
+  if (!REQUIRED_SCOPES.every((scope) => grantedScopes.includes(scope))) {
+    return unauthorized(request, "insufficient_scope");
   }
 
   try {
@@ -202,7 +214,7 @@ export async function verifyMcpRequest(
       token,
       userId: user.id,
       clientId: claims.client_id,
-      scopes: scopes(claims.scope),
+      scopes: grantedScopes,
     };
   } catch {
     return unavailable();
