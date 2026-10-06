@@ -129,7 +129,8 @@ const client: SupabaseRpcClient = {
       functionName === "finance_refresh_receipt_match_candidates" ||
       functionName === "finance_refresh_receipt_match_queue" ||
       functionName === "finance_confirm_receipt_transaction_match" ||
-      functionName === "finance_reject_receipt_transaction_match"
+      functionName === "finance_reject_receipt_transaction_match" ||
+      functionName === "finance_unconfirm_receipt_transaction_match"
     ) {
       return { data: {} as T, error: null };
     }
@@ -157,13 +158,15 @@ await service.refreshReceipt("receipt-1", false);
 await service.refreshQueue(50, true);
 await service.confirm({ matchId: "match-1", matchedAmountMinor: 4237 });
 await service.reject("match-1", "wrong transaction");
+await service.unconfirm("match-1", "unlink");
 
-assert(initialized === 6, "initialization hook count failed");
+assert(initialized === 7, "initialization hook count failed");
 assert(calls[0] === "finance_get_receipt_match_dashboard", "dashboard RPC mismatch");
 assert(calls[1] === "finance_get_receipt_match_workspace", "workspace RPC mismatch");
 assert(calls[2] === "finance_refresh_receipt_match_candidates", "refresh receipt RPC mismatch");
 assert(calls[3] === "finance_refresh_receipt_match_queue", "refresh queue RPC mismatch");
 assert(calls[4] === "finance_confirm_receipt_transaction_match", "confirm RPC mismatch");
 assert(calls[5] === "finance_reject_receipt_transaction_match", "reject RPC mismatch");
+assert(calls[6] === "finance_unconfirm_receipt_transaction_match", "unconfirm RPC mismatch");
 
 console.log("P18 receipt matching Supabase adapter fixtures passed");
