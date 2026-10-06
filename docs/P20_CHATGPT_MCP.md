@@ -131,3 +131,38 @@ Code merge is not the same as live ChatGPT activation. Before connecting ChatGPT
 ## P21 handoff
 
 P21 should be live activation, real-user MCP qualification and failure hardening. It should not add write tools until the read-only integration has been qualified with real Finance data and explicit confirmation semantics are designed separately.
+
+## Production hosting state — 2026-10-06
+
+The Vercel production project now exists and must be reused:
+
+- team: `thiepn-project` (`team_LVo30en2fIX29vZH3gnYxmoi`);
+- project: `finance` (`prj_F8B50EMixZcK5BIQKo1OxkeOaE1c`);
+- framework: Vite / Node 24;
+- custom domain: `finance.thiepn.dev` — attached and verified;
+- build: `npm run build`;
+- install: `npm ci`;
+- output: `dist`.
+
+Configured Vercel environment values for production, preview and development:
+
+~~~text
+VITE_SUPABASE_URL=https://bskfihouwdogrunnglbg.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=<THIEPN Core publishable key>
+THIEPN_ACCOUNT_URL=https://hycegznamzjhwinegaai.supabase.co
+THIEPN_ACCOUNT_PUBLISHABLE_KEY=<THIEPN Account publishable key>
+THIEPN_CORE_GATEWAY_URL=https://thiepn-core-gateway.thiepn.workers.dev
+~~~
+
+`THIEPN_FINANCE_MCP_CLIENT_IDS` remains intentionally unset until ChatGPT performs real OAuth dynamic client registration.
+
+The first Git-source deployment attempt targeted reviewed Finance commit
+`6fa996f47c410158fcc78d64da9393132f459aa1` and reached Vercel, but Vercel
+ended it with `git_info_fail` because the Vercel account does not yet have a
+GitHub **Login Connection**. This is an account-provider linkage issue, not a
+Finance build failure.
+
+Do not create a second Finance Vercel project. Add the GitHub Login Connection
+to the existing Vercel account/team, connect `thiepn/finance` to the existing
+`finance` project, and redeploy the reviewed `main` commit. After that, the
+existing `Finance MCP Production Smoke` workflow is the release gate.
