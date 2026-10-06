@@ -682,7 +682,7 @@ export function ReceiptMatchingPage({
                           )
                         }
                         onReject={() =>
-                          matching.rejectMatch(
+                          matching.unconfirmMatch(
                             match.matchId,
                             "Unlinked from receipt matching workspace",
                           )
