@@ -123,7 +123,7 @@ function detectDimension(question: string): AskFinanceDimension {
 
 function detectNecessity(
   question: string,
-): AskFinanceQuery["necessity"] {
+): NonNullable<AskFinanceQuery["necessity"]> | null {
   const q = normalized(question);
   if (/\bessential(s)?\b/.test(q)) return "essential";
   if (/\bflexible\b/.test(q)) return "flexible";
@@ -312,7 +312,7 @@ function percent(value: number | null, locale: string): string {
 function ratioTone(
   value: number | null,
   lowerIsBetter = false,
-): AskFinanceMetric["tone"] {
+): NonNullable<AskFinanceMetric["tone"]> {
   if (value === null || value === 0) return "muted";
   if (lowerIsBetter) return value < 0 ? "positive" : "negative";
   return value > 0 ? "positive" : "negative";
