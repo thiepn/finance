@@ -22,7 +22,7 @@ AskFinanceAnswer + evidence + provenance
 
 ## Authentication
 
-The MCP resource server trusts only THIEPN Account OAuth access tokens issued to an explicitly allowlisted Finance MCP OAuth client and resource-bound to the canonical `https://finance.thiepn.dev/api/mcp` endpoint. It requires a bearer token, validates bounded issuer/subject/expiry/client claims plus the Finance `aud` and `resource` claims, rejects tokens issued to other THIEPN OAuth clients or resources such as Hub, verifies the token against THIEPN Account /auth/v1/user, requires the verified Account UUID to equal the token subject, and forwards the token only to THIEPN Core Gateway.
+The MCP resource server trusts only THIEPN Account OAuth access tokens issued to an explicitly allowlisted Finance MCP OAuth client and resource-bound to the canonical `https://finance.thiepn.dev/api/mcp` endpoint. It requires a bearer token, validates bounded issuer/subject/expiry/client claims, the complete advertised OAuth scope set, plus the Finance `aud` and `resource` claims, rejects tokens issued to other THIEPN OAuth clients or resources such as Hub, verifies the token against THIEPN Account /auth/v1/user, requires the verified Account UUID to equal the token subject, and forwards the token only to THIEPN Core Gateway.
 
 ## Canonical identity correction
 
