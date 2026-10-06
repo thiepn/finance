@@ -36,6 +36,7 @@ Core principles:
 - **P15** — rollover-aware budgets, safe-to-spend, recurring-aware forecasting, category pacing, savings goals and sinking funds: complete
 - **P16** — net worth, balance observations, account history, savings-rate trends, wealth bridge and investment balance reconciliation: complete
 - **P17** — CSV/CAMT/OFX/QFX bank imports, private source files, deduplication, staged review, ledger ingestion and closing-balance reconciliation: complete
+- **P18** — receipt ↔ transaction matching, deterministic candidate scoring, split-payment reconciliation, receipt-derived analytics and Activity de-duplication: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
