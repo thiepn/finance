@@ -14,6 +14,7 @@ import "../planning/planning.css";
 import "../wealth/wealth.css";
 import "../imports/imports.css";
 import "../receipt-matching/receipt-matching.css";
+import "../ask/ask-finance.css";
 
 const root = document.getElementById("root");
 if (!root) {
