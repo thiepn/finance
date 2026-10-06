@@ -18,4 +18,5 @@ export interface FinanceReceiptMatchingService {
   ): Promise<Record<string, unknown>>;
   confirm(input: ConfirmReceiptMatchInput): Promise<Record<string, unknown>>;
   reject(matchId: UUID, note?: string | null): Promise<void>;
+  unconfirm(matchId: UUID, note?: string | null): Promise<void>;
 }
