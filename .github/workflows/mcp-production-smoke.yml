@@ -58,6 +58,13 @@ jobs:
           ) {
             throw new Error("protected-resource authorization server invalid");
           }
+          const expectedScopes = ["openid", "email", "profile", "offline_access"];
+          if (
+            !Array.isArray(metadata.scopes_supported) ||
+            metadata.scopes_supported.join(" ") !== expectedScopes.join(" ")
+          ) {
+            throw new Error("protected-resource OAuth scopes invalid");
+          }
 
           const challengeResponse = await fetch(new URL("/api/mcp", origin), {
             method: "POST",
@@ -82,9 +89,10 @@ jobs:
             challengeResponse.headers.get("www-authenticate") ?? "";
           if (
             !challenge.startsWith("Bearer ") ||
-            !challenge.includes("/.well-known/oauth-protected-resource")
+            !challenge.includes("/.well-known/oauth-protected-resource") ||
+            !challenge.includes('scope="openid email profile offline_access"')
           ) {
-            throw new Error("MCP bearer challenge is missing resource metadata");
+            throw new Error("MCP bearer challenge is missing resource metadata or scopes");
           }
 
           console.log("Finance MCP production smoke passed");
