@@ -22,7 +22,7 @@ AskFinanceAnswer + evidence + provenance
 
 ## Authentication
 
-The MCP resource server trusts only THIEPN Account OAuth access tokens. It requires a bearer token, validates bounded issuer/subject/expiry/client claims, verifies the token against THIEPN Account /auth/v1/user, requires the verified Account UUID to equal the token subject, and forwards the token only to THIEPN Core Gateway.
+The MCP resource server trusts only THIEPN Account OAuth access tokens issued to an explicitly allowlisted Finance MCP OAuth client. It requires a bearer token, validates bounded issuer/subject/expiry/client claims, rejects tokens issued to other THIEPN OAuth clients such as Hub, verifies the token against THIEPN Account /auth/v1/user, requires the verified Account UUID to equal the token subject, and forwards the token only to THIEPN Core Gateway.
 
 ## Canonical identity correction
 
@@ -93,6 +93,7 @@ Finance deployment needs server-side environment values:
 THIEPN_ACCOUNT_URL
 THIEPN_ACCOUNT_PUBLISHABLE_KEY
 THIEPN_CORE_GATEWAY_URL
+THIEPN_FINANCE_MCP_CLIENT_IDS
 ~~~
 
 Account staging flag:
@@ -119,8 +120,8 @@ Code merge is not the same as live ChatGPT activation. Before connecting ChatGPT
 
 1. deploy the Core Gateway revision;
 2. deploy Finance with the three server environment values;
-3. enable the THIEPN Account OAuth 2.1 authorization server;
-4. configure /oauth/consent as its authorization path;
+3. enable the THIEPN Account OAuth 2.1 authorization server and register/determine the dedicated ChatGPT Finance OAuth client id;
+4. configure /oauth/consent as its authorization path and add that client id to THIEPN_FINANCE_MCP_CLIENT_IDS;
 5. enable the Finance Account consent feature flag;
 6. ensure refresh-token / offline_access support is advertised;
 7. connect the remote Finance MCP endpoint from a ChatGPT plan that supports custom read-only MCP apps;
