@@ -156,13 +156,14 @@ THIEPN_CORE_GATEWAY_URL=https://thiepn-core-gateway.thiepn.workers.dev
 
 `THIEPN_FINANCE_MCP_CLIENT_IDS` remains intentionally unset until ChatGPT performs real OAuth dynamic client registration.
 
-The first Git-source deployment attempt targeted reviewed Finance commit
-`6fa996f47c410158fcc78d64da9393132f459aa1` and reached Vercel, but Vercel
-ended it with `git_info_fail` because the Vercel account does not yet have a
-GitHub **Login Connection**. This is an account-provider linkage issue, not a
-Finance build failure.
+Production qualification completed on 2026-10-07:
 
-Do not create a second Finance Vercel project. Add the GitHub Login Connection
-to the existing Vercel account/team, connect `thiepn/finance` to the existing
-`finance` project, and redeploy the reviewed `main` commit. After that, the
-existing `Finance MCP Production Smoke` workflow is the release gate.
+- the Vercel GitHub Login Connection is active and the existing `finance` project is linked to `thiepn/finance`;
+- current Finance `main` was deployed successfully to production;
+- Porkbun DNS resolves `finance.thiepn.dev` to Vercel;
+- Vercel issued an auto-renewing certificate for `finance.thiepn.dev`;
+- the READY Finance deployment is explicitly assigned to the canonical custom domain;
+- `https://finance.thiepn.dev/.well-known/oauth-protected-resource` returns the canonical Finance MCP resource, THIEPN Account authorization server and complete OAuth scope set;
+- the GitHub **Finance MCP Production Smoke** passes, including the unauthenticated MCP `401` and scoped `WWW-Authenticate` challenge.
+
+The production hosting boundary is therefore qualified. `THIEPN_FINANCE_MCP_CLIENT_IDS` remains intentionally unset until a real ChatGPT custom MCP connection performs DCR and yields its actual client UUID.
