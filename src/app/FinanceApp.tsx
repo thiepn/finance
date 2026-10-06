@@ -9,6 +9,7 @@ import { RecurringPage } from "../recurring/RecurringPage.js";
 import { PlanningPage } from "../planning/PlanningPage.js";
 import { WealthPage } from "../wealth/WealthPage.js";
 import { ImportPage } from "../imports/ImportPage.js";
+import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js";
 
 const routeMeta: Record<string, { title: string; icon: IconName }> = {
   overview: { title: "Overview", icon: "overview" },
@@ -145,6 +146,8 @@ export function FinanceApp() {
         />
       ) : activeKey === "recurring" ? (
         <RecurringPage onNavigate={navigate} />
+      ) : activeKey === "receipts" ? (
+        <ReceiptMatchingPage onNavigate={navigate} />
       ) : activeKey === "accounts" ? (
         <WealthPage mode="accounts" onNavigate={navigate} />
       ) : activeKey === "budget" ? (
