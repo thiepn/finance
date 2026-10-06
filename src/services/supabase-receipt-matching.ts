@@ -277,4 +277,16 @@ export class SupabaseFinanceReceiptMatchingService
     );
     rpcError(result, "rejectReceiptTransactionMatch");
   }
+
+  async unconfirm(matchId: UUID, note: string | null = null): Promise<void> {
+    await this.ensureInitialized?.();
+    const result = await this.client.rpc<Record<string, unknown>>(
+      "finance_unconfirm_receipt_transaction_match",
+      {
+        p_match_id: matchId,
+        p_note: note,
+      },
+    );
+    rpcError(result, "unconfirmReceiptTransactionMatch");
+  }
 }
