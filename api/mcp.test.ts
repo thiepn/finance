@@ -130,6 +130,28 @@ assert(
   "wrong OAuth resource must fail before Account lookup",
 );
 
+const missingScope = await POST(
+  request(
+    { jsonrpc: "2.0", id: 24, method: "initialize" },
+    token({ scope: "openid email profile" }),
+  ),
+);
+assert(missingScope.status === 401, "missing OAuth scope must be rejected");
+assert(
+  missingScope.headers.get("WWW-Authenticate")?.includes('error="insufficient_scope"'),
+  "missing OAuth scope must request reauthorization",
+);
+assert(
+  missingScope.headers
+    .get("WWW-Authenticate")
+    ?.includes('scope="openid email profile offline_access"'),
+  "scope challenge must advertise the full Finance OAuth scope set",
+);
+assert(
+  accountCalls === 0,
+  "missing OAuth scope must fail before Account lookup",
+);
+
 const metadata = await getProtectedResource(
   new Request("https://finance.example/.well-known/oauth-protected-resource"),
 );
