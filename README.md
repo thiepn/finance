@@ -38,6 +38,7 @@ Core principles:
 - **P17** — CSV/CAMT/OFX/QFX bank imports, private source files, deduplication, staged review, ledger ingestion and closing-balance reconciliation: complete
 - **P18** — receipt ↔ transaction matching, deterministic candidate scoring, split-payment reconciliation, receipt-derived analytics and Activity de-duplication: complete
 - **P19** — Ask Finance deterministic query engine, typed AI boundary, evidence/provenance answers, entity resolution and responsive question workspace: complete
+- **P20** — read-only ChatGPT/MCP boundary, THIEPN Account OAuth verification, canonical Account UUID gateway, typed Finance tools and prompt-injection hardening: implementation complete; live activation/qualification pending
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
