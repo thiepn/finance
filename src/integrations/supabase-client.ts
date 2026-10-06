@@ -3,6 +3,8 @@ import {
   type PostgrestError,
   type SupabaseClient,
 } from "@supabase/supabase-js";
+import { AskFinanceEngine } from "../ask/ask-finance-engine.js";
+import { SupabaseFinanceActivityService } from "../services/supabase-activity.js";
 import { SupabaseFinanceOverviewService } from "../services/supabase-overview.js";
 import { SupabaseFinanceAnalyticsService } from "../services/supabase-analytics.js";
 import { SupabaseFinanceSpendingExplorerService } from "../services/supabase-spending-explorer.js";
@@ -18,6 +20,7 @@ export interface FinanceBrowserRuntime {
   client: SupabaseClient;
   rpcClient: SupabaseRpcClient;
   ledger: SupabaseFinanceLedgerService;
+  activity: SupabaseFinanceActivityService;
   overview: SupabaseFinanceOverviewService;
   analytics: SupabaseFinanceAnalyticsService;
   spendingExplorer: SupabaseFinanceSpendingExplorerService;
@@ -27,6 +30,7 @@ export interface FinanceBrowserRuntime {
   wealth: SupabaseFinanceWealthService;
   imports: SupabaseFinanceImportService;
   receiptMatching: SupabaseFinanceReceiptMatchingService;
+  askFinance: AskFinanceEngine;
   ensureInitialized(): Promise<void>;
 }
 
@@ -106,6 +110,7 @@ export function createFinanceBrowserRuntime():
   };
 
   const ledger = new SupabaseFinanceLedgerService(rpcClient);
+  const activity = new SupabaseFinanceActivityService(rpcClient);
   const overview = new SupabaseFinanceOverviewService(
     rpcClient,
     ensureInitialized,
@@ -143,11 +148,22 @@ export function createFinanceBrowserRuntime():
     rpcClient,
     ensureInitialized,
   );
+  const askFinance = new AskFinanceEngine({
+    activity,
+    overview,
+    spendingExplorer,
+    productIntelligence,
+    recurring,
+    planning,
+    wealth,
+    receiptMatching,
+  });
 
   runtime = {
     client,
     rpcClient,
     ledger,
+    activity,
     overview,
     analytics,
     spendingExplorer,
@@ -157,6 +173,7 @@ export function createFinanceBrowserRuntime():
     wealth,
     imports,
     receiptMatching,
+    askFinance,
     ensureInitialized,
   };
 
