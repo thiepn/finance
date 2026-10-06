@@ -13,6 +13,7 @@ import "../recurring/recurring.css";
 import "../planning/planning.css";
 import "../wealth/wealth.css";
 import "../imports/imports.css";
+import "../receipt-matching/receipt-matching.css";
 
 const root = document.getElementById("root");
 if (!root) {
