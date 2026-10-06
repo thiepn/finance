@@ -198,6 +198,9 @@ assert(
   "GET rejection must advertise POST",
 );
 
-assert(accountCalls === 4, "unexpected Account token verification count");
+assert(
+  [4].includes(accountCalls),
+  "unexpected Account token verification count",
+);
 
 console.log("Finance P20 MCP HTTP/auth fixtures passed");
