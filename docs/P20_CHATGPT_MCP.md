@@ -22,7 +22,7 @@ AskFinanceAnswer + evidence + provenance
 
 ## Authentication
 
-The MCP resource server trusts only THIEPN Account OAuth access tokens issued to an explicitly allowlisted Finance MCP OAuth client. It requires a bearer token, validates bounded issuer/subject/expiry/client claims, rejects tokens issued to other THIEPN OAuth clients such as Hub, verifies the token against THIEPN Account /auth/v1/user, requires the verified Account UUID to equal the token subject, and forwards the token only to THIEPN Core Gateway.
+The MCP resource server trusts only THIEPN Account OAuth access tokens issued to an explicitly allowlisted Finance MCP OAuth client and resource-bound to the canonical `https://finance.thiepn.dev/api/mcp` endpoint. It requires a bearer token, validates bounded issuer/subject/expiry/client claims plus the Finance `aud` and `resource` claims, rejects tokens issued to other THIEPN OAuth clients or resources such as Hub, verifies the token against THIEPN Account /auth/v1/user, requires the verified Account UUID to equal the token subject, and forwards the token only to THIEPN Core Gateway.
 
 ## Canonical identity correction
 
@@ -57,7 +57,7 @@ Accepts a natural-language finance question and runs the existing P19 determinis
 
 Accepts the typed P19 query contract: intent, question, period, optional dimension/entity/necessity scope, and a bounded result limit. Structured queries still pass through P19 entity resolution.
 
-Both tools are read-only, non-destructive, idempotent, and closed-world.
+Both tools are read-only, non-destructive, idempotent, and closed-world. Each tool declares OAuth 2 with `openid email profile offline_access` in both the standard `securitySchemes` field and the compatibility `_meta.securitySchemes` mirror.
 
 ## Prompt-injection boundary
 
@@ -121,9 +121,9 @@ Code merge is not the same as live ChatGPT activation. Before connecting ChatGPT
 1. deploy the Core Gateway revision;
 2. deploy Finance with the three server environment values;
 3. enable the THIEPN Account OAuth 2.1 authorization server and register/determine the dedicated ChatGPT Finance OAuth client id;
-4. configure /oauth/consent as its authorization path and add that client id to THIEPN_FINANCE_MCP_CLIENT_IDS;
-5. enable the Finance Account consent feature flag;
-6. ensure refresh-token / offline_access support is advertised;
+4. configure /oauth/consent as its authorization path, bind that client id to `https://finance.thiepn.dev/api/mcp` in THIEPN Account, enable the staged Account access-token hook, and add the same client id to `THIEPN_FINANCE_MCP_CLIENT_IDS`;
+5. verify the issued token contains both `aud=https://finance.thiepn.dev/api/mcp` and `resource=https://finance.thiepn.dev/api/mcp`;
+6. enable the Finance Account consent feature flag and verify refresh-token / `offline_access` discovery;
 7. connect the remote Finance MCP endpoint from a ChatGPT plan that supports custom read-only MCP apps;
 8. scan tools and complete Account consent;
 9. run real-user acceptance tests.

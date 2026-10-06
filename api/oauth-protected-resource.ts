@@ -18,6 +18,7 @@ export async function GET(request: Request): Promise<Response> {
       resource,
       authorization_servers: [`${accountUrl}/auth/v1`],
       bearer_methods_supported: ["header"],
+      scopes_supported: ["openid", "email", "profile", "offline_access"],
     },
     {
       headers: {

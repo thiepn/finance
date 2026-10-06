@@ -1,4 +1,5 @@
 import { GET, POST } from "./mcp.js";
+import { GET as getProtectedResource } from "./oauth-protected-resource.js";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -31,6 +32,8 @@ function token(overrides: Record<string, unknown> = {}): string {
       exp: Math.floor(Date.now() / 1000) + 3600,
       client_id: "chatgpt-test-client",
       scope: "openid email profile offline_access",
+      aud: "https://finance.example/api/mcp",
+      resource: "https://finance.example/api/mcp",
       ...overrides,
     }),
     "test-signature",
@@ -103,6 +106,53 @@ assert(
   "unapproved OAuth client must fail before Account lookup",
 );
 
+const wrongAudience = await POST(
+  request(
+    { jsonrpc: "2.0", id: 22, method: "initialize" },
+    token({ aud: "https://another.example/api/mcp" }),
+  ),
+);
+assert(wrongAudience.status === 401, "wrong OAuth audience must be rejected");
+assert(
+  accountCalls === 0,
+  "wrong OAuth audience must fail before Account lookup",
+);
+
+const wrongResource = await POST(
+  request(
+    { jsonrpc: "2.0", id: 23, method: "initialize" },
+    token({ resource: "https://another.example/api/mcp" }),
+  ),
+);
+assert(wrongResource.status === 401, "wrong OAuth resource must be rejected");
+assert(
+  accountCalls === 0,
+  "wrong OAuth resource must fail before Account lookup",
+);
+
+const metadata = await getProtectedResource(
+  new Request("https://finance.example/.well-known/oauth-protected-resource"),
+);
+assert(metadata.status === 200, "protected-resource metadata must succeed");
+const metadataBody = (await metadata.json()) as {
+  resource?: string;
+  authorization_servers?: string[];
+  scopes_supported?: string[];
+};
+assert(
+  metadataBody.resource === "https://finance.example/api/mcp",
+  "protected-resource metadata must advertise the canonical request host resource",
+);
+assert(
+  metadataBody.authorization_servers?.[0] === "https://account.example/auth/v1",
+  "protected-resource metadata must advertise THIEPN Account",
+);
+assert(
+  metadataBody.scopes_supported?.join(" ") ===
+    "openid email profile offline_access",
+  "protected-resource metadata must advertise Finance OAuth scopes",
+);
+
 const initialized = await POST(
   request({
     jsonrpc: "2.0",
@@ -134,6 +184,16 @@ const listedBody = (await listed.json()) as {
   result?: {
     tools?: Array<{
       name?: string;
+      securitySchemes?: Array<{
+        type?: string;
+        scopes?: string[];
+      }>;
+      _meta?: {
+        securitySchemes?: Array<{
+          type?: string;
+          scopes?: string[];
+        }>;
+      };
       annotations?: {
         readOnlyHint?: boolean;
         destructiveHint?: boolean;
@@ -157,6 +217,16 @@ assert(
       tool.annotations?.openWorldHint === false,
   ),
   "every P20 Finance tool must remain explicitly read-only and closed-world",
+);
+assert(
+  listedTools.every(
+    (tool) =>
+      tool.securitySchemes?.[0]?.type === "oauth2" &&
+      tool.securitySchemes?.[0]?.scopes?.join(" ") ===
+        "openid email profile offline_access" &&
+      tool._meta?.securitySchemes?.[0]?.type === "oauth2",
+  ),
+  "every P20 Finance tool must advertise the OAuth policy and compatibility mirror",
 );
 
 const malformed = await POST(
