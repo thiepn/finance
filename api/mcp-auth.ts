@@ -89,6 +89,22 @@ function uuid(value: unknown): value is string {
   );
 }
 
+function unavailable(): Response {
+  return Response.json(
+    {
+      error: "temporarily_unavailable",
+      error_description: "THIEPN Account authentication is unavailable.",
+    },
+    {
+      status: 503,
+      headers: {
+        "Cache-Control": "no-store",
+        "Retry-After": "5",
+      },
+    },
+  );
+}
+
 function unauthorized(request: Request, code = "invalid_token"): Response {
   const resourceMetadata = new URL(
     "/.well-known/oauth-protected-resource",
@@ -124,7 +140,17 @@ export async function verifyMcpRequest(
   const claims = tokenClaims(token);
   if (!claims) return unauthorized(request);
 
-  const accountUrl = env("THIEPN_ACCOUNT_URL").replace(/\/$/, "");
+  let accountUrl: string;
+  let allowedClients: ReadonlySet<string>;
+  let publishableKey: string;
+  try {
+    accountUrl = env("THIEPN_ACCOUNT_URL").replace(/\/$/, "");
+    allowedClients = allowedClientIds();
+    publishableKey = env("THIEPN_ACCOUNT_PUBLISHABLE_KEY");
+  } catch {
+    return unavailable();
+  }
+
   const expectedIssuer = `${accountUrl}/auth/v1`;
 
   if (
@@ -133,7 +159,7 @@ export async function verifyMcpRequest(
     typeof claims.client_id !== "string" ||
     claims.client_id.length < 1 ||
     claims.client_id.length > 512 ||
-    !allowedClientIds().has(claims.client_id) ||
+    !allowedClients.has(claims.client_id) ||
     typeof claims.exp !== "number" ||
     claims.exp <= Math.floor(Date.now() / 1000)
   ) {
@@ -145,7 +171,7 @@ export async function verifyMcpRequest(
       method: "GET",
       headers: {
         Accept: "application/json",
-        apikey: env("THIEPN_ACCOUNT_PUBLISHABLE_KEY"),
+        apikey: publishableKey,
         Authorization: `Bearer ${token}`,
       },
       redirect: "manual",
@@ -166,18 +192,6 @@ export async function verifyMcpRequest(
       scopes: scopes(claims.scope),
     };
   } catch {
-    return Response.json(
-      {
-        error: "temporarily_unavailable",
-        error_description: "THIEPN Account authentication is unavailable.",
-      },
-      {
-        status: 503,
-        headers: {
-          "Cache-Control": "no-store",
-          "Retry-After": "5",
-        },
-      },
-    );
+    return unavailable();
   }
 }
