@@ -48,6 +48,25 @@ function tokenClaims(token: string): TokenClaims | null {
   }
 }
 
+function allowedClientIds(): ReadonlySet<string> {
+  const raw = env("THIEPN_FINANCE_MCP_CLIENT_IDS");
+  const values = raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter(
+      (value) =>
+        value.length >= 1 &&
+        value.length <= 512 &&
+        !/[\u0000-\u001f\u007f]/.test(value),
+    );
+
+  if (values.length < 1) {
+    throw new Error("THIEPN_FINANCE_MCP_CLIENT_IDS is empty");
+  }
+
+  return new Set(values);
+}
+
 function scopes(value: unknown): readonly string[] {
   if (typeof value === "string") {
     return value
@@ -114,6 +133,7 @@ export async function verifyMcpRequest(
     typeof claims.client_id !== "string" ||
     claims.client_id.length < 1 ||
     claims.client_id.length > 512 ||
+    !allowedClientIds().has(claims.client_id) ||
     typeof claims.exp !== "number" ||
     claims.exp <= Math.floor(Date.now() / 1000)
   ) {
