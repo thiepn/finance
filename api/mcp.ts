@@ -262,7 +262,7 @@ function parseQuery(value: unknown): AskFinanceQuery | null {
     ) {
       return null;
     }
-    query.necessity = raw.necessity as AskFinanceQuery["necessity"];
+    query.necessity = raw.necessity as NonNullable<AskFinanceQuery["necessity"]> | null;
   }
 
   if (raw.limit !== undefined) {
