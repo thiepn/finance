@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".tmp-mcp-test",
+    "rootDir": "."
+  },
+  "include": [
+    "api/mcp.test.ts"
+  ]
+}

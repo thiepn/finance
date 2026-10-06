@@ -351,11 +351,15 @@ export class AskFinanceEngine implements FinanceAskService {
       throw new Error(parsed.reason ?? "Finance could not interpret that question.");
     }
 
-    const catalog = await this.deps.activity.getFilterCatalog(null, 100);
-    return this.run(resolveFromCatalog(parsed.query, catalog));
+    return this.run(parsed.query);
   }
 
   async run(query: AskFinanceQuery): Promise<AskFinanceAnswer> {
+    const catalog = await this.deps.activity.getFilterCatalog(null, 100);
+    return this.runResolved(resolveFromCatalog(query, catalog));
+  }
+
+  private async runResolved(query: AskFinanceQuery): Promise<AskFinanceAnswer> {
     switch (query.intent) {
       case "spending":
         return this.spending(query);
