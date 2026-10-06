@@ -27,10 +27,9 @@ interface JsonRpcResponse {
   };
 }
 
-const MCP_VERSION = "2026-07-28";
+const MCP_VERSION = "2025-11-25";
 const SUPPORTED_VERSIONS = new Set([
   MCP_VERSION,
-  "2025-11-25",
   "2025-06-18",
 ]);
 const MAX_BODY_BYTES = 64 * 1024;
@@ -504,27 +503,25 @@ export async function POST(request: Request): Promise<Response> {
 export async function GET(request: Request): Promise<Response> {
   const identity = await verifyMcpRequest(request);
   if (identity instanceof Response) return identity;
-
-  return Response.json(
-    {
-      service: "THIEPN Finance MCP",
-      status: "ready",
-      protocol: MCP_VERSION,
-      tools: tools.map((tool) => tool.name),
+  return new Response("Method not allowed.", {
+    status: 405,
+    headers: {
+      Allow: "POST",
+      "Cache-Control": "no-store",
     },
-    {
-      headers: {
-        "Cache-Control": "no-store",
-        "MCP-Protocol-Version": MCP_VERSION,
-      },
-    },
-  );
+  });
 }
 
 export async function DELETE(request: Request): Promise<Response> {
   const identity = await verifyMcpRequest(request);
   if (identity instanceof Response) return identity;
-  return new Response(null, { status: 204 });
+  return new Response("Method not allowed.", {
+    status: 405,
+    headers: {
+      Allow: "POST",
+      "Cache-Control": "no-store",
+    },
+  });
 }
 
 export async function OPTIONS(): Promise<Response> {
