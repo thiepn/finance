@@ -1,0 +1,91 @@
+name: Finance MCP Production Smoke
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "api/**"
+      - "vercel.json"
+      - ".github/workflows/mcp-production-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: finance-mcp-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify protected-resource metadata and MCP challenge
+        shell: bash
+        env:
+          FINANCE_ORIGIN: https://finance.thiepn.dev
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const origin = process.env.FINANCE_ORIGIN;
+          if (!origin) throw new Error("FINANCE_ORIGIN missing");
+
+          const metadataUrl = new URL(
+            "/.well-known/oauth-protected-resource",
+            origin,
+          );
+          const metadataResponse = await fetch(metadataUrl, {
+            redirect: "error",
+            signal: AbortSignal.timeout(10_000),
+          });
+          if (!metadataResponse.ok) {
+            throw new Error(
+              `protected-resource metadata failed: ${metadataResponse.status}`,
+            );
+          }
+
+          const metadata = await metadataResponse.json();
+          if (metadata.resource !== new URL("/api/mcp", origin).href) {
+            throw new Error("protected-resource metadata has wrong resource");
+          }
+          if (
+            !Array.isArray(metadata.authorization_servers) ||
+            metadata.authorization_servers.length !== 1 ||
+            typeof metadata.authorization_servers[0] !== "string" ||
+            !metadata.authorization_servers[0].endsWith("/auth/v1")
+          ) {
+            throw new Error("protected-resource authorization server invalid");
+          }
+
+          const challengeResponse = await fetch(new URL("/api/mcp", origin), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              id: 1,
+              method: "initialize",
+              params: { protocolVersion: "2026-07-28" },
+            }),
+            redirect: "error",
+            signal: AbortSignal.timeout(10_000),
+          });
+
+          if (challengeResponse.status !== 401) {
+            throw new Error(
+              `unauthenticated MCP request expected 401, got ${challengeResponse.status}`,
+            );
+          }
+
+          const challenge =
+            challengeResponse.headers.get("www-authenticate") ?? "";
+          if (
+            !challenge.startsWith("Bearer ") ||
+            !challenge.includes("/.well-known/oauth-protected-resource")
+          ) {
+            throw new Error("MCP bearer challenge is missing resource metadata");
+          }
+
+          console.log("Finance MCP production smoke passed");
+          NODE
