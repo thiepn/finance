@@ -37,6 +37,7 @@ Core principles:
 - **P16** — net worth, balance observations, account history, savings-rate trends, wealth bridge and investment balance reconciliation: complete
 - **P17** — CSV/CAMT/OFX/QFX bank imports, private source files, deduplication, staged review, ledger ingestion and closing-balance reconciliation: complete
 - **P18** — receipt ↔ transaction matching, deterministic candidate scoring, split-payment reconciliation, receipt-derived analytics and Activity de-duplication: complete
+- **P19** — Ask Finance deterministic query engine, typed AI boundary, evidence/provenance answers, entity resolution and responsive question workspace: complete
 
 Backend project: THIEPN Core  
 Product namespace: `finance`  
