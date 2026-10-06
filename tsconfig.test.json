@@ -61,6 +61,7 @@
     "src/imports/supabase-imports.test.ts",
     "src/domain/receipt-matching.ts",
     "src/services/receipt-matching.ts",
-    "src/services/supabase-receipt-matching.ts"
+    "src/services/supabase-receipt-matching.ts",
+    "src/receipt-matching/supabase-receipt-matching.test.ts"
   ]
 }
