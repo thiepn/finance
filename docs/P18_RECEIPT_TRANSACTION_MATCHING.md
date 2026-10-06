@@ -181,15 +181,17 @@ This lets a receipt match against merchant/account-currency movement without con
 
 ## Receipt-derived analytical allocation
 
-Receipt item categories become analytically authoritative only when the transaction is fully covered by confirmed receipt evidence.
+Receipt item categories become analytically authoritative only when both the transaction and every contributing receipt are fully covered by confirmed receipt evidence.
 
-Until full coverage:
+Until the whole receipt is reconciled:
 
 ~~~text
 effective classification = original ledger classification
 ~~~
 
-After full coverage:
+This is important for split payments: confirming only the first payment does not prematurely distribute receipt items across an incomplete payment set.
+
+After full receipt + transaction coverage:
 
 ~~~text
 effective classification = receipt-derived category / necessity allocation
@@ -368,11 +370,14 @@ Transaction B               €40
 Verified:
 
 - first confirmation → partially_matched;
+- no receipt-derived analytical allocation while the receipt is partial;
+- original ledger classification remains effective during partial coverage;
 - second confirmation → multi_payment_matched;
+- all linked transactions rebuild together when final coverage is reached;
 - allocation totals remain exact;
 - category analytics switch from original ledger classification to receipt item classification;
 - Activity inherits receipt categories;
-- Unlink removes only the affected overlay;
+- Unlink removes the overlay from every now-incomplete linked transaction and restores ledger fallback;
 - rejected candidates are not suggested again.
 
 ### Final post-migration fixture
