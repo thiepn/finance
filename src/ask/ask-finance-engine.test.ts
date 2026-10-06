@@ -67,7 +67,7 @@ const catalog: ActivityFilterCatalog = {
   products: [],
 };
 
-let explorerRequest: Record<string, unknown> | null = null;
+const explorerRequests: Record<string, unknown>[] = [];
 
 const explorer: SpendingExplorer = {
   periodKind: "month",
@@ -140,7 +140,7 @@ const deps = {
   },
   spendingExplorer: {
     async getExplorer(request: Record<string, unknown>) {
-      explorerRequest = request;
+      explorerRequests.push(request);
       return explorer;
     },
   },
@@ -158,9 +158,9 @@ const answer = await engine.ask(
   now,
 );
 
+const explorerRequest = explorerRequests[0];
 assert(
-  explorerRequest !== null &&
-    explorerRequest.categoryId === "category-snacks" &&
+  explorerRequest?.categoryId === "category-snacks" &&
     explorerRequest.merchantId === "merchant-rewe",
   "entity resolution did not scope the explorer query",
 );
