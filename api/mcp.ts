@@ -55,6 +55,12 @@ const necessities = [
   "discretionary",
   "unclassified",
 ] as const;
+const financeSecuritySchemes = [
+  {
+    type: "oauth2",
+    scopes: ["openid", "email", "profile", "offline_access"],
+  },
+] as const;
 
 const tools = [
   {
@@ -75,6 +81,10 @@ const tools = [
       },
       required: ["question"],
       additionalProperties: false,
+    },
+    securitySchemes: financeSecuritySchemes,
+    _meta: {
+      securitySchemes: financeSecuritySchemes,
     },
     annotations: {
       readOnlyHint: true,
@@ -133,6 +143,10 @@ const tools = [
       },
       required: ["intent", "question", "period"],
       additionalProperties: false,
+    },
+    securitySchemes: financeSecuritySchemes,
+    _meta: {
+      securitySchemes: financeSecuritySchemes,
     },
     annotations: {
       readOnlyHint: true,
