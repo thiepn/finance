@@ -110,7 +110,10 @@ export function createFinanceBrowserRuntime():
   };
 
   const ledger = new SupabaseFinanceLedgerService(rpcClient);
-  const activity = new SupabaseFinanceActivityService(rpcClient);
+  const activity = new SupabaseFinanceActivityService(
+    rpcClient,
+    ensureInitialized,
+  );
   const overview = new SupabaseFinanceOverviewService(
     rpcClient,
     ensureInitialized,
