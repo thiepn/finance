@@ -12,6 +12,7 @@ const runtime = globalThis as unknown as {
 runtime.process.env.THIEPN_ACCOUNT_URL = "https://account.example";
 runtime.process.env.THIEPN_ACCOUNT_PUBLISHABLE_KEY = "publishable-test-key";
 runtime.process.env.THIEPN_CORE_GATEWAY_URL = "https://core.example";
+runtime.process.env.THIEPN_FINANCE_MCP_CLIENT_IDS = "chatgpt-test-client";
 
 const userId = "11111111-1111-4111-8111-111111111111";
 
@@ -89,6 +90,18 @@ const wrongIssuer = await POST(
 );
 assert(wrongIssuer.status === 401, "wrong token issuer must be rejected");
 assert(accountCalls === 0, "invalid claims must fail before Account lookup");
+
+const wrongClient = await POST(
+  request(
+    { jsonrpc: "2.0", id: 21, method: "initialize" },
+    token({ client_id: "hub-client" }),
+  ),
+);
+assert(wrongClient.status === 401, "unapproved OAuth client must be rejected");
+assert(
+  accountCalls === 0,
+  "unapproved OAuth client must fail before Account lookup",
+);
 
 const initialized = await POST(
   request({
