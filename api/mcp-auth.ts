@@ -8,6 +8,8 @@ interface TokenClaims {
   exp?: unknown;
   client_id?: unknown;
   scope?: unknown;
+  aud?: unknown;
+  resource?: unknown;
 }
 
 export interface VerifiedMcpIdentity {
@@ -67,6 +69,14 @@ function allowedClientIds(): ReadonlySet<string> {
   return new Set(values);
 }
 
+function audienceIncludes(value: unknown, expected: string): boolean {
+  if (typeof value === "string") return value === expected;
+  return (
+    Array.isArray(value) &&
+    value.some((item) => typeof item === "string" && item === expected)
+  );
+}
+
 function scopes(value: unknown): readonly string[] {
   if (typeof value === "string") {
     return value
@@ -120,7 +130,7 @@ function unauthorized(request: Request, code = "invalid_token"): Response {
       status: 401,
       headers: {
         "Cache-Control": "no-store",
-        "WWW-Authenticate": `Bearer resource_metadata="${resourceMetadata}", error="${code}"`,
+        "WWW-Authenticate": `Bearer resource_metadata="${resourceMetadata}", scope="openid email profile offline_access", error="${code}"`,
       },
     },
   );
@@ -152,9 +162,12 @@ export async function verifyMcpRequest(
   }
 
   const expectedIssuer = `${accountUrl}/auth/v1`;
+  const expectedResource = new URL("/api/mcp", request.url).href;
 
   if (
     claims.iss !== expectedIssuer ||
+    !audienceIncludes(claims.aud, expectedResource) ||
+    claims.resource !== expectedResource ||
     !uuid(claims.sub) ||
     typeof claims.client_id !== "string" ||
     claims.client_id.length < 1 ||
