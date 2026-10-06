@@ -36,6 +36,7 @@ export interface ReceiptMatchingWorkspaceState {
     matchedAmountMinor?: number | null,
   ): Promise<void>;
   rejectMatch(matchId: UUID, note?: string | null): Promise<void>;
+  unconfirmMatch(matchId: UUID, note?: string | null): Promise<void>;
   clearSelection(): void;
 }
 
@@ -201,6 +202,18 @@ export function useReceiptMatchingWorkspace():
     [reloadSelected, runAction, runtime],
   );
 
+  const unconfirmMatch = useCallback(
+    async (matchId: UUID, note: string | null = null) => {
+      if (!runtime) return;
+      await runAction(`match:${matchId}`, async () => {
+        await runtime.receiptMatching.unconfirm(matchId, note);
+        await reloadSelected();
+        setDashboard(await runtime.receiptMatching.getDashboard(80));
+      });
+    },
+    [reloadSelected, runAction, runtime],
+  );
+
   const clearSelection = useCallback(() => {
     setSelectedReceiptId(null);
     setWorkspace(null);
@@ -220,6 +233,7 @@ export function useReceiptMatchingWorkspace():
     refreshReceipt,
     confirmMatch,
     rejectMatch,
+    unconfirmMatch,
     clearSelection,
   };
 }
