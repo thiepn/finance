@@ -209,7 +209,11 @@ export function AppShell({
               placeholder="Search activity, products, merchants…"
               shortcut="⌘ K"
             />
-            <Button icon="ask" variant="secondary">
+            <Button
+              icon="ask"
+              onClick={() => navigate("ask")}
+              variant="secondary"
+            >
               Ask
             </Button>
             <Button

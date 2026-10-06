@@ -222,13 +222,18 @@ function parseFilterProduct(value: unknown): ActivityFilterProduct {
 }
 
 export class SupabaseFinanceActivityService implements FinanceActivityService {
-  constructor(private readonly client: SupabaseRpcClient) {}
+  constructor(
+    private readonly client: SupabaseRpcClient,
+    private readonly ensureInitialized?: () => Promise<void>,
+  ) {}
 
   async search(
     filters: ActivitySearchFilters = {},
     limit = 50,
     cursor: ActivityCursor | null = null,
   ): Promise<ActivitySearchPage> {
+    await this.ensureInitialized?.();
+
     const result = await this.client.rpc<Record<string, unknown>>(
       "finance_search_activity",
       {
@@ -255,6 +260,8 @@ export class SupabaseFinanceActivityService implements FinanceActivityService {
     entityKind: ActivityEntityKind,
     entityId: UUID,
   ): Promise<ActivityDetail> {
+    await this.ensureInitialized?.();
+
     const result = await this.client.rpc<Record<string, unknown>>(
       "finance_get_activity_detail",
       {
@@ -309,6 +316,8 @@ export class SupabaseFinanceActivityService implements FinanceActivityService {
     productQuery: string | null = null,
     productLimit = 50,
   ): Promise<ActivityFilterCatalog> {
+    await this.ensureInitialized?.();
+
     const result = await this.client.rpc<Record<string, unknown>>(
       "finance_get_activity_filter_catalog",
       {

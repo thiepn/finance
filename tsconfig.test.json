@@ -62,6 +62,9 @@
     "src/domain/receipt-matching.ts",
     "src/services/receipt-matching.ts",
     "src/services/supabase-receipt-matching.ts",
-    "src/receipt-matching/supabase-receipt-matching.test.ts"
+    "src/receipt-matching/supabase-receipt-matching.test.ts",
+    "src/services/ask-finance.ts",
+    "src/ask/ask-finance-engine.ts",
+    "src/ask/ask-finance-engine.test.ts"
   ]
 }
