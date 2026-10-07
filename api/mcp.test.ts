@@ -13,7 +13,7 @@ const runtime = globalThis as unknown as {
 runtime.process.env.THIEPN_ACCOUNT_URL = "https://account.example";
 runtime.process.env.THIEPN_ACCOUNT_PUBLISHABLE_KEY = "publishable-test-key";
 runtime.process.env.THIEPN_CORE_GATEWAY_URL = "https://core.example";
-runtime.process.env.THIEPN_FINANCE_MCP_CLIENT_IDS = "chatgpt-test-client";
+
 
 const userId = "11111111-1111-4111-8111-111111111111";
 
@@ -30,7 +30,7 @@ function token(overrides: Record<string, unknown> = {}): string {
       iss: "https://account.example/auth/v1",
       sub: userId,
       exp: Math.floor(Date.now() / 1000) + 3600,
-      client_id: "chatgpt-test-client",
+      client_id: "77777777-7777-4777-8777-777777777777",
       scope: "openid email profile offline_access",
       aud: "https://finance.example/api/mcp",
       resource: "https://finance.example/api/mcp",
@@ -94,16 +94,16 @@ const wrongIssuer = await POST(
 assert(wrongIssuer.status === 401, "wrong token issuer must be rejected");
 assert(accountCalls === 0, "invalid claims must fail before Account lookup");
 
-const wrongClient = await POST(
+const malformedClient = await POST(
   request(
     { jsonrpc: "2.0", id: 21, method: "initialize" },
-    token({ client_id: "hub-client" }),
+    token({ client_id: "not-a-uuid" }),
   ),
 );
-assert(wrongClient.status === 401, "unapproved OAuth client must be rejected");
+assert(malformedClient.status === 401, "malformed OAuth client id must be rejected");
 assert(
   accountCalls === 0,
-  "unapproved OAuth client must fail before Account lookup",
+  "malformed OAuth client id must fail before Account lookup",
 );
 
 const wrongAudience = await POST(
