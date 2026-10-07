@@ -10,7 +10,7 @@ P21 makes `finance.thiepn.dev` the primary conversational Finance surface and tr
 
 ```text
 Finance browser
-  -> existing THIEPN Account session
+  -> existing authenticated Finance session
   -> THIEPN Core /v1/finance/ai/interpret
   -> signed internal request as appId=finance
   -> thiepn/ai finance.interpretQuestion
@@ -47,7 +47,9 @@ Merchant, category, and product names remain resolved against the authoritative 
 
 AI is an enhancement, not a dependency.
 
-If the Core AI bridge is unavailable, the app secret is missing, Luna times out, a usage limit is reached, or the returned structure is invalid, Ask Finance automatically retries with the existing deterministic P19 parser.
+Ask Finance runs the deterministic P19 parser first. Only questions that cannot be represented by that fast path are sent for Luna interpretation. This avoids unnecessary latency and model cost.
+
+If the AI path is unavailable, every question already supported by P19 continues to work without any model request.
 
 Therefore:
 
@@ -75,6 +77,6 @@ P21 is complete when:
 
 1. AI, Core, and Finance CI pass.
 2. Production secrets/configuration are active.
-3. A signed-in Finance browser successfully answers a question that the old keyword parser cannot understand.
-4. The same browser still answers a supported deterministic question when the AI path is deliberately unavailable.
+3. A signed-in Finance browser successfully answers a question that the deterministic parser cannot understand.
+4. A supported deterministic question makes zero AI requests and still succeeds when the AI path is unavailable.
 5. No Finance records or Account identity appear in AI request payloads.
