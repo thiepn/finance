@@ -182,7 +182,7 @@ export function createFinanceAiInterpreter(
   return async (question: string, now: Date): Promise<AskFinanceParseResult> => {
     const session = await client.auth.getSession();
     const token = session.data.session?.access_token;
-    if (!token) throw new Error("THIEPN Account session is unavailable.");
+    if (!token) throw new Error("Finance session is unavailable.");
 
     const response = await fetch(`${baseUrl}/v1/finance/ai/interpret`, {
       method: "POST",
