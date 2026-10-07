@@ -166,3 +166,12 @@ Do not create a second Finance Vercel project. Add the GitHub Login Connection
 to the existing Vercel account/team, connect `thiepn/finance` to the existing
 `finance` project, and redeploy the reviewed `main` commit. After that, the
 existing `Finance MCP Production Smoke` workflow is the release gate.
+
+
+## Personal / Plus distribution
+
+Direct custom-MCP developer mode is not the primary distribution path for personal ChatGPT accounts. THIEPN Finance therefore packages the same production MCP server as a public Plugin Directory submission.
+
+The public plugin source is in `plugin/`, and the complete submission/review checklist is in `docs/P20_PLUS_PLUGIN_SUBMISSION.md`.
+
+After OpenAI approves and the publisher releases the plugin, eligible personal accounts can install THIEPN Finance from the universal Plugins Directory and complete the same THIEPN Account OAuth flow. The deterministic P19 engine, Core Gateway, OAuth boundaries, and read-only tool contracts remain identical across direct-MCP and Plugin Directory distribution.
