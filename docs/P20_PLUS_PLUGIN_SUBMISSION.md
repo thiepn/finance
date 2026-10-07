@@ -189,10 +189,10 @@ No tool accepts:
 
 - [ ] OpenAI Platform organization has Apps Management Write.
 - [ ] Developer or business identity is verified.
-- [ ] `finance.thiepn.dev` resolves publicly and the production MCP smoke is green.
-- [ ] Public website/support/privacy/terms URLs return 200.
+- [x] `finance.thiepn.dev` resolves publicly and canonical-host MCP/OAuth qualification is green.
+- [x] Public website/support/privacy/terms URLs return 200.
 - [ ] Reviewer account and synthetic fixture are ready.
-- [ ] Upload the plugin ZIP containing the complete `plugin/` directory.
+- [ ] Upload the plugin ZIP containing the complete `plugin/` directory. Repository CI already validates the package contents with `npm run validate:plugin`.
 - [ ] Select **With MCP** and **Universal** MCP URL.
 - [ ] Connect `https://finance.thiepn.dev/api/mcp`.
 - [ ] Complete domain verification if requested.

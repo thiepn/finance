@@ -131,19 +131,19 @@ Code merge is not the same as live ChatGPT activation. Before connecting ChatGPT
 
 P21 should be live activation, real-user MCP qualification and failure hardening. It should not add write tools until the read-only integration has been qualified with real Finance data and explicit confirmation semantics are designed separately.
 
-## Production hosting state — 2026-10-06
+## Production qualification — 2026-10-07
 
-The Vercel production project now exists and must be reused:
+The Finance MCP production path is live and qualified:
 
-- team: `thiepn-project` (`team_LVo30en2fIX29vZH3gnYxmoi`);
-- project: `finance` (`prj_F8B50EMixZcK5BIQKo1OxkeOaE1c`);
-- framework: Vite / Node 24;
-- custom domain: `finance.thiepn.dev` — attached and verified;
-- build: `npm run build`;
-- install: `npm ci`;
-- output: `dist`.
+- Vercel team: `thiepn-project` (`team_LVo30en2fIX29vZH3gnYxmoi`);
+- Vercel project: `finance` (`prj_F8B50EMixZcK5BIQKo1OxkeOaE1c`);
+- Git source: `thiepn/finance` on `main`;
+- verified custom domain: `https://finance.thiepn.dev`;
+- canonical MCP resource: `https://finance.thiepn.dev/api/mcp`;
+- protected-resource metadata: `https://finance.thiepn.dev/.well-known/oauth-protected-resource`;
+- Core Gateway: `https://thiepn-core-gateway.thiepn.workers.dev`.
 
-Configured Vercel environment values for production, preview and development:
+Production environment values are configured for production, preview and development:
 
 ~~~text
 VITE_SUPABASE_URL=https://bskfihouwdogrunnglbg.supabase.co
@@ -153,18 +153,29 @@ THIEPN_ACCOUNT_PUBLISHABLE_KEY=<THIEPN Account publishable key>
 THIEPN_CORE_GATEWAY_URL=https://thiepn-core-gateway.thiepn.workers.dev
 ~~~
 
-Public Plugin Directory installs require no per-client Vercel allowlist. Account performs automatic per-session DCR resource binding; Finance validates the resulting client UUID, audience, resource, issuer, subject, expiry and scopes.
+The real ChatGPT client allowlist remains intentionally dynamic: no guessed client UUID is configured. The actual client must come from the ChatGPT/OpenAI connection DCR flow and then be bound through THIEPN Account.
 
-The first Git-source deployment attempt targeted reviewed Finance commit
-`6fa996f47c410158fcc78d64da9393132f459aa1` and reached Vercel, but Vercel
-ended it with `git_info_fail` because the Vercel account does not yet have a
-GitHub **Login Connection**. This is an account-provider linkage issue, not a
-Finance build failure.
+Canonical-host qualification from an external Vercel sandbox passed all of these assertions:
 
-Do not create a second Finance Vercel project. Add the GitHub Login Connection
-to the existing Vercel account/team, connect `thiepn/finance` to the existing
-`finance` project, and redeploy the reviewed `main` commit. After that, the
-existing `Finance MCP Production Smoke` workflow is the release gate.
+- public DNS/TLS for `finance.thiepn.dev`;
+- protected-resource metadata returns HTTP 200;
+- metadata advertises the canonical Finance resource, THIEPN Account authorization server, and `openid email profile offline_access`;
+- unauthenticated MCP initialization returns HTTP 401;
+- `WWW-Authenticate` advertises the protected-resource metadata URL and complete OAuth scope set;
+- THIEPN Account OAuth discovery returns HTTP 200;
+- DCR registration endpoint is advertised;
+- PKCE `S256`, authorization-code flow, refresh-token flow and public-client `none` token exchange are advertised;
+- `offline_access` is advertised.
+
+A real hosted DCR transaction was also qualified with a temporary synthetic client. Account returned HTTP 201 with a public, dynamic client using `token_endpoint_auth_method=none`, authorization-code + refresh grants and the requested scopes. The fixture client and any binding were deleted immediately afterward; post-test counts were zero.
+
+Public review/support surfaces are also live:
+
+- `/` → 200;
+- `/support` → 200;
+- `/privacy` → 200;
+- `/terms` → 200;
+- `/.well-known/openai-apps-challenge` → 404 until a portal-issued challenge token is configured, by design.
 
 
 ## Personal / Plus distribution
