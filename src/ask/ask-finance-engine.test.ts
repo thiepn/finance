@@ -173,4 +173,56 @@ assert(
   "Ask Finance must expose deterministic provenance",
 );
 
-console.log("Ask Finance P19 fixtures passed");
+const aiEngine = new AskFinanceEngine({
+  ...deps,
+  interpretQuestion: async (question) => ({
+    query: {
+      intent: "spending",
+      question,
+      period: {
+        kind: "month",
+        anchorDate: "2026-09-15",
+        label: "last month",
+      },
+      limit: 8,
+    },
+    reason: null,
+  }),
+});
+
+const germanAnswer = await aiEngine.ask(
+  "Was habe ich letzten Monat bei REWE ausgegeben?",
+  now,
+);
+assert(
+  germanAnswer.query.question ===
+    "Was habe ich letzten Monat bei REWE ausgegeben?",
+  "AI interpretation must preserve the original question",
+);
+assert(
+  germanAnswer.query.intent === "spending",
+  "AI interpretation did not reach deterministic execution",
+);
+
+let unnecessaryAiCalls = 0;
+const fallbackEngine = new AskFinanceEngine({
+  ...deps,
+  interpretQuestion: async () => {
+    unnecessaryAiCalls += 1;
+    throw new Error("AI unavailable");
+  },
+});
+const fallbackAnswer = await fallbackEngine.ask(
+  "How much did I spend on Snacks at REWE?",
+  now,
+);
+assert(
+  fallbackAnswer.metrics[0]?.valueMinor === 800,
+  "deterministic P19 behavior must remain available without AI",
+);
+assert(
+  unnecessaryAiCalls === 0,
+  "supported deterministic questions must not spend an AI request",
+);
+
+console.log("Ask Finance P19/P21 fixtures passed");

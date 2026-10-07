@@ -4,6 +4,7 @@ import {
   type SupabaseClient,
 } from "@supabase/supabase-js";
 import { AskFinanceEngine } from "../ask/ask-finance-engine.js";
+import { createFinanceAiInterpreter } from "../ask/finance-ai-interpreter.js";
 import { SupabaseFinanceActivityService } from "../services/supabase-activity.js";
 import { SupabaseFinanceOverviewService } from "../services/supabase-overview.js";
 import { SupabaseFinanceAnalyticsService } from "../services/supabase-analytics.js";
@@ -151,6 +152,10 @@ export function createFinanceBrowserRuntime():
     rpcClient,
     ensureInitialized,
   );
+  const interpretQuestion = createFinanceAiInterpreter(
+    client,
+    import.meta.env.VITE_THIEPN_CORE_GATEWAY_URL,
+  );
   const askFinance = new AskFinanceEngine({
     activity,
     overview,
@@ -160,6 +165,7 @@ export function createFinanceBrowserRuntime():
     planning,
     wealth,
     receiptMatching,
+    ...(interpretQuestion ? { interpretQuestion } : {}),
   });
 
   runtime = {

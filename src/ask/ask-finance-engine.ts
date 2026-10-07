@@ -33,6 +33,10 @@ export interface AskFinanceDependencies {
   planning: FinancePlanningService;
   wealth: FinanceWealthService;
   receiptMatching: FinanceReceiptMatchingService;
+  interpretQuestion?: (
+    question: string,
+    now: Date,
+  ) => Promise<AskFinanceParseResult>;
 }
 
 function normalized(value: string): string {
@@ -346,12 +350,35 @@ export class AskFinanceEngine implements FinanceAskService {
   constructor(private readonly deps: AskFinanceDependencies) {}
 
   async ask(question: string, now = new Date()): Promise<AskFinanceAnswer> {
-    const parsed = parseAskFinanceQuestion(question, now);
-    if (!parsed.query) {
-      throw new Error(parsed.reason ?? "Finance could not interpret that question.");
+    const deterministic = parseAskFinanceQuestion(question, now);
+    if (deterministic.query) {
+      return this.run(deterministic.query);
     }
 
-    return this.run(parsed.query);
+    if (!this.deps.interpretQuestion) {
+      throw new Error(
+        deterministic.reason ?? "Finance could not interpret that question.",
+      );
+    }
+
+    try {
+      const interpreted = await this.deps.interpretQuestion(question, now);
+      if (!interpreted.query) {
+        throw new Error(
+          interpreted.reason ??
+            deterministic.reason ??
+            "Finance could not interpret that question.",
+        );
+      }
+      return this.run(interpreted.query);
+    } catch (error) {
+      throw new Error(
+        error instanceof Error && error.message
+          ? error.message
+          : deterministic.reason ??
+              "Finance could not interpret that question.",
+      );
+    }
   }
 
   async run(query: AskFinanceQuery): Promise<AskFinanceAnswer> {
