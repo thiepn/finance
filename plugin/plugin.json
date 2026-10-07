@@ -1,0 +1,22 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "thiepn-finance",
+  "version": "1.0.0",
+  "description": "Ask questions about your THIEPN Finance data using deterministic calculations, evidence, and provenance.",
+  "homepage": "https://finance.thiepn.dev",
+  "repository": "https://github.com/thiepn/finance",
+  "keywords": [
+    "finance",
+    "personal-finance",
+    "spending",
+    "budget",
+    "receipts"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "THIEPN Finance"
+      }
+    }
+  }
+}

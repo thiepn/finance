@@ -4,6 +4,22 @@
     {
       "source": "/.well-known/oauth-protected-resource",
       "destination": "/api/oauth-protected-resource"
+    },
+    {
+      "source": "/.well-known/openai-apps-challenge",
+      "destination": "/api/openai-apps-challenge"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/api/privacy"
+    },
+    {
+      "source": "/terms",
+      "destination": "/api/terms"
+    },
+    {
+      "source": "/support",
+      "destination": "/api/support"
     }
   ],
   "functions": {
