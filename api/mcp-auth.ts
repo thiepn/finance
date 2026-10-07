@@ -57,6 +57,14 @@ function tokenClaims(token: string): TokenClaims | null {
   }
 }
 
+function audienceIncludes(value: unknown, expected: string): boolean {
+  if (typeof value === "string") return value === expected;
+  return (
+    Array.isArray(value) &&
+    value.some((item) => typeof item === "string" && item === expected)
+  );
+}
+
 function scopes(value: unknown): readonly string[] {
   if (typeof value === "string") {
     return value
