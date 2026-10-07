@@ -204,9 +204,11 @@ assert(
   "AI interpretation did not reach deterministic execution",
 );
 
+let unnecessaryAiCalls = 0;
 const fallbackEngine = new AskFinanceEngine({
   ...deps,
   interpretQuestion: async () => {
+    unnecessaryAiCalls += 1;
     throw new Error("AI unavailable");
   },
 });
@@ -216,7 +218,11 @@ const fallbackAnswer = await fallbackEngine.ask(
 );
 assert(
   fallbackAnswer.metrics[0]?.valueMinor === 800,
-  "deterministic fallback must preserve P19 behavior",
+  "deterministic P19 behavior must remain available without AI",
+);
+assert(
+  unnecessaryAiCalls === 0,
+  "supported deterministic questions must not spend an AI request",
 );
 
 console.log("Ask Finance P19/P21 fixtures passed");
