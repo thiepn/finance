@@ -65,11 +65,11 @@ Finance deterministic calculations authoritative: yes
 Code requires:
 
 - `VITE_THIEPN_CORE_GATEWAY_URL` in Finance;
-- `finance` added to `THIEPN_AI_APP_SECRETS_JSON` in the AI service;
-- matching `THIEPN_AI_FINANCE_SECRET` in the Core Worker;
+- `THIEPN_AI_FINANCE_SECRET` in the AI service;
+- the same `THIEPN_AI_FINANCE_SECRET` in the Core Worker;
 - production Core CORS allowing `https://finance.thiepn.dev`.
 
-The two HMAC secret values must be identical and must be independent from the Languages secret.
+The Finance HMAC secret must be identical on both services and independent from the Languages secret.
 
 ## Exit criteria
 
