@@ -64,6 +64,8 @@
     "src/services/supabase-receipt-matching.ts",
     "src/receipt-matching/supabase-receipt-matching.test.ts",
     "src/services/ask-finance.ts",
+    "src/ask/finance-ai-interpreter.ts",
+    "src/ask/finance-ai-interpreter.test.ts",
     "src/ask/ask-finance-engine.ts",
     "src/ask/ask-finance-engine.test.ts"
   ]
