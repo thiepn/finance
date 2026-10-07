@@ -350,32 +350,35 @@ export class AskFinanceEngine implements FinanceAskService {
   constructor(private readonly deps: AskFinanceDependencies) {}
 
   async ask(question: string, now = new Date()): Promise<AskFinanceAnswer> {
-    let parsed: AskFinanceParseResult | null = null;
-
-    if (this.deps.interpretQuestion) {
-      try {
-        parsed = await this.deps.interpretQuestion(question, now);
-      } catch {
-        parsed = null;
-      }
+    const deterministic = parseAskFinanceQuestion(question, now);
+    if (deterministic.query) {
+      return this.run(deterministic.query);
     }
 
-    if (!parsed?.query) {
-      const deterministic = parseAskFinanceQuestion(question, now);
-      if (deterministic.query) {
-        parsed = deterministic;
-      } else if (!parsed) {
-        parsed = deterministic;
-      }
-    }
-
-    if (!parsed?.query) {
+    if (!this.deps.interpretQuestion) {
       throw new Error(
-        parsed?.reason ?? "Finance could not interpret that question.",
+        deterministic.reason ?? "Finance could not interpret that question.",
       );
     }
 
-    return this.run(parsed.query);
+    try {
+      const interpreted = await this.deps.interpretQuestion(question, now);
+      if (!interpreted.query) {
+        throw new Error(
+          interpreted.reason ??
+            deterministic.reason ??
+            "Finance could not interpret that question.",
+        );
+      }
+      return this.run(interpreted.query);
+    } catch (error) {
+      throw new Error(
+        error instanceof Error && error.message
+          ? error.message
+          : deterministic.reason ??
+              "Finance could not interpret that question.",
+      );
+    }
   }
 
   async run(query: AskFinanceQuery): Promise<AskFinanceAnswer> {
