@@ -236,8 +236,8 @@ export function AskFinancePage({ onNavigate }: AskFinancePageProps) {
           </span>
           <span>
             <Icon name="ask" size={14} />
-            No ChatGPT subscription is required; AI interpretation falls back
-            to the deterministic parser if unavailable.
+            No ChatGPT subscription is required; questions supported by the
+            deterministic parser keep working even if AI is unavailable.
           </span>
           <span>
             <Icon name="receipt" size={14} />
