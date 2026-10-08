@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+import assert from "node:assert/strict";
+import fs from "node:fs";
+const app=fs.readFileSync("src/app/FinanceAppV2.tsx","utf8");
+const page=fs.readFileSync("src/activity/ActivityPage.tsx","utf8");
+const workspace=fs.readFileSync("src/activity/ActivityWorkspace.tsx","utf8");
+const detail=fs.readFileSync("src/activity/ActivityRecordPage.tsx","utf8");
+const composer=fs.readFileSync("src/activity/TransactionComposer.tsx","utf8");
+const model=fs.readFileSync("src/activity/activity-workspace-model.ts","utf8");
+assert(page.includes("ActivityWorkspace.js"),"Live Activity route is not mounted");
+assert(app.includes('case "activity":return <ActivityPage onNavigate={navigate}/>;'),"App route not wired");
+assert(app.includes('case "activity-detail":return <ActivityRecordPage'),"Transaction detail still placeholder");
+assert(app.includes('case "receipt-detail":return <ActivityRecordPage'),"Receipt detail still placeholder");
+assert(workspace.includes("controller.search")&&workspace.includes("controller.getFilterCatalog"),"Missing real data queries");
+assert(detail.includes('controller.getDetail')&&detail.includes('ledger.voidTransaction'),"Missing live detail/void paths");
+assert(detail.includes("reason.trim().length<10")&&detail.includes("!confirmed"),"Accidental void guard missing");
+assert(composer.includes("validateAllocationsForPosting")&&composer.includes("transactionId=await runtime.ledger.create"),"Category splits not connected to RPC");
+assert(!workspace.includes("fixture")&&!app.includes("activity-workspace-preview"),"Synthetic workspace mounted in production");
+assert(model.includes('entityKind==="receipt"')&&model.includes('!item.financialEffect'),"Receipt evidence and posting not distinguished");
+assert(workspace.includes("loadMore")&&workspace.includes("nextCursor"),"Cursor pagination missing");
+assert(workspace.includes('role="region"')&&workspace.includes("scope=\"col\""),"Accessible ledger table missing");
+console.log("P29 production routes, private ledger APIs, guarded void, split-safe composer, and synthetic isolation passed");
