@@ -53,7 +53,7 @@ try{
     }
     if(scenario==="overspent"){
       const txt=await page.locator(".sc-plan-position").innerText();
-      if(!txt.includes("Over budget")||!txt.includes("-"))failures.push(id+": overrun not visibly disclosed");
+      if(!txt.toLocaleLowerCase().includes("over budget")||!/[-−]/.test(txt))failures.push(id+": overrun not visibly disclosed");
     }
     if(scenario==="no-plan"&&await page.getByRole("button",{name:"Create budget"}).count()!==1)failures.push(id+": setup action unavailable");
    }catch(e){item.error=String(e).slice(0,350);failures.push(id+": "+item.error)}
