@@ -47,6 +47,7 @@ export function FinanceV2Shell({children,routeId,section,title,onNavigate,onSign
  const {theme,toggle}=useTheme();
  const [menuOpen,setMenuOpen]=useState(false);
  const [loggingOut,setLoggingOut]=useState(false);
+ const [signOutError,setSignOutError]=useState(false);
  const menuRef=useRef<HTMLDivElement>(null);
  const mainRef=useRef<HTMLElement>(null);
  const previous=useRef<string|undefined>(undefined);
@@ -75,7 +76,7 @@ export function FinanceV2Shell({children,routeId,section,title,onNavigate,onSign
       event.preventDefault();go(id);
     }}>{icon?<Icon name={icon} size={18}/>:null}<span>{label}</span></a>;
  };
- const signOut=async()=>{setLoggingOut(true);try{await onSignOut()}finally{setLoggingOut(false);}};
+ const signOut=async()=>{setLoggingOut(true);setSignOutError(false);try{await onSignOut()}catch{setSignOutError(true);}finally{setLoggingOut(false);}};
  return <SignalCurrentScope theme={theme} className="sc-app">
    <a href="#finance-main" className="sc-skip" onClick={e=>{e.preventDefault();mainRef.current?.focus();}}>Skip to content</a>
    <aside className="sc-app-sidebar" aria-label="Finance workspace">
@@ -105,7 +106,8 @@ export function FinanceV2Shell({children,routeId,section,title,onNavigate,onSign
          <div className="sc-app-more" ref={menuRef}>
            <button type="button" className="sc-app-more-button" aria-controls="finance-more-list" aria-expanded={menuOpen} onClick={()=>setMenuOpen(v=>!v)} onKeyDown={e=>{if(e.key==="Escape")setMenuOpen(false)}}>More <span aria-hidden="true">⌄</span></button>
            {menuOpen?<div id="finance-more-list" className="sc-app-more-list">{more.map(item=>link(item.id,item.label,undefined,"sc-app-more-link"))}
-             <button disabled={loggingOut} onClick={()=>void signOut()} type="button" className="sc-app-more-link">Sign out</button></div>:null}
+             <button disabled={loggingOut} onClick={()=>void signOut()} type="button" className="sc-app-more-link">Sign out</button>
+             {signOutError?<p role="alert" className="sc-app-more-error">Sign-out failed. Try again.</p>:null}</div>:null}
          </div>
        </div>
      </header>
