@@ -3,6 +3,7 @@ import type {PlanningDashboard,PlanningAllocation,PlanningGoal,BudgetPeriodKind,
 import {usePlanningWorkspace,type PlanningWorkspace} from "./use-planning.js";
 import {FinanceButton,MoneyValue,FinanceTrend,DataProvenance,FinancialState} from "../ui/v2/SignalCurrent.js";
 import {Icon} from "../ui/icons/Icon.js";
+import {currencyMinorDigits} from "../ui/v2/finance-presentation.js";
 import {actionableBudgetCount,budgetFraction,budgetOutcomeLabel,minorToPlanInput,orderedAllocations,
  planForecastPoints,planMoneyToMinor,validPlanAnchor,verifiedPlanMoney,isEligibleGoalMovement} from "./signal-plan-model.js";
 import "./signal-plan.css";
@@ -140,7 +141,8 @@ function PlanGoals({board,workspace}:{board:PlanningDashboard;workspace:Planning
 function GoalRow({goal,board,workspace}:{goal:PlanningGoal;board:PlanningDashboard;workspace:PlanningWorkspace}){
  const [raw,setRaw]=useState(""),[confirmWithdraw,setConfirmWithdraw]=useState(false);
  const minor=planMoneyToMinor(raw,false),percentage=budgetFraction(goal.fundedMinor,goal.targetMinor);
- const ready=(kind:"contribution"|"withdrawal")=>minor!==null&&isEligibleGoalMovement(goal.goalId,minor,kind,board)&&!workspace.busyKey;
+ const currencySupported=currencyMinorDigits(goal.currencyCode)===2;
+ const ready=(kind:"contribution"|"withdrawal")=>currencySupported&&minor!==null&&isEligibleGoalMovement(goal.goalId,minor,kind,board)&&!workspace.busyKey;
  const submit=(kind:"contribution"|"withdrawal")=>{
    if(!ready(kind)||minor===null)return;
    if(kind==="withdrawal"&&!confirmWithdraw){setConfirmWithdraw(true);return;}
@@ -156,6 +158,7 @@ function GoalRow({goal,board,workspace}:{goal:PlanningGoal;board:PlanningDashboa
       aria-valuenow={percentage??0} aria-valuemin={0} aria-valuemax={100}><span style={{width:(percentage??0)+"%"}}/></div>
    <p>{goal.targetDate?"Target "+dateLabel(goal.targetDate,board.profile.locale,board.profile.timeZone):"No target date"}
      {goal.requiredMonthlyMinor>0?" · Required monthly "+new Intl.NumberFormat(board.profile.locale,{style:"currency",currency:goal.currencyCode}).format(goal.requiredMonthlyMinor/100):""}</p>
+   {!currencySupported?<p className="sc-plan-error">Manual movement is disabled for this currency until exact minor-unit support is qualified.</p>:null}
    {goal.status==="active"?<div className="sc-plan-goal__actions">
      <label>Movement · {goal.currencyCode}<input inputMode="decimal" value={raw} onChange={e=>{setRaw(e.target.value);setConfirmWithdraw(false)}} placeholder="0,00"/></label>
      <FinanceButton variant="secondary" disabled={!ready("contribution")} onClick={()=>submit("contribution")}>Contribute</FinanceButton>
