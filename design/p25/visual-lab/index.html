@@ -6,7 +6,7 @@
 <title>THIEPN Finance · P25 design laboratory (synthetic fixtures)</title>
 <link rel="stylesheet" href="./visual-lab.css">
 </head>
-<body data-direction="a" data-device="desktop" data-screen="home">
+<body data-direction="b" data-device="desktop" data-screen="home">
 <div class="lab-toolbar">
  <div class="lab-brand"><strong>P25 · Finance Visual Lab</strong><span>Three distinct directions • synthetic data • not the live app</span></div>
  <div class="lab-controls">
@@ -151,7 +151,7 @@
 </div>
 <script>
 (()=>{const params=new URLSearchParams(location.search);const dir=document.getElementById("direction"),device=document.getElementById("device"),screen=document.getElementById("screen"),mode=document.getElementById("mode");
-let which=params.get("direction")||"a",dev=params.get("device")||"desktop",view=params.get("screen")||"home",theme=params.get("mode")||"default";
+let which=params.get("direction")||"b",dev=params.get("device")||"desktop",view=params.get("screen")||"home",theme=params.get("mode")||"default";
 if(!["a","b","c"].includes(which))which="a";if(!["desktop","mobile"].includes(dev))dev="desktop";
 const views=dev==="mobile"?["home","scan","plan","states"]:["home","activity","receipt","states"];if(!views.includes(view))view="home";
 function sync(){document.body.dataset.direction=which;document.body.dataset.device=dev;document.body.dataset.screen=view;document.body.dataset.mode=theme;dir.value=which;mode.value=theme;device.value=dev;screen.innerHTML=(dev==="mobile"?[["home","Home"],["scan","Scan"],["plan","Plan"],["states","States"]]:[["home","Home"],["activity","Activity"],["receipt","Receipt review"],["states","States"]]).map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("");screen.value=view;
