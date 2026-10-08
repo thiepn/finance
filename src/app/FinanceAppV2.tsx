@@ -4,6 +4,7 @@ import { SignalCurrentScope, FinanceButton, FinancialState } from "../ui/v2/Sign
 import { FinanceV2Shell } from "../ui/v2/FinanceV2Shell.js";
 import { OverviewPage } from "../overview/OverviewPage.js";
 import { ActivityPage } from "../activity/ActivityPage.js";
+import { ActivityRecordPage } from "../activity/ActivityRecordPage.js";
 import { TransactionComposer } from "../activity/TransactionComposer.js";
 import { CapturePage } from "../capture/CapturePage.js";
 import { SpendingExplorerPage } from "../spending-explorer/SpendingExplorerPage.js";
@@ -62,9 +63,9 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
  const productId=route.params.productId??null;
  switch(route.id){
    case "home":return <OverviewPage onNavigate={toLegacy}/>;
-   case "activity":return <ActivityPage/>;
-   case "activity-new":return <TransactionComposer onCreated={()=>navigate("/activity")} onClose={()=>navigate("/activity")}/>;
-   case "activity-detail":return <IncompleteDetail label="Transaction" onBack={()=>navigate("/activity")}/>;
+   case "activity":return <ActivityPage onNavigate={navigate}/>;
+   case "activity-new":return <TransactionComposer onCreated={id=>navigate(id?"/activity/transaction/"+encodeURIComponent(id):"/activity")} onClose={()=>navigate("/activity")}/>;
+   case "activity-detail":return <ActivityRecordPage kind="transaction" recordId={route.params.transactionId!} onNavigate={navigate}/>;
    case "capture":return <CapturePage onNavigate={toLegacy}/>;
    case "merchants":return <MerchantsPage onNavigate={toLegacy}/>;
    case "rules":return <RulesPage/>;
@@ -77,7 +78,7 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
      selectedProductId={productId}/>;
    case "recurring":return <RecurringPage onNavigate={toLegacy}/>;
    case "receipts":return <ReceiptMatchingPage onNavigate={toLegacy}/>;
-   case "receipt-detail":return <IncompleteDetail label="Receipt" onBack={()=>navigate("/receipts")}/>;
+   case "receipt-detail":return <ActivityRecordPage kind="receipt" recordId={route.params.receiptId!} onNavigate={navigate}/>;
    case "accounts":return <WealthPage mode="accounts" onNavigate={toLegacy}/>;
    case "account-detail":return <IncompleteDetail label="Account" onBack={()=>navigate("/wealth/accounts")}/>;
    case "plan":return <PlanningPage mode="budget" onNavigate={toLegacy}/>;
