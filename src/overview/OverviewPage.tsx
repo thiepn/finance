@@ -233,7 +233,7 @@ export function OverviewPage({ onNavigate }: OverviewPageProps) {
       <OverviewUnavailable
         error={loader.error}
         refresh={loader.refresh}
-        state={loader.state}
+        state={loader.state === "ready" ? "error" : loader.state}
       />
     );
   }
@@ -424,15 +424,7 @@ export function OverviewPage({ onNavigate }: OverviewPageProps) {
               </div>
 
               <ProgressBar
-                detail={
-                  dashboard.planning.paceRatio === null
-                    ? undefined
-                    : formatPercent(
-                        dashboard.planning.paceRatio,
-                        dashboard.profile.locale,
-                        0,
-                      )
-                }
+                {...(dashboard.planning.paceRatio !== null ? { detail: formatPercent(dashboard.planning.paceRatio, dashboard.profile.locale, 0) } : {})}
                 label="Plan used"
                 tone={
                   dashboard.financialStatus.tone === "negative"
