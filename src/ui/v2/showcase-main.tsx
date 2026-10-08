@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Icon } from "../icons/Icon.js";
 import {
  AccountSwitcher, ActionMenu, AttentionRow, BudgetAllocationRow, DataProvenance,
- FilterBar, FinanceButton, FinancePageHeader, FinanceState, FinanceTable, FinanceTrend,
+ FilterBar, FinanceButton, FinancePageHeader, FinancialState, FinanceTable, FinanceTrend,
  LedgerRow, MoneyMetric, MoneyValue, PeriodPicker, ReceiptCompare, SignalCurrentScope,
  type FinancialStateKind
 } from "./SignalCurrent.js";
