@@ -35,6 +35,12 @@ try{
     const axe=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]).analyze();
     item.axe=axe.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length}));
     if(item.bounds.overflow>1)failures.push(id+": overflow "+item.bounds.overflow);
+    const filtersFullyVisible=await page.locator(".sc-receipt-studio__filters button").evaluateAll(buttons=>
+      buttons.every(button=>{
+       const rect=button.getBoundingClientRect();
+       return rect.left>=-1&&rect.right<=document.documentElement.clientWidth+1;
+      }));
+    if(!filtersFullyVisible)failures.push(id+": at least one filter is hidden off-screen");
     if(item.bounds.theme!==theme)failures.push(id+": theme mismatch");
     if(item.axe.length)failures.push(id+": axe "+item.axe.map(v=>v.id).join(","));
     if(exceptions.length)failures.push(id+": JS "+exceptions.join(";"));
