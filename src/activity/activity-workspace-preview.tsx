@@ -7,7 +7,7 @@ import {FinancialState} from "../ui/v2/SignalCurrent.js";
 import {emptyActivityFilters,type ActivityRouteFilters} from "./activity-workspace-model.js";
 import "../ui/v2/finance-app-shell.css";
 import "./activity-workspace-preview.css";
-const rows:ActivityItem[]=Array.from({length:24},(_,i)=>({
+const rows:ActivityItem[]=Array.from({length:24},(_,i):ActivityItem=>({
  id:"synthetic-"+i,entityKind:i===3?"receipt":"transaction",
  occurredAt:new Date(Date.UTC(2026,9,24-i,11,0)).toISOString(),
  transactionId:i===3?null:"synthetic-"+i,receiptId:i===3?"receipt-3":null,
