@@ -1,0 +1,36 @@
+name: Finance P31 Plan React QA
+on:
+  pull_request:
+    paths:
+      - "src/planning/**"
+      - "p31-plan-preview.html"
+      - "scripts/capture-finance-p31.mjs"
+      - ".github/workflows/finance-p31-plan-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  plan-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install temporary browser audit
+        run: |
+          npm install --no-save --no-package-lock playwright @axe-core/playwright
+          npx playwright install --with-deps chromium
+      - name: Capture and audit P31 actual React Plan UI
+        run: node scripts/capture-finance-p31.mjs
+      - name: Publish test screenshots and QA summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: finance-p31-plan-visual-qa
+          path: p31-artifacts/
+          retention-days: 14
+          if-no-files-found: warn

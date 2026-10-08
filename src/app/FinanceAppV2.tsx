@@ -82,8 +82,8 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "receipt-detail":return <ReceiptStudioDetail receiptId={route.params.receiptId!} onNavigate={navigate}/>;
    case "accounts":return <WealthPage mode="accounts" onNavigate={toLegacy}/>;
    case "account-detail":return <IncompleteDetail label="Account" onBack={()=>navigate("/wealth/accounts")}/>;
-   case "plan":return <PlanningPage mode="budget" onNavigate={toLegacy}/>;
-   case "goals":return <PlanningPage mode="goals" onNavigate={toLegacy}/>;
+   case "plan":return <PlanningPage mode="budget" onNavigate={navigate}/>;
+   case "goals":return <PlanningPage mode="goals" onNavigate={navigate}/>;
    case "net-worth":return <WealthPage mode="net-worth" onNavigate={toLegacy}/>;
    case "imports":return <ImportPage onNavigate={toLegacy}/>;
    case "ask":return <AskFinancePage onNavigate={toLegacy}/>;
