@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "phase": "P25L",
+  "decision": "locked",
+  "selectedId": "b",
+  "selectedName": "Signal Current",
+  "selectedBy": "project owner",
+  "selectedOn": "2026-10-08",
+  "selectionSource": "Explicit choice in ChatGPT conversation: 'B - Signal Current'",
+  "lockedAgainstCommit": "6c5391b09eb6d3786cb21bda68674e6605f41142",
+  "referenceSource": {
+    "preview": "design/p25/visual-lab/index.html",
+    "css": "design/p25/visual-lab/visual-lab.css",
+    "spec": "design/p25/signal-current.tokens.json",
+    "manifest": "design/p25/signal-current-reference-manifest.json",
+    "qaRun": "https://github.com/thiepn/finance/actions/runs/37765096582",
+    "screenshots": "18 exact PNGs in exported P25L reference package; regenerate with scripts/capture-finance-p25.mjs"
+  },
+  "scope": {
+    "approved": [
+      "Signal Current as official Finance V2.0 identity",
+      "dark-primary, light-alternate palette",
+      "six desktop primary tasks + five mobile tabs from P24",
+      "Home, Activity, Receipt Review and States desktop references",
+      "Home, Scan, Plan and States mobile references",
+      "distinct attention-first desktop cockpit and editable-data-first receipt workbench"
+    ],
+    "notApproved": [
+      "live deployment of prototype",
+      "using synthetic numbers as real account data",
+      "introducing decorative glows, gradients or neon effects not in the reference",
+      "locking inaccessible controls or mock financial calculations",
+      "rewriting the financial ledger backend"
+    ]
+  },
+  "lifecycle": {
+    "referenceLock": "approved",
+    "implementation": "P26 design system / P27 navigation / P28-P37 screen migration",
+    "actualProductionUI": "unchanged by P25L",
+    "manualDeviceReview": "pending P39"
+  }
+}
