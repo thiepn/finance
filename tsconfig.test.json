@@ -67,6 +67,7 @@
     "src/ask/finance-ai-interpreter.ts",
     "src/ask/finance-ai-interpreter.test.ts",
     "src/ask/ask-finance-engine.ts",
-    "src/ask/ask-finance-engine.test.ts"
+    "src/ask/ask-finance-engine.test.ts",
+    "src/ui/v2/signal-current.test.ts"
   ]
 }
