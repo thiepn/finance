@@ -16,6 +16,7 @@ export function FinanceAuthPage({state,next,onRetry}:Props){
  const [notice,setNotice]=useState("");
  const [error,setError]=useState("");
  const safeNext=safePrivatePath(next);
+ const theme=(()=>{try{return localStorage.getItem("thiepn.finance.theme")==="light"?"light":"dark"}catch{return"dark"}})();
  async function loginGoogle(){
    if(!runtime||busy)return;
    setBusy(true);setError("");setNotice("");
@@ -44,7 +45,7 @@ export function FinanceAuthPage({state,next,onRetry}:Props){
    }catch{setError("The sign-in email could not be sent. Check the address and try again.");}
    finally{setBusy(false);}
  }
- return <SignalCurrentScope theme="dark" className="sc-auth">
+ return <SignalCurrentScope theme={theme} className="sc-auth">
    <header className="sc-auth__header"><strong>THIEPN <span>FINANCE</span></strong><a href="/privacy">Privacy</a></header>
    <main className="sc-auth__main">
      <div className="sc-auth__identity"><span className="sc-eyebrow">PRIVATE FINANCIAL WORKSPACE</span><h1>Sign in</h1>
