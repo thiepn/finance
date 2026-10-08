@@ -230,3 +230,34 @@ body[data-direction="c"][data-mode="alternate"] .solid-action,body[data-directio
 body[data-direction="a"][data-mode="alternate"] .detail-receipt{background:var(--soft)}
 body[data-direction="b"][data-mode="alternate"] .account-avatar{color:#ffffff}
 body[data-direction="b"][data-mode="alternate"] .receipt-editor .fake-input{background:var(--surface)}
+
+/* Deliberate composition divergence, not just palette swaps:
+   A has a balanced utility layout; B emphasizes an attention/control cockpit
+   with the graph to the right and spending budget first; C is rule-based editorial. */
+body[data-direction="b"][data-device="desktop"] .metrics{
+ grid-template-columns:2fr repeat(3,minmax(0,1fr));
+}
+body[data-direction="b"][data-device="desktop"] .home-grid{
+ grid-template-columns:minmax(245px,.8fr) minmax(0,1.65fr);
+}
+body[data-direction="b"][data-device="desktop"] .attention-board{order:0}
+body[data-direction="b"][data-device="desktop"] .chart-board{order:1}
+body[data-direction="b"][data-device="desktop"] .lower-grid{
+ grid-template-columns:minmax(230px,.82fr) minmax(0,1.65fr);
+}
+body[data-direction="b"][data-device="desktop"] .budget-board{order:-1}
+body[data-direction="b"][data-device="desktop"] .receipt-workspace{
+ grid-template-columns:minmax(340px,.9fr) minmax(0,1.1fr);
+}
+body[data-direction="b"][data-device="desktop"] .receipt-editor{order:-1}
+body[data-direction="b"][data-device="desktop"] .receipt-source{order:1}
+body[data-direction="b"][data-device="desktop"] .attention-row{padding:13px 0}
+body[data-direction="b"][data-device="desktop"] .attention-board{border-left:2px solid var(--accent)}
+@media (max-width:1100px) {
+ body[data-direction="b"][data-device="desktop"] .metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+ body[data-direction="b"][data-device="desktop"] .home-grid{grid-template-columns:minmax(0,1.4fr) minmax(245px,.8fr)}
+ body[data-direction="b"][data-device="desktop"] .chart-board{order:0}
+ body[data-direction="b"][data-device="desktop"] .attention-board{order:1}
+ body[data-direction="b"][data-device="desktop"] .lower-grid{grid-template-columns:minmax(0,1.45fr) minmax(210px,.75fr)}
+ body[data-direction="b"][data-device="desktop"] .budget-board{order:1}
+}
