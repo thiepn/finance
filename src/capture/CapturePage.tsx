@@ -31,7 +31,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
     void runtime.client.auth.getUser().then(async ({ data, error: authError }) => {
       if (!mounted) return;
       if (authError || !data.user) {
-        setError("Sign in to THIEPN Finance before capturing receipts.");
+        setError("A verified THIEPN Finance session is needed before accessing receipt drafts.");
         return;
       }
       setUserId(data.user.id);
