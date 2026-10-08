@@ -43,7 +43,7 @@ const state=render(createElement(FinancialState,{kind:"sign-in",title:"Sign in",
 assert(state.includes("Sign in")&&!state.includes("finance_initialize"),"state hides RPC implementation");
 const failure=render(createElement(FinancialState,{kind:"error",title:"Something went wrong",description:"Try again"}));
 assert(failure.includes('role="alert"'),"critical error announced");
-const table=render(createElement(FinanceTable,{
+const table=render(createElement(FinanceTable<{id:string;amount:number}>,{
  caption:"Synthetic ledger",rows:[{id:"a",amount:-100}],rowKey:(x:{id:string;amount:number})=>x.id,
  columns:[{id:"amount",label:"Amount",render:(x:{id:string;amount:number})=>String(x.amount),align:"end"}],
  rowHref:(x:{id:string;amount:number})=>"/activity/transaction/"+x.id
