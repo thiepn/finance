@@ -72,14 +72,15 @@ export function ActivityRecordPage({kind,recordId,onNavigate}:ActivityRecordPage
  }
  const transaction=detail.activity;
  const money=signedActivityDisplay(transaction);
- const canVoid=transaction.status==="posted";
+ const canVoid=transaction.status==="posted"&&!success;
  return <div className="sc-record">
    <header className="sc-record-header"><div><button type="button" onClick={()=>onNavigate("/activity")} className="sc-record-back">← Activity</button>
      <span className="sc-eyebrow">LEDGER / {transaction.status.toUpperCase()}</span>
      <h1>{transaction.merchantName??transaction.title}</h1>
      <p>{formatDate(transaction.occurredAt)} · {transaction.transactionType??"Transaction"} · {transaction.source}</p></div>
      {canVoid?<FinanceButton variant="danger" onClick={()=>setVoidOpen(true)}>Void transaction</FinanceButton>:null}</header>
-   {success?<p role="status" className="sc-record-success">The void request was accepted. Current status is loaded from the ledger.</p>:null}
+   {success?<p role="status" className="sc-record-success">The void request was accepted. Refresh Activity to confirm the current ledger status.</p>:null}
+   {writeError&&!voidOpen?<p role="alert" className="sc-record-error">{writeError}</p>:null}
    <section className="sc-record-total" aria-label="Transaction amount"><span className="sc-eyebrow">POSTED TRANSACTION</span>
      {money===null?<strong>Amount not verified</strong>:<MoneyValue amountMinor={money} currency={transaction.currencyCode} tone={moneyCategory(transaction)} size="large"/>}
      <DataProvenance source="posted"/></section>
