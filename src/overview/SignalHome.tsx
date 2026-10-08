@@ -14,10 +14,9 @@ import type { MoneySource } from "../ui/v2/finance-presentation.js";
 import "./signal-home.css";
 
 type ExtraState<T> = {status:"loading"|"ready"|"error";value:T|null};
-type Extras = {upcoming:ExtraState<RecurringDashboard>;trend:ExtraState<AnalyticsTimeSeries>;refresh:()=>void};
+type Extras = {upcoming:ExtraState<RecurringDashboard>;trend:ExtraState<AnalyticsTimeSeries>};
 function useHomeExtras(dashboard:OverviewDashboard|null):Extras {
   const runtime=useMemo(createFinanceBrowserRuntime,[]);
-  const [cycle,setCycle]=useState(0);
   const [upcoming,setUpcoming]=useState<ExtraState<RecurringDashboard>>({status:"loading",value:null});
   const [trend,setTrend]=useState<ExtraState<AnalyticsTimeSeries>>({status:"loading",value:null});
   const start=dashboard?.period.start,end=dashboard?.period.end,compareStart=dashboard?.period.compareStart,compareEnd=dashboard?.period.compareEnd;
@@ -36,8 +35,8 @@ function useHomeExtras(dashboard:OverviewDashboard|null):Extras {
       if(alive)setTrend({status:"ready",value});
     }).catch(()=>{if(alive)setTrend({status:"error",value:null});});
     return()=>{alive=false;};
-  },[runtime,start,end,compareStart,compareEnd,asOf,periodKind,cycle]);
-  return{upcoming,trend,refresh:()=>setCycle(n=>n+1)};
+  },[runtime,start,end,compareStart,compareEnd,asOf,periodKind]);
+  return{upcoming,trend};
 }
 
 const periods:{value:OverviewPeriodKind;label:string}[]=[
@@ -209,7 +208,7 @@ export function OverviewPage({onNavigate}:{onNavigate:(key:string)=>void}){
  const [periodKind,setPeriodKind]=useState<OverviewPeriodKind>("month");
  const loader=useOverview(periodKind);
  const extras=useHomeExtras(loader.dashboard);
- const refresh=()=>{extras.refresh();void loader.refresh();};
+ const refresh=()=>{void loader.refresh();};
  if(loader.state==="loading")return <div className="sc-home sc-home-loading" aria-busy="true">
    <header className="sc-home-header"><div><span className="sc-eyebrow">FINANCE HOME</span><h1>Home</h1></div></header>
    <div className="sc-home-loading__metrics">{[0,1,2,3].map(i=><div key={i} className="sc-home-placeholder"/>)}</div>
