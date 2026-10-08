@@ -129,6 +129,23 @@
   <div class="category-row"><span class="cat-icon">·</span><div class="cat-main"><div><strong>Other</strong><b>€187.55 left</b></div><small>€42.45 of €230.00</small><div class="category-bar"><span style="width:18.46%"></span></div></div></div>
   </div><div class="mobile-end-action">Adjust allocations</div>
  </section>
+
+ <section class="screen desktop-states">
+  <header class="section-head"><div><span class="eyebrow">SYSTEM STATES / DESIGN REFERENCE</span><h1>Finance states</h1></div><div class="actions"><span class="plain-action">State library</span></div></header>
+  <div class="states-grid">
+   <div class="board state-card"><span class="state-kicker">01 · AUTH REQUIRED</span><h2>Sign in to view Activity</h2><p>Your private transactions and receipts become available after you sign in. You'll return to your search when finished.</p><div class="state-actions"><span class="solid-action">Continue with Google</span><span class="plain-action">Email sign-in link</span></div><small>No financial data requested until your session is verified.</small></div>
+   <div class="board state-card"><span class="state-kicker">02 · FIRST USE</span><h2>No transactions yet</h2><p>Add a financial account or import a bank statement to begin. This is an empty account, not a network failure.</p><div class="state-actions"><span class="solid-action">Add an account</span><span class="plain-action">Import transactions</span></div><small>We never invent an account balance.</small></div>
+   <div class="board state-card"><span class="state-kicker warning">03 · TEMPORARILY OFFLINE</span><h2>Activity couldn't load</h2><p>The service is unavailable. Your typed changes have been preserved locally where appropriate. Nothing has been posted.</p><div class="state-actions"><span class="solid-action">Retry safely</span><span class="plain-action">Return to Home</span></div><small>Never show errors as “zero transactions”.</small></div>
+   <div class="board state-card"><span class="state-kicker">04 · RECEIPT PROCESSING</span><h2>Extracting receipt items</h2><p>Page 2 of 3 is being analyzed. Your original source image is stored as private evidence; no ledger entry is created.</p><div class="progress-demo"><span style="width:63%"></span></div><div class="state-actions"><span class="plain-action">Keep working</span></div><small>Status: Processing, 2 of 3 pages queued.</small></div>
+  </div>
+ </section>
+ <section class="screen mobile-states">
+  <header class="mobile-section-head"><span class="eyebrow">STATE REFERENCES</span><h1>Account &amp; recovery</h1></header>
+  <div class="state-mobile-panel"><span class="state-kicker">SIGN IN</span><h2>Sign in to view Activity</h2><p>Private ledger records are visible only after you sign in. You'll return to your previous search.</p><div class="mobile-end-action">Continue with Google</div><div class="mini-secondary">Use email sign-in link</div></div>
+  <div class="state-mobile-panel"><span class="state-kicker">NEW ACCOUNT</span><h2>Start with your first account</h2><p>Add an account or import a statement. No fake balance is displayed.</p><span class="small-link">Add account ↗</span></div>
+  <div class="state-mobile-panel"><span class="state-kicker warning">OFFLINE</span><h2>Something didn't load</h2><p>Your entries are unchanged. Try again when connected.</p><span class="small-link">Retry ↗</span></div>
+  <div class="state-mobile-panel"><span class="state-kicker">PROCESSING</span><h2>Reading receipt</h2><div class="progress-demo"><span style="width:63%"></span></div><p>Original document remains private evidence.</p></div>
+ </section>
  </main></div>
  <nav class="mobile-tabs" aria-label="Mobile mockup bottom tabs"><span class="selected">⌂<small>Home</small></span><span>▤<small>Activity</small></span><span class="capture-action">▢<small>Scan</small></span><span>◫<small>Plan</small></span><span>◎<small>Explore</small></span></nav>
 </div>
@@ -136,9 +153,9 @@
 (()=>{const params=new URLSearchParams(location.search);const dir=document.getElementById("direction"),device=document.getElementById("device"),screen=document.getElementById("screen"),mode=document.getElementById("mode");
 let which=params.get("direction")||"a",dev=params.get("device")||"desktop",view=params.get("screen")||"home",theme=params.get("mode")||"default";
 if(!["a","b","c"].includes(which))which="a";if(!["desktop","mobile"].includes(dev))dev="desktop";
-const views=dev==="mobile"?["home","scan","plan"]:["home","activity","receipt"];if(!views.includes(view))view="home";
-function sync(){document.body.dataset.direction=which;document.body.dataset.device=dev;document.body.dataset.screen=view;document.body.dataset.mode=theme;dir.value=which;mode.value=theme;device.value=dev;screen.innerHTML=(dev==="mobile"?[["home","Home"],["scan","Scan"],["plan","Plan"]]:[["home","Home"],["activity","Activity"],["receipt","Receipt review"]]).map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("");screen.value=view;
-document.getElementById("appbar-context").textContent="/ "+(view==="home"?"Home":view==="activity"?"Activity":view==="receipt"?"Receipts":view==="scan"?"Scan":"Plan");
+const views=dev==="mobile"?["home","scan","plan","states"]:["home","activity","receipt","states"];if(!views.includes(view))view="home";
+function sync(){document.body.dataset.direction=which;document.body.dataset.device=dev;document.body.dataset.screen=view;document.body.dataset.mode=theme;dir.value=which;mode.value=theme;device.value=dev;screen.innerHTML=(dev==="mobile"?[["home","Home"],["scan","Scan"],["plan","Plan"],["states","States"]]:[["home","Home"],["activity","Activity"],["receipt","Receipt review"],["states","States"]]).map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("");screen.value=view;
+document.getElementById("appbar-context").textContent="/ "+(view==="home"?"Home":view==="activity"?"Activity":view==="receipt"?"Receipts":view==="scan"?"Scan":view==="states"?"States":"Plan");
 const u=new URL(location.href);u.searchParams.set("direction",which);u.searchParams.set("device",dev);u.searchParams.set("screen",view);u.searchParams.set("mode",theme);history.replaceState(null,"",u);
 }
 dir.addEventListener("change",()=>{which=dir.value;sync()});mode.addEventListener("change",()=>{theme=mode.value;sync()});device.addEventListener("change",()=>{dev=device.value;view="home";sync()});screen.addEventListener("change",()=>{view=screen.value;sync()});document.getElementById("captureMode").addEventListener("click",()=>document.body.classList.toggle("clean"));if(params.get("capture")==="1")document.body.classList.add("clean");sync();})();
