@@ -41,6 +41,9 @@ Core principles:
 - **P20** — read-only ChatGPT/MCP boundary, THIEPN Account OAuth verification, canonical Account UUID gateway, typed Finance tools, prompt-injection hardening and public Plugin Directory packaging for personal/Plus distribution: implementation complete; public plugin review/publishing pending
 - **P21** — subscription-independent native Ask Finance: GPT-6 Luna intent interpretation through THIEPN Core, no Finance records sent to the model, deterministic P19 execution remains authoritative, and deterministic P19 questions remain available without AI: implementation complete; production secret/browser qualification pending
 
+- **P22** — complete core UI workflows (Activity, manual posting, Scan, Merchants, Rules, Settings), route wiring, TSX type checks: released
+- **P23** — source-confirmed product/UX audit, 17-route inventory, anonymous desktop/mobile screenshots, automated accessibility checks and V2.0 redesign brief: completed for public/anonymous surfaces; authenticated UX qualification pending. See [P23 audit](docs/P23_UX_VISUAL_AUDIT.md) and [visual evidence](docs/P23_VISUAL_CAPTURE_RESULTS.md)
+
 Backend project: THIEPN Core  
 Product namespace: `finance`  
 Target origin: `https://finance.thiepn.dev`
