@@ -77,7 +77,7 @@ function Showcase(){
         <div className="sc-demo-metrics"><MoneyMetric label="Available to spend" amountMinor={124050} source="planned" description="After commitments" emphasis/>
         <MoneyMetric label="Cash position" amountMinor={287030} source="posted" description="2 cash accounts"/>
         <MoneyMetric label="Upcoming" amountMinor={74500} source="forecast" tone="warning" description="Next 30 days"/>
-        <MoneyMetric label="Spent this month" amountMinor={86240} source="posted" description="€1,500 budget"/></div>
+        <MoneyMetric label="Spent this month" amountMinor={86240} source="posted" description="€1,500 budget"/></div><div className="sc-demo-spent-mobile"><span>Spent this month</span><MoneyValue amountMinor={86240}/><small>of €1,500 planned</small></div>
         <div className="sc-demo-home-mid"><section className="sc-demo-panel sc-demo-attention"><h2>Needs attention <span>3</span></h2>
           <AttentionRow title="2 transactions" detail="Awaiting classification" icon="alert" onClick={()=>navigate("activity")}/>
           <AttentionRow title="1 receipt" detail="Ready to review and match" icon="receipt" onClick={()=>navigate("receipt")}/>
