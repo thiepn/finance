@@ -39,16 +39,17 @@ try {
    item.measures=await page.evaluate(()=>{
     const d=document.documentElement,frame=document.querySelector(".frame"),visible=document.querySelector(".screen:not([style*='display: none'])");
     const screens=[...document.querySelectorAll(".screen")].filter(node=>getComputedStyle(node).display!=="none");
-    return {width:d.clientWidth,overflow:Math.max(0,d.scrollWidth-d.clientWidth),activeScreens:screens.length,contentHeight:frame?.scrollHeight??0,screen:screens[0]?.className};
+    return {width:d.clientWidth,overflow:Math.max(0,d.scrollWidth-d.clientWidth),activeScreens:screens.length,contentHeight:frame?.scrollHeight??0,screen:screens[0]?.className,mobileNavVisible:getComputedStyle(document.querySelector(".mobile-tabs")).display!=="none"};
    });
    const name=[variant,mode,device.key,screen].join("-");
    item.filename="screenshots/"+name+".png";
-   await page.screenshot({path:path.join(out,item.filename),fullPage:true,animations:"disabled"});
+   await page.screenshot({path:path.join(out,item.filename),fullPage:device.key==="desktop",animations:"disabled"});
    // Axe covers design preview, not production app; exclude intentional static UI controls from claims of functionality.
    const a=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]).analyze();
    item.axe=a.violations.map(v=>({id:v.id,impact:v.impact,count:v.nodes.length,targets:v.nodes.slice(0,3).map(n=>n.target.join(" "))}));
    if(item.measures.overflow>1)failures.push(name+": "+item.measures.overflow+" px page overflow");
    if(item.measures.activeScreens!==1)failures.push(name+": "+item.measures.activeScreens+" visible screens");
+   if(item.measures.mobileNavVisible!==(device.key==="mobile"))failures.push(name+": wrong responsive navigation visibility");
    if(errors.length)failures.push(name+": JS errors "+errors.length);
   }catch(e){item.error=String(e).slice(0,400);failures.push(JSON.stringify(item))}
   results.push(item);
