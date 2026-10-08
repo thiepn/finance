@@ -95,6 +95,11 @@ export function resolveFinanceLocation(input:string):RouteLocation {
   // Legacy hash URLs only. OAuth access_token fragments and skip-link targets
   // must be left untouched until auth code has processed the callback.
   const hash=url.hash.startsWith("#")?url.hash.slice(1):"";
+  // Supabase must consume OAuth PKCE codes or implicit fragments before any
+  // client-side route normalization can strip those credentials.
+  if(url.searchParams.has("code")||url.searchParams.has("error")||/^(access_token|refresh_token|error_description)=/.test(hash)) {
+    return {...fromPath("/",""),normalized:false};
+  }
   const [alias,legacyQuery=""]=hash.split("?",2);
   const legacy=byLegacy.get(alias??"");
   if(legacy){
