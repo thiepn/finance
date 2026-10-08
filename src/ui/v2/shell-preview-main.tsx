@@ -24,7 +24,7 @@ function ShellPreview(){
     <div className="sc-preview-metrics"><MoneyMetric label="Available to spend" source="planned" amountMinor={124050} emphasis/>
       <MoneyMetric label="Cash position" source="posted" amountMinor={287030}/>
       <MoneyMetric label="Upcoming" source="forecast" amountMinor={74500} tone="warning"/>
-      <MoneyMetric label="Spent" source="posted" amountMinor={86240}/></div>
+      <MoneyMetric label="Spent" source="posted" amountMinor={86240}/></div><div className="sc-preview-spent"><span>Spent this month</span><MoneyValue amountMinor={86240}/><small>of €1,500 planned</small></div>
     <div className="sc-preview-content"><section className="sc-preview-panel"><h2>Needs attention</h2><p>2 uncategorized transactions</p><p>1 receipt ready for review</p></section>
     <section className="sc-preview-panel"><h2>Recent activity</h2>
       <FinanceTable caption="Synthetic transactions" rows={transactions} rowKey={r=>r.id}
