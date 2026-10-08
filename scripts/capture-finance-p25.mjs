@@ -20,8 +20,8 @@ await fs.mkdir(dir, { recursive: true });
 const variants = ["a","b","c"];
 const modes = ["default","alternate"];
 const devices = [
-  {key:"desktop",width:1440,height:900,screens:["home","activity","receipt"]},
-  {key:"mobile",width:390,height:844,screens:["home","scan","plan"]}
+  {key:"desktop",width:1440,height:900,screens:["home","activity","receipt","states"]},
+  {key:"mobile",width:390,height:844,screens:["home","scan","plan","states"]}
 ];
 const results = [], failures = [];
 const browser = await chromium.launch({headless:true});
