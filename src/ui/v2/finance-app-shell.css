@@ -102,7 +102,7 @@
  .sc-root.sc-app { display:block;padding-bottom:calc(70px + env(safe-area-inset-bottom)); }
  .sc-app-sidebar { display:none; }
  .sc-app-header { height:58px;padding:0 15px; }
- .sc-app-search,.sc-app-icon-button { display:none; }
+ .sc-app-search { display:none; }
  .sc-app-main { padding:12px 15px 30px; }
  .sc-app-location { font-size:13px; }
  .sc-app-bottom-nav { position:fixed;bottom:0;left:0;right:0;height:calc(70px + env(safe-area-inset-bottom));z-index:35;background:var(--sc-surface);border-top:1px solid var(--sc-border);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:5px 4px env(safe-area-inset-bottom); }
