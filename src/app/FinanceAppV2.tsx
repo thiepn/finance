@@ -101,6 +101,12 @@ export function FinanceApp(){
    }
    if(session.status==="ready"){
      const saved=consumeReturnIntent();
+     // Strip callback codes, OAuth fragments and error details only after
+     // Supabase finished validating the session and returning a real user.
+     const locationHasAuthArtifacts=window.location.search.includes("code=")||
+       window.location.search.includes("error=")||
+       /#(?:access_token|refresh_token|error_description)=/.test(window.location.hash);
+     if(locationHasAuthArtifacts){navigate(saved??"/",true);return;}
      if(saved&&saved!==route.canonical){
        navigate(saved,true);return;
      }
