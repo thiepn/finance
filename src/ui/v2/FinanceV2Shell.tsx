@@ -99,8 +99,8 @@ export function FinanceV2Shell({children,routeId,section,title,onNavigate,onSign
        <div className="sc-app-location"><strong>Finance</strong><span>/ {title}</span></div>
        <div className="sc-app-header-actions">
          <form className="sc-app-search" onSubmit={e=>{e.preventDefault();const data=new FormData(e.currentTarget);const q=String(data.get("q")??"").trim();if(q)onNavigate("/activity?q="+encodeURIComponent(q));}}>
-           <Icon name="search" size={16}/><label className="sc-visually-hidden" htmlFor="finance-global-search">Search transactions and receipts</label>
-           <input type="search" id="finance-global-search" name="q" placeholder="Search transactions and receipts"/>
+           <Icon name="search" size={16}/><label className="sc-visually-hidden" htmlFor="finance-global-search">Search Activity</label>
+           <input type="search" id="finance-global-search" name="q" placeholder="Search Activity"/>
          </form>
          <button className="sc-app-icon-button" aria-label={theme==="dark"?"Switch to light appearance":"Switch to dark appearance"} onClick={toggle} type="button"><Icon name={theme==="dark"?"sun":"moon"}/></button>
          <div className="sc-app-more" ref={menuRef} onKeyDown={e=>{if(e.key==="Escape"){setMenuOpen(false);(e.currentTarget.querySelector("button") as HTMLButtonElement)?.focus();}}}>
