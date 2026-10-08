@@ -284,9 +284,12 @@ export function FinanceTrend({ title, points, currency = "EUR", description }: F
   const hasPlanned = points.some(p => p.plannedMinor != null);
   const valid = points.flatMap(p => [p.actualMinor, p.plannedMinor].filter((v): v is number => v != null));
   valid.forEach(assertMinorUnits);
-  const max = Math.max(1, ...valid.map(Math.abs));
+  const min = Math.min(0, ...valid);
+  const max = Math.max(1, ...valid);
+  const range = max - min;
   const x = (i: number) => 30 + (points.length < 2 ? 0 : (i / (points.length - 1)) * 540);
-  const y = (value: number) => 163 - ((value / max) * 125);
+  // Domain includes zero; refunds/negative values must not be drawn off canvas.
+  const y = (value: number) => 163 - (((value - min) / range) * 125);
   const actual = points.filter(p => p.actualMinor != null);
   const actualCoords = actual.map(p => ({ i: points.indexOf(p), v: p.actualMinor as number }));
   const plannedCoords = points.map((p, i) => ({ i, v: p.plannedMinor })).filter((p): p is {i: number; v: number} => p.v != null);
