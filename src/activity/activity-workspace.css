@@ -88,3 +88,19 @@
  .sc-record-related{grid-column:auto}
  .sc-record-surface dl{grid-template-columns:105px minmax(0,1fr)}
 }
+
+/* Advanced filters are inline on wide ledger workspaces but intentionally
+   collapsed on phones so real transactions appear above the bottom bar. */
+.sc-activity-filter__advanced{display:contents}
+.sc-activity-filter__toggle{display:none}
+@media(max-width:600px){
+ .sc-activity-filter{gap:8px}
+ .sc-activity-filter__search{grid-column:1/-1}
+ .sc-activity-filter__toggle{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;
+    min-height:37px;border:0;border-top:1px solid var(--sc-border);border-bottom:1px solid var(--sc-border);
+    padding:7px 2px;background:transparent;color:var(--sc-accent);font:700 11px inherit;text-align:left;cursor:pointer}
+ .sc-activity-filter__advanced{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .sc-activity-filter__advanced.is-open{display:grid}
+ .sc-activity-filter__advanced label{min-width:0}
+ .sc-activity-filter__actions{grid-column:1/-1}
+}
