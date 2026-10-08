@@ -268,7 +268,7 @@ export function AskFinancePage({ onNavigate }: AskFinancePageProps) {
       ) : null}
 
       {!loading && answer ? (
-        <AnswerPanel answer={answer} onNavigate={onNavigate} />
+        <AnswerPanel answer={answer} {...(onNavigate ? { onNavigate } : {})} />
       ) : null}
 
       {!loading && !answer && !error ? (
