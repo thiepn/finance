@@ -81,3 +81,12 @@
  .sc-demo-metrics .sc-money--large { font-size:19px; }
  .sc-demo-metrics>.sc-metric:first-child .sc-money--large { font-size:32px; }
 }
+
+.sc-demo-spent-mobile { display:none; }
+@media (max-width:700px) {
+ .sc-demo-metrics>.sc-metric:nth-child(4) { display:none; }
+ .sc-demo-spent-mobile { display:flex; align-items:baseline; flex-wrap:wrap; gap:5px 10px; margin:15px 0 18px; padding:0 3px 12px; border-bottom:1px solid var(--sc-border); }
+ .sc-demo-spent-mobile>span:first-child { font-size:11px; color:var(--sc-muted); width:100%; text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+ .sc-demo-spent-mobile .sc-money { font-size:25px; font-weight:730; }
+ .sc-demo-spent-mobile>small { color:var(--sc-muted); font-size:11px; }
+}
