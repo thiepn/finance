@@ -108,3 +108,13 @@
 }
 @media(max-width:350px){.sc-receipt-studio__row-text small{font-size:9px}.sc-receipt-studio__row-icon{display:none}.sc-rstudio-candidate__title{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.sc-receipt-studio *,.sc-rstudio-detail *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* P30 visual review: do not conceal filter choices in a horizontally
+   clipped strip on narrow phones. The full set is visible without gestures. */
+@media(max-width:600px){
+ .sc-receipt-studio__filters{flex-wrap:wrap;overflow:visible;max-width:100%;gap:4px}
+ .sc-receipt-studio__filters button{min-height:40px;white-space:normal;padding:8px 10px;font-size:11px}
+}
+@media(max-width:350px){
+ .sc-receipt-studio__filters button{font-size:10px;padding:8px}
+}
