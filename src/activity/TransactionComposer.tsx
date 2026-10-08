@@ -73,7 +73,7 @@ export function TransactionComposer({ onCreated, onClose }: { onCreated: (transa
         });
       } else if (kind === "income") {
         transactionId=await runtime.ledger.createIncome({
-          accountId, amountMinor, allocations: [{ categoryId, amountMinor }],
+          accountId, amountMinor, allocations,
           occurredAt, ...(description.trim() ? { description: description.trim() } : {}),
           ...(note.trim() ? { note: note.trim() } : {}),
         });
