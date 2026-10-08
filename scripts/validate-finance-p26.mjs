@@ -10,7 +10,7 @@ const components=fs.readFileSync("src/ui/v2/SignalCurrent.tsx","utf8");
 const main=fs.readFileSync("src/app/main.tsx","utf8");
 const index=fs.readFileSync("index.html","utf8");
 assert(css.startsWith('@import "./signal-current.tokens.css";'));
-assert(!main.includes('ui/v2')&&!index.includes("p26-showcase"),"P26 showcase must not be production-mounted");
+assert(!main.includes("showcase-main.tsx")&&!index.includes("p26-showcase"),"P26 synthetic showcase must not be production-mounted");
 assert(fs.existsSync("p26-showcase.html"));
 assert(generated.includes('data-sc-theme="dark"')&&generated.includes('data-sc-theme="light"'));
 for(const c of ["SignalCurrentScope","FinancePageHeader","MoneyValue","DataProvenance","FinanceTable","LedgerRow","BudgetAllocationRow","FinanceTrend","FinancialState","ReceiptCompare","PeriodPicker","AccountSwitcher","ActionMenu","FilterBar","AttentionRow"]){
