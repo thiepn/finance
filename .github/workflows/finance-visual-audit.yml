@@ -1,0 +1,41 @@
+name: Finance P23 Visual Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/audit-finance-visual.mjs'
+      - '.github/workflows/finance-visual-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  anonymous-visual-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install isolated browser-audit dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright @axe-core/playwright
+          npx playwright install --with-deps chromium
+      - name: Validate audit script syntax
+        run: node --check scripts/audit-finance-visual.mjs
+      - name: Capture anonymous desktop and mobile baseline
+        env:
+          FINANCE_AUDIT_ORIGIN: https://finance.thiepn.dev
+        run: node scripts/audit-finance-visual.mjs
+      - name: Upload screenshots, index and findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: finance-p23-anonymous-baseline
+          path: audit-artifacts/
+          retention-days: 7
+          if-no-files-found: warn
