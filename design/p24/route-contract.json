@@ -1,0 +1,377 @@
+{
+  "version": "P24.1",
+  "implementationStatus": "design-contract-only",
+  "note": "This is an implementation contract, not the live React router. P27 migrates it.",
+  "primary": [
+    {
+      "id": "home",
+      "label": "Home",
+      "path": "/",
+      "purpose": "Understand available money, upcoming obligations and work needing attention"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "path": "/activity",
+      "purpose": "Find, inspect, add and classify ledger transactions"
+    },
+    {
+      "id": "plan",
+      "label": "Plan",
+      "path": "/plan",
+      "purpose": "Budget, goals and recurring obligations"
+    },
+    {
+      "id": "explore",
+      "label": "Explore",
+      "path": "/explore",
+      "purpose": "Investigate spending, merchants, products and categories"
+    },
+    {
+      "id": "receipts",
+      "label": "Receipts",
+      "path": "/receipts",
+      "purpose": "Capture, inspect and reconcile receipt evidence"
+    },
+    {
+      "id": "wealth",
+      "label": "Wealth",
+      "path": "/wealth/accounts",
+      "purpose": "Accounts, account movements and net worth"
+    }
+  ],
+  "desktopPrimary": [
+    "home",
+    "activity",
+    "plan",
+    "explore",
+    "receipts",
+    "wealth"
+  ],
+  "mobileTabs": [
+    {
+      "id": "home",
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "path": "/activity"
+    },
+    {
+      "id": "capture",
+      "label": "Scan",
+      "path": "/receipts/capture",
+      "action": true
+    },
+    {
+      "id": "plan",
+      "label": "Plan",
+      "path": "/plan"
+    },
+    {
+      "id": "explore",
+      "label": "Explore",
+      "path": "/explore"
+    }
+  ],
+  "mobileMoreMenu": [
+    {
+      "label": "Receipts",
+      "path": "/receipts"
+    },
+    {
+      "label": "Accounts & wealth",
+      "path": "/wealth/accounts"
+    },
+    {
+      "label": "Imports",
+      "path": "/import"
+    },
+    {
+      "label": "Classification rules",
+      "path": "/settings/rules"
+    },
+    {
+      "label": "Ask Finance",
+      "path": "/ask"
+    },
+    {
+      "label": "Settings & account",
+      "path": "/settings"
+    }
+  ],
+  "routes": [
+    {
+      "id": "home",
+      "path": "/",
+      "legacyHash": "overview",
+      "section": "home",
+      "label": "Home",
+      "access": "private"
+    },
+    {
+      "id": "activity",
+      "path": "/activity",
+      "legacyHash": "activity",
+      "section": "activity",
+      "label": "Activity",
+      "access": "private"
+    },
+    {
+      "id": "activity-new",
+      "path": "/activity/new",
+      "section": "activity",
+      "label": "New transaction",
+      "access": "private",
+      "presentation": "desktop-sheet/mobile-page"
+    },
+    {
+      "id": "activity-detail",
+      "path": "/activity/transaction/:transactionId",
+      "section": "activity",
+      "label": "Transaction details",
+      "access": "private",
+      "presentation": "desktop-detail-pane/mobile-page"
+    },
+    {
+      "id": "plan",
+      "path": "/plan",
+      "legacyHash": "budget",
+      "section": "plan",
+      "label": "Budget",
+      "access": "private"
+    },
+    {
+      "id": "goals",
+      "path": "/plan/goals",
+      "legacyHash": "goals",
+      "section": "plan",
+      "label": "Goals",
+      "access": "private"
+    },
+    {
+      "id": "recurring",
+      "path": "/plan/recurring",
+      "legacyHash": "recurring",
+      "section": "plan",
+      "label": "Recurring",
+      "access": "private"
+    },
+    {
+      "id": "explore",
+      "path": "/explore",
+      "legacyHash": "insights",
+      "section": "explore",
+      "label": "Spending insights",
+      "access": "private"
+    },
+    {
+      "id": "categories",
+      "path": "/explore/categories",
+      "legacyHash": "categories",
+      "section": "explore",
+      "label": "Categories",
+      "access": "private"
+    },
+    {
+      "id": "merchants",
+      "path": "/explore/merchants",
+      "legacyHash": "merchants",
+      "section": "explore",
+      "label": "Merchants",
+      "access": "private"
+    },
+    {
+      "id": "products",
+      "path": "/explore/products",
+      "legacyHash": "products",
+      "section": "explore",
+      "label": "Products",
+      "access": "private"
+    },
+    {
+      "id": "product-detail",
+      "path": "/explore/products/:productId",
+      "section": "explore",
+      "label": "Product details",
+      "access": "private"
+    },
+    {
+      "id": "receipts",
+      "path": "/receipts",
+      "legacyHash": "receipts",
+      "section": "receipts",
+      "label": "Receipt inbox",
+      "access": "private"
+    },
+    {
+      "id": "capture",
+      "path": "/receipts/capture",
+      "legacyHash": "scan",
+      "section": "receipts",
+      "label": "Scan receipt",
+      "access": "private",
+      "presentation": "full-page/mobile-camera"
+    },
+    {
+      "id": "receipt-detail",
+      "path": "/receipts/:receiptId",
+      "section": "receipts",
+      "label": "Receipt details",
+      "access": "private"
+    },
+    {
+      "id": "accounts",
+      "path": "/wealth/accounts",
+      "legacyHash": "accounts",
+      "section": "wealth",
+      "label": "Accounts",
+      "access": "private"
+    },
+    {
+      "id": "account-detail",
+      "path": "/wealth/accounts/:accountId",
+      "section": "wealth",
+      "label": "Account details",
+      "access": "private"
+    },
+    {
+      "id": "net-worth",
+      "path": "/wealth/net-worth",
+      "legacyHash": "net-worth",
+      "section": "wealth",
+      "label": "Net worth",
+      "access": "private"
+    },
+    {
+      "id": "imports",
+      "path": "/import",
+      "legacyHash": "imports",
+      "section": "activity",
+      "label": "Import transactions",
+      "access": "private"
+    },
+    {
+      "id": "rules",
+      "path": "/settings/rules",
+      "legacyHash": "rules",
+      "section": "settings",
+      "label": "Classification rules",
+      "access": "private"
+    },
+    {
+      "id": "settings",
+      "path": "/settings",
+      "legacyHash": "settings",
+      "section": "settings",
+      "label": "Settings",
+      "access": "private"
+    },
+    {
+      "id": "ask",
+      "path": "/ask",
+      "legacyHash": "ask",
+      "section": "explore",
+      "label": "Ask Finance",
+      "access": "private"
+    },
+    {
+      "id": "sign-in",
+      "path": "/sign-in",
+      "section": "auth",
+      "label": "Sign in",
+      "access": "public"
+    },
+    {
+      "id": "auth-callback",
+      "path": "/auth/callback",
+      "section": "auth",
+      "label": "Finishing sign in",
+      "access": "public"
+    }
+  ],
+  "nonAppPublicPaths": [
+    "/privacy",
+    "/terms",
+    "/support",
+    "/api/*",
+    "/.well-known/*"
+  ],
+  "queryContracts": {
+    "/activity": [
+      "q",
+      "from",
+      "to",
+      "merchant",
+      "kind",
+      "account"
+    ],
+    "/activity/new": [
+      "type",
+      "returnTo"
+    ],
+    "/plan": [
+      "period",
+      "category"
+    ],
+    "/explore": [
+      "period",
+      "compare"
+    ],
+    "/explore/categories": [
+      "period",
+      "category"
+    ],
+    "/explore/merchants": [
+      "period",
+      "merchant"
+    ],
+    "/explore/products": [
+      "q",
+      "period"
+    ],
+    "/receipts": [
+      "status",
+      "q"
+    ],
+    "/wealth/net-worth": [
+      "period"
+    ],
+    "/sign-in": [
+      "next"
+    ]
+  },
+  "legacyQueryMigrations": [
+    {
+      "from": "#activity?q=coffee",
+      "to": "/activity?q=coffee"
+    },
+    {
+      "from": "#products?product=SKU_ID",
+      "to": "/explore/products/SKU_ID"
+    },
+    {
+      "from": "#products",
+      "to": "/explore/products"
+    },
+    {
+      "from": "#scan",
+      "to": "/receipts/capture"
+    }
+  ],
+  "browserHistory": {
+    "userAction": "pushState",
+    "legacyAliasOrDefaultNormalization": "replaceState",
+    "modalClose": "history.back when modal pushed; replace for direct-link close",
+    "backForward": "popstate resolves one route and focus",
+    "deepLinkAndRefresh": "Vercel SPA fallback for client routes; keep /api, /.well-known, policies and other server routes prioritized",
+    "authReturn": "one-use validated same-origin relative path in session storage, TTL 10 min"
+  },
+  "search": {
+    "p27LiveScope": "activity-only",
+    "p27VisibleLabel": "Search transactions and receipts",
+    "futureScope": "separately scoped or federated products, merchants, categories after indexing and result QA"
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "version": "P24.1",
+  "intent": "Acceptance journeys only, not implementation claims",
+  "measurement": {
+    "mode": "moderated_or_scripted",
+    "noInventedTimes": true,
+    "record": [
+      "completed",
+      "timeToComplete",
+      "backtracks",
+      "errors",
+      "supportNeeded"
+    ],
+    "deviceSizes": [
+      "1440x900",
+      "390x844",
+      "320x640"
+    ],
+    "dataSets": [
+      "empty",
+      "realistic-synthetic",
+      "long-values",
+      "denied",
+      "network-error"
+    ]
+  },
+  "journeys": [
+    {
+      "id": "session-entry",
+      "name": "Open a private deep link while signed out",
+      "phaseOwner": "P27 / P36",
+      "userGoal": "Reach intended Finance content after Google or email-link sign-in without losing context.",
+      "entry": "/activity?q=coffee",
+      "preconditions": [
+        "Fresh anonymous session"
+      ],
+      "steps": [
+        {
+          "routeId": "activity",
+          "action": "Open bookmarked link"
+        },
+        {
+          "routeId": "sign-in",
+          "action": "Choose sign-in; one-use next route stored in session"
+        },
+        {
+          "routeId": "auth-callback",
+          "action": "Complete OAuth/OTP redirect; validate session"
+        },
+        {
+          "routeId": "activity",
+          "action": "Return to original filtered results"
+        }
+      ],
+      "success": "Signed-in user lands on original private route with query preserved; no raw database permission error or fake empty-state.",
+      "recovery": "Invalid/expired sign-in shows Retry, alternate provider and Home links; unsafe next URLs discarded."
+    },
+    {
+      "id": "daily-review",
+      "name": "Understand financial position",
+      "phaseOwner": "P28",
+      "userGoal": "Know how much remains after obligations and what needs attention.",
+      "entry": "/",
+      "preconditions": [
+        "Authenticated account; ledger and forecast available"
+      ],
+      "steps": [
+        {
+          "routeId": "home",
+          "action": "See available amount and source label"
+        },
+        {
+          "routeId": "home",
+          "action": "Review upcoming and unresolved items"
+        },
+        {
+          "routeId": "activity",
+          "action": "Drill into underlying transactions"
+        }
+      ],
+      "success": "User can explain balance, period and unresolved issues; totals use ledger authority and explicit forecast assumptions.",
+      "recovery": "Pending/unavailable data show timestamp and Retry; never replace real balances with demo money."
+    },
+    {
+      "id": "post-expense",
+      "name": "Record expense or transfer",
+      "phaseOwner": "P29",
+      "userGoal": "Post an accurate new transaction without duplicates.",
+      "entry": "/activity/new?type=expense",
+      "preconditions": [
+        "Authenticated with one valid financial account"
+      ],
+      "steps": [
+        {
+          "routeId": "activity-new",
+          "action": "Choose expense/income/transfer and enter amount/date/account"
+        },
+        {
+          "routeId": "activity-new",
+          "action": "Assign category or split amounts; check currency"
+        },
+        {
+          "routeId": "activity-new",
+          "action": "Review validation and post exactly once"
+        },
+        {
+          "routeId": "activity-detail",
+          "action": "Confirm entry and receipt linking options"
+        }
+      ],
+      "success": "Correct posted ledger entry appears once, amount/category sums reconcile and keyboard focus lands on success.",
+      "recovery": "Double-submit disabled; invalid currency/account/category sum blocks posting; network uncertainty checks idempotency before retry."
+    },
+    {
+      "id": "find-old-purchase",
+      "name": "Find and inspect a past purchase",
+      "phaseOwner": "P27 / P29",
+      "userGoal": "Search by merchant, text, date, category and follow evidence.",
+      "entry": "/activity?q=REWE",
+      "preconditions": [
+        "Authenticated; at least one prior purchase"
+      ],
+      "steps": [
+        {
+          "routeId": "activity",
+          "action": "Open global search scoped visibly to Activity"
+        },
+        {
+          "routeId": "activity",
+          "action": "Enter filters; results update and URL reflects query"
+        },
+        {
+          "routeId": "activity-detail",
+          "action": "Open transaction and receipt evidence"
+        },
+        {
+          "routeId": "activity",
+          "action": "Browser Back restores search, filters and scroll"
+        }
+      ],
+      "success": "Correct transaction is opened and Back restores filters, selection and focus; accessible keyboard route.",
+      "recovery": "Zero matches show clear filters; server error shows Retry, never 'no transactions'."
+    },
+    {
+      "id": "capture-receipt",
+      "name": "Capture and correct multi-page receipt",
+      "phaseOwner": "P30",
+      "userGoal": "Create usable verified receipt evidence with clear page/processing status.",
+      "entry": "/receipts/capture",
+      "preconditions": [
+        "Authenticated; permission to use camera or file picker"
+      ],
+      "steps": [
+        {
+          "routeId": "capture",
+          "action": "Take photo or choose saved images/PDF"
+        },
+        {
+          "routeId": "capture",
+          "action": "Preview, crop, rotate, reorder and review quality"
+        },
+        {
+          "routeId": "capture",
+          "action": "Upload/queue processing with progressive status"
+        },
+        {
+          "routeId": "receipt-detail",
+          "action": "Correct merchant/date/items/amounts from image"
+        },
+        {
+          "routeId": "receipts",
+          "action": "Match with ledger transaction or keep as evidence"
+        }
+      ],
+      "success": "Each receipt has a reviewable image and status; ledger totals unchanged until explicit posting/matching.",
+      "recovery": "Permission denied offers file picker, unsynced draft persists locally, upload errors retry without duplicate creation."
+    },
+    {
+      "id": "import-statement",
+      "name": "Import bank statement safely",
+      "phaseOwner": "P36",
+      "userGoal": "Import transactions without duplicates or silent errors.",
+      "entry": "/import",
+      "preconditions": [
+        "Authenticated; supported bank file"
+      ],
+      "steps": [
+        {
+          "routeId": "imports",
+          "action": "Choose bank statement"
+        },
+        {
+          "routeId": "imports",
+          "action": "Map columns/accounts and preview amounts/dates"
+        },
+        {
+          "routeId": "imports",
+          "action": "Review duplicates, unmatched transfers, and row-level errors"
+        },
+        {
+          "routeId": "imports",
+          "action": "Confirm import with explicit row totals"
+        },
+        {
+          "routeId": "activity",
+          "action": "Inspect imported ledger and import receipt"
+        }
+      ],
+      "success": "Counts accepted/skipped/rejected reconcile; no ambiguous double posting.",
+      "recovery": "Mapping errors and interruption preserve source preview until deliberate discard; duplicate detection shown before commit."
+    },
+    {
+      "id": "plan-payment",
+      "name": "Budget for upcoming recurring payment",
+      "phaseOwner": "P31 / P34",
+      "userGoal": "Allocate money for an upcoming bill and see effect on available amount.",
+      "entry": "/plan/recurring",
+      "preconditions": [
+        "Authenticated; recurring expense or forecast"
+      ],
+      "steps": [
+        {
+          "routeId": "recurring",
+          "action": "Inspect upcoming item with confidence and due date"
+        },
+        {
+          "routeId": "plan",
+          "action": "Allocate amount to category and see unallocated remaining"
+        },
+        {
+          "routeId": "home",
+          "action": "Confirm changed plan, not altered posted spending"
+        }
+      ],
+      "success": "Forecast and budget reconciliation visible; no double-counted expenses.",
+      "recovery": "Insufficient available funds or changed bill amounts flagged, with reversible budget correction."
+    },
+    {
+      "id": "investigate-merchant",
+      "name": "Investigate price or spending change",
+      "phaseOwner": "P32 / P33",
+      "userGoal": "Understand why groceries or a merchant cost more.",
+      "entry": "/explore",
+      "preconditions": [
+        "Authenticated; multi-period purchase data"
+      ],
+      "steps": [
+        {
+          "routeId": "explore",
+          "action": "Compare periods and choose change driver"
+        },
+        {
+          "routeId": "categories",
+          "action": "Drill into category breakdown"
+        },
+        {
+          "routeId": "merchants",
+          "action": "Compare merchant contribution"
+        },
+        {
+          "routeId": "products",
+          "action": "Inspect product/unit price and source receipts"
+        },
+        {
+          "routeId": "activity",
+          "action": "Open original transaction evidence"
+        }
+      ],
+      "success": "Results use stable period/currency units and distinguish quantity from unit-price changes.",
+      "recovery": "Insufficient data explicitly indicated; a time period without evidence is not a claimed price increase."
+    },
+    {
+      "id": "wealth-account",
+      "name": "Inspect balances and net worth",
+      "phaseOwner": "P35",
+      "userGoal": "Differentiate account cash, asset valuations and spending.",
+      "entry": "/wealth/accounts",
+      "preconditions": [
+        "Authenticated; at least one account"
+      ],
+      "steps": [
+        {
+          "routeId": "accounts",
+          "action": "Review account balances and statement freshness"
+        },
+        {
+          "routeId": "account-detail",
+          "action": "Check postings/reconciliation for one account"
+        },
+        {
+          "routeId": "net-worth",
+          "action": "Inspect asset/liability movements"
+        }
+      ],
+      "success": "Net worth and account ledger are correctly labelled, with non-posted valuations separate.",
+      "recovery": "Stale or missing balances carry last-updated status and are not silently treated as zero."
+    },
+    {
+      "id": "manage-rule",
+      "name": "Safely create or change categorization rule",
+      "phaseOwner": "P33 / P36",
+      "userGoal": "Automate merchant classification without accidental past-wide changes.",
+      "entry": "/settings/rules",
+      "preconditions": [
+        "Authenticated; transactions for preview"
+      ],
+      "steps": [
+        {
+          "routeId": "rules",
+          "action": "Choose conditions and category"
+        },
+        {
+          "routeId": "rules",
+          "action": "Preview matched past transactions and excluded results"
+        },
+        {
+          "routeId": "rules",
+          "action": "Confirm whether rule is future-only or retroactive"
+        },
+        {
+          "routeId": "activity",
+          "action": "Review affected transactions and undo if supported"
+        }
+      ],
+      "success": "Rule applies to disclosed scope only; persisted change has audit/undo affordance.",
+      "recovery": "Conflicting rules, permission errors and unexpected matches show explicit errors rather than silently creating rules."
+    },
+    {
+      "id": "contextual-question",
+      "name": "Ask finance about a calculated amount",
+      "phaseOwner": "P37",
+      "userGoal": "Get concise evidence-linked insight, without dependency on ChatGPT subscription.",
+      "entry": "/explore",
+      "preconditions": [
+        "Authenticated; deterministic read data available"
+      ],
+      "steps": [
+        {
+          "routeId": "explore",
+          "action": "Select time period / metric"
+        },
+        {
+          "routeId": "ask",
+          "action": "Ask a finance question with preserved context"
+        },
+        {
+          "routeId": "activity",
+          "action": "Inspect cited underlying transactions"
+        }
+      ],
+      "success": "Money calculations are derived from authoritative read model, AI is optional and evidence links restore filters.",
+      "recovery": "Without AI, supported deterministic questions continue to work; unsupported request gets a clear limitation."
+    },
+    {
+      "id": "auth-expired",
+      "name": "Recover from expired session during task",
+      "phaseOwner": "P27 / P38",
+      "userGoal": "Avoid data loss and silently failed financial writes.",
+      "entry": "/activity/new?type=expense",
+      "preconditions": [
+        "Signed-in session expires before submit"
+      ],
+      "steps": [
+        {
+          "routeId": "activity-new",
+          "action": "Edit a transaction draft"
+        },
+        {
+          "routeId": "sign-in",
+          "action": "Recover authentication after blocked write without losing safe local draft"
+        },
+        {
+          "routeId": "activity-new",
+          "action": "Resume saved draft after user verification"
+        }
+      ],
+      "success": "No unauthenticated mutation occurs and user can recover or deliberately discard safe draft.",
+      "recovery": "Auth callback failure never leaks internal RPC details; privacy-sensitive drafts cleared by explicit user choice."
+    }
+  ]
+}
