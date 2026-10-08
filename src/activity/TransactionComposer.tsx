@@ -62,19 +62,20 @@ export function TransactionComposer({ onCreated, onClose }: { onCreated: () => v
       if (kind === "expense") {
         await runtime.ledger.createExpense({
           accountId, amountMinor, allocations: [{ categoryId, amountMinor }],
-          occurredAt, merchantId: merchantId || undefined,
-          description: description.trim() || undefined, note: note.trim() || undefined,
+          occurredAt, ...(merchantId ? { merchantId } : {}),
+          ...(description.trim() ? { description: description.trim() } : {}),
+          ...(note.trim() ? { note: note.trim() } : {}),
         });
       } else if (kind === "income") {
         await runtime.ledger.createIncome({
           accountId, amountMinor, allocations: [{ categoryId, amountMinor }],
-          occurredAt, description: description.trim() || undefined,
-          note: note.trim() || undefined,
+          occurredAt, ...(description.trim() ? { description: description.trim() } : {}),
+          ...(note.trim() ? { note: note.trim() } : {}),
         });
       } else {
         await runtime.ledger.createTransfer({
           fromAccountId: accountId, toAccountId: destinationId, amountMinor,
-          occurredAt, note: note.trim() || undefined,
+          occurredAt, ...(note.trim() ? { note: note.trim() } : {}),
         });
       }
       onCreated();
