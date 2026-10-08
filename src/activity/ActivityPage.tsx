@@ -7,6 +7,7 @@ import { Badge, Button, Surface } from "../ui/components/Primitives.js";
 import "./activity-page.css";
 
 const batchSize = 30;
+function hashSearch() { return typeof window === "undefined" ? "" : new URLSearchParams(window.location.hash.split("?", 2)[1] ?? "").get("q") ?? ""; }
 function monetary(item: ActivityItem) {
   return item.amountMinor === null
     ? "Receipt evidence"
@@ -52,8 +53,8 @@ function Detail({ detail }: { detail: ActivityDetail }) {
 }
 export function ActivityPage() {
   const runtime = createFinanceBrowserRuntime();
-  const [queryDraft, setQueryDraft] = useState("");
-  const [query, setQuery] = useState("");
+  const [queryDraft, setQueryDraft] = useState(hashSearch);
+  const [query, setQuery] = useState(hashSearch);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [merchantId, setMerchantId] = useState("");
@@ -67,6 +68,15 @@ export function ActivityPage() {
   const [detail, setDetail] = useState<ActivityDetail | null>(null);
   const [detailError, setDetailError] = useState<string | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
+  useEffect(() => {
+    const updateSearchFromHash = () => {
+      if (!window.location.hash.startsWith("#activity")) return;
+      const next = hashSearch();
+      if (next) { setQueryDraft(next); setQuery(next); }
+    };
+    window.addEventListener("hashchange", updateSearchFromHash);
+    return () => window.removeEventListener("hashchange", updateSearchFromHash);
+  }, []);
   const requestId = useRef(0);
   const detailRequestId = useRef(0);
   const controller = runtime ? new ActivityController(runtime.activity) : null;
