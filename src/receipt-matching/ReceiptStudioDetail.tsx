@@ -1,5 +1,6 @@
-import {useEffect,useMemo,useRef,useState,type FormEvent} from "react";
-import type {ReceiptCapture,ReceiptPage} from "../domain/receipt-capture.js";
+import {useEffect,useMemo,useRef,useState} from "react";
+import type {ReceiptCapture} from "../domain/receipt-capture.js";
+import {currencyMinorDigits} from "../ui/v2/finance-presentation.js";
 import type {ReceiptMatchWorkspace,ReceiptTransactionMatch} from "../domain/receipt-matching.js";
 import {createFinanceBrowserRuntime} from "../integrations/supabase-client.js";
 import {SupabaseFinanceReceiptCaptureService,type SupabaseReceiptClient} from "../services/supabase-receipt-capture.js";
@@ -39,7 +40,7 @@ function Candidate({match,receiptCurrency,remaining,busy,onAction}:{
        onChange={e=>setAmount(e.target.value)} disabled={busy} aria-invalid={amount.length>0&&valid===null}/></label>
       <FinanceButton disabled={busy} variant="secondary" onClick={()=>void onAction("reject",match.matchId)}>Reject</FinanceButton>
       <FinanceButton type="submit" disabled={busy||valid===null}>Confirm match</FinanceButton>
-      {amount&&valid===null?<small className="sc-rstudio-invalid">Use a positive valid amount within the remaining receipt and transaction balance.</small>:null}
+      {!supportedCurrency?<small className="sc-rstudio-invalid">Manual matching is unavailable when currencies differ or use unsupported decimal precision.</small>:amount&&valid===null?<small className="sc-rstudio-invalid">Use a positive valid amount within the remaining receipt and transaction balance.</small>:null}
     </form>}
  </article>;
 }
