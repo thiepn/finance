@@ -177,3 +177,18 @@
 .sc-home-next-bill small{font-size:10px;color:var(--sc-muted)}
 .sc-home-next-bill .sc-money{font-size:11px;font-weight:740;white-space:normal;overflow-wrap:anywhere;text-align:right}
 .sc-home-next-bills>p{font-size:10px;color:var(--sc-muted);margin-top:8px}
+
+/* P26 MoneyValue has a global large-value size. Home uses a tighter
+   two-column phone metric where that font would crop EUR amounts. */
+@media(max-width:700px){
+ .sc-root.sc-app .sc-home-metric:not(.sc-home-metric--primary)>.sc-money.sc-money--large{
+  display:block;font-size:clamp(16px,5.3vw,21px);line-height:1.2;white-space:normal;
+  min-width:0;overflow-wrap:anywhere;letter-spacing:-.04em;
+ }
+ .sc-root.sc-app .sc-home-metric--primary>.sc-money.sc-money--large{
+  font-size:clamp(27px,8vw,36px);white-space:normal;overflow-wrap:anywhere;
+ }
+}
+@media(max-width:350px){
+ .sc-root.sc-app .sc-home-metric:not(.sc-home-metric--primary)>.sc-money.sc-money--large{font-size:16px;}
+}
