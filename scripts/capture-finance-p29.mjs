@@ -45,6 +45,15 @@ try{
    if(errors.length)failures.push(id+": JS "+errors.join(";"));
    if(item.axe.length)failures.push(id+": axe "+item.axe.map(v=>v.id).join(","));
    if(state==="normal"){
+    if(dev.width<600){
+      const toggle=page.getByRole("button",{name:/More filters/});
+      if(!await toggle.isVisible())failures.push(id+": mobile filters not discoverable");
+      else{
+        await toggle.click();
+        if(!await page.getByLabel("From",{exact:true}).isVisible())failures.push(id+": advanced filters fail to expand");
+        await page.getByRole("button",{name:/Hide filters/}).click();
+      }
+    }
     const detail=await page.locator(".sc-activity-description").first().getAttribute("href");
     if(!detail?.startsWith("/activity/transaction/"))failures.push(id+": no deep-link in ledger");
     await page.getByRole("searchbox",{name:"Search financial activity"}).fill("REWE");
