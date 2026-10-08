@@ -1,0 +1,160 @@
+{
+  "name": "Signal Current",
+  "slug": "signal-current",
+  "phase": "P25L",
+  "status": "locked-reference-not-active-production",
+  "geometry": {
+    "radiusPx": {
+      "control": 6,
+      "card": 11,
+      "compact": 5
+    },
+    "desktopNavWidthPx": 205,
+    "mobileNavHeightPx": 70,
+    "headerHeightPx": 63,
+    "contentMaxWidthPx": 1370,
+    "breakpointsPx": {
+      "compact": 600,
+      "tablet": 1024
+    }
+  },
+  "typography": {
+    "family": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "numerals": "tabular-nums lining-nums",
+    "titlePx": {
+      "desktop": 24,
+      "mobile": 23
+    },
+    "sectionPx": {
+      "desktop": 14,
+      "mobile": 15
+    },
+    "moneyPx": {
+      "desktopKey": 31,
+      "mobileKey": 36
+    },
+    "bodyPx": {
+      "denseLedger": 12,
+      "standard": 14
+    },
+    "rules": [
+      "no hero or marketing sentence above useful financial information",
+      "only task names or compact descriptions in headings",
+      "money never cropped or truncated without an accessible complete value",
+      "semantic financial values labelled posted/planned/forecast/evidence"
+    ]
+  },
+  "layout": {
+    "desktopHome": [
+      "Four concise KPI cells, first is available-to-spend, then cash, upcoming, spent",
+      "Prioritize needs-attention panel to left and large spending-pace chart to right at 1440px",
+      "Budget-progress panel before activity list below main analysis row",
+      "No generic overview hero, chat panel or ornamental animation"
+    ],
+    "desktopActivity": [
+      "Ledger is primary with dense rows and compact filters",
+      "Optional detail pane on selection, stable URL, view supports >1000 rows",
+      "Native table semantics, keyboard focus, account/category/currency visible when relevant"
+    ],
+    "desktopReceipt": [
+      "Editable extraction/details in the left content column, original receipt image visible alongside",
+      "Crop/review original and matching are distinguishable steps",
+      "Never post a duplicate ledger expense on match"
+    ],
+    "mobileHome": [
+      "Money immediately visible, with cash and upcoming below",
+      "Needs attention, activity, and entry actions beneath, no stacked promotional cards",
+      "Bottom bar Home Activity Scan Plan Explore; More/account always discoverable"
+    ],
+    "mobileScan": [
+      "Camera-first fullscreen work area, visible capture control and gallery fallback",
+      "Page thumbnails, quality, crop/rotate and processing status in P30",
+      "Draft storage disclosed; no simulated camera in production"
+    ],
+    "mobilePlan": [
+      "Budget/Goals/Recurring accessible as full screen contexts",
+      "Summary with planned/spent/remaining and rows showing category progress",
+      "Do not force eight-column data table on mobile"
+    ],
+    "stateSpecimens": [
+      "Sign-in with return-to-intended-route",
+      "True empty versus permission error",
+      "Offline with safe recovery",
+      "Receipt OCR processing, no finance mutation"
+    ]
+  },
+  "theme": {
+    "dark": {
+      "mode": "default",
+      "canvas": "#0a1426",
+      "surface": "#12233b",
+      "sidebar": "#0e1b31",
+      "text": "#f0f7ff",
+      "textSecondary": "#b0c3d7",
+      "border": "#30465f",
+      "accent": "#43d6da",
+      "accentText": "#081a25",
+      "accentSecondary": "#fa9279",
+      "positive": "#65e4ba",
+      "negative": "#ff8c88",
+      "warning": "#ffbb82",
+      "subtle": "#1b3e56",
+      "chartActual": "#43d6da",
+      "chartBudget": "#fa9279",
+      "grid": "#30465f"
+    },
+    "light": {
+      "mode": "alternate",
+      "canvas": "#f2f7fc",
+      "surface": "#ffffff",
+      "sidebar": "#e7f0fa",
+      "text": "#182c49",
+      "textSecondary": "#546982",
+      "border": "#c8d6e5",
+      "accent": "#135ab3",
+      "accentText": "#ffffff",
+      "accentSecondary": "#b94f3d",
+      "positive": "#0a7663",
+      "negative": "#b33d43",
+      "warning": "#a64b35",
+      "subtle": "#dceafb",
+      "chartActual": "#135ab3",
+      "chartBudget": "#b94f3d",
+      "grid": "#c8d6e5"
+    }
+  },
+  "semantics": {
+    "positive": "posted positive or confirmed improvement, never a receipt-processing indicator",
+    "negative": "posted outflow/overrun or explicit negative value",
+    "warning": "unknown, future obligation, action needed",
+    "accent": "focus and selected navigation, not for meaningless ornamental icons",
+    "caution": "The direction is dark-first, not neon-first; avoid glow effects, abundant saturated panels or generic fintech-dashboard styling"
+  },
+  "motion": {
+    "defaultMs": 180,
+    "fastMs": 120,
+    "slowMs": 200,
+    "curve": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "reducedMotion": "0.01ms; no essential action depends on animation",
+    "disallow": [
+      "parallax",
+      "repeating breathing or pulsing",
+      "hover-lift on every card"
+    ]
+  },
+  "accessibility": {
+    "WCAG": "2.2 AA target for implemented UI; static mockup scan is not certification",
+    "textContrastMin": 4.5,
+    "largeTextMin": 3,
+    "criticalNonTextContrastMin": 3,
+    "mobileTargetSizePx": 44,
+    "screenReader": "Required in P39; cannot be inferred from static design mockups"
+  },
+  "sourceOfTruth": [
+    "design/p25/selection.json",
+    "design/p25/signal-current.tokens.json",
+    "design/p25/signal-current-reference-manifest.json",
+    "design/p25/visual-lab/index.html?direction=b&mode=default",
+    "docs/P25L_SIGNAL_CURRENT_LOCK.md"
+  ]
+}
