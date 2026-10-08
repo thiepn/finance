@@ -1,6 +1,6 @@
 # P25 — Visual QA Results and Selection Readiness
 
-**Status:** Prototype QA passed; direction selection is pending.  
+**Status:** Prototype QA passed. **B — Signal Current selected; P25L reference lock approved.** See [P25L Lock](P25L_SIGNAL_CURRENT_LOCK.md).  
 **Verified visual QA run:** [Finance P25 Concept Visual QA (2026-10-08)](https://github.com/thiepn/finance/actions/runs/37764764057)  
 **Scope:** Fully synthetic static design mockups; **no authenticated financial data or ledger operations**.
 
@@ -48,12 +48,12 @@ Automated checks do **not** establish: human task completion, focus restoration,
 | Potential issue | Conventional dashboard structure | Accent/card overload | Can feel austere |
 | Best reason to choose | Broad daily approachability | Bold dark-first character | Strong non-SaaS identity |
 
-**Provisional preference: C**, because it most directly avoids the user's known dislike of oversized headline-and-card SaaS templates; however, final approval must come from the user. If asked to change a color or component, do not quietly select a direction or rename an existing design lock.
+**Historical provisional preference (superseded by explicit owner choice): C**, because it most directly avoids the user's known dislike of oversized headline-and-card SaaS templates; however, final approval must come from the user. If asked to change a color or component, do not quietly select a direction or rename an existing design lock.
 
 ## P25 completion semantics
 
 **Exploration (code, render, QA, comparison): complete.**  
-**Reference lock: pending explicit choice.**
+**Reference lock: B — Signal Current, approved 2026-10-08.**
 
 After selection, perform `P25L — Final Reference Lock`: record the chosen `id`, approve both modes and all eight screen families, export exact final PNG fixtures, perform remaining manual UX review, and only then authorize P26 implementation.
 
