@@ -140,6 +140,7 @@ function PlanGoals({board,workspace}:{board:PlanningDashboard;workspace:Planning
 }
 function GoalRow({goal,board,workspace}:{goal:PlanningGoal;board:PlanningDashboard;workspace:PlanningWorkspace}){
  const [raw,setRaw]=useState(""),[confirmWithdraw,setConfirmWithdraw]=useState(false);
+ const [confirmStatus,setConfirmStatus]=useState<"completed"|"cancelled"|null>(null);
  const minor=planMoneyToMinor(raw,false),percentage=budgetFraction(goal.fundedMinor,goal.targetMinor);
  const currencySupported=currencyMinorDigits(goal.currencyCode)===2;
  const ready=(kind:"contribution"|"withdrawal")=>currencySupported&&minor!==null&&isEligibleGoalMovement(goal.goalId,minor,kind,board)&&!workspace.busyKey;
@@ -167,6 +168,16 @@ function GoalRow({goal,board,workspace}:{goal:PlanningGoal;board:PlanningDashboa
      <FinanceButton variant="quiet" disabled={!!workspace.busyKey} onClick={()=>void workspace.setGoalStatus(goal.goalId,"paused")}>Pause</FinanceButton>
      </div>:goal.status==="paused"?<FinanceButton variant="secondary" disabled={!!workspace.busyKey}
          onClick={()=>void workspace.setGoalStatus(goal.goalId,"active")}>Resume</FinanceButton>:null}
+   {["active","paused"].includes(goal.status)?<div className="sc-plan-goal__status">
+     {!confirmStatus?<><FinanceButton variant="quiet" disabled={!!workspace.busyKey}
+       onClick={()=>setConfirmStatus("completed")}>Mark completed</FinanceButton>
+       <FinanceButton variant="quiet" disabled={!!workspace.busyKey}
+       onClick={()=>setConfirmStatus("cancelled")}>Cancel goal</FinanceButton></>:
+       <div className="sc-plan-confirm"><span>{confirmStatus==="completed"?"Mark this goal completed?":"Cancel this goal? Progress history is retained."}</span>
+       <FinanceButton variant={confirmStatus==="cancelled"?"danger":"primary"} disabled={!!workspace.busyKey}
+         onClick={()=>{void workspace.setGoalStatus(goal.goalId,confirmStatus);setConfirmStatus(null);}}>Confirm {confirmStatus}</FinanceButton>
+       <FinanceButton variant="secondary" disabled={!!workspace.busyKey} onClick={()=>setConfirmStatus(null)}>Keep goal</FinanceButton></div>}
+    </div>:null}
  </article>;
 }
 export interface SignalPlanViewProps{
@@ -179,7 +190,6 @@ export function SignalPlanView({dashboard:board,workspace,mode,onNavigate,anchor
  const currency=board.profile.currencyCode;
  const commitments=[...board.commitments].filter(c=>c.currencyCode===currency&&c.transactionType==="expense")
    .sort((a,b)=>a.expectedAt.localeCompare(b.expectedAt)).slice(0,6);
- const primaryPath=mode==="goals"?"/plan/goals":"/plan";
  return <div className="sc-plan" data-testid="finance-plan-workspace">
   <header className="sc-plan-heading"><div><span className="sc-eyebrow">BUDGETS, GOALS & COMMITMENTS</span><h1>Plan</h1>
    <p>What you assigned, what you spent, and what is still expected.</p></div>
@@ -213,8 +223,8 @@ export function SignalPlanView({dashboard:board,workspace,mode,onNavigate,anchor
      <section className="sc-plan-section sc-plan-obligations"><div className="sc-plan-section-title"><div><span className="sc-eyebrow">COMING UP</span><h2>Recurring commitments</h2></div>
         <button type="button" onClick={()=>onNavigate("/plan/recurring")}>Open recurring <Icon name="chevronRight" size={14}/></button></div>
       {commitments.length?commitments.map(c=><div className="sc-plan-obligation" key={c.patternId+":"+c.expectedAt}>
-         <span><strong>{dateLabel(c.expectedAt,board.profile.locale,board.profile.timeZone)}</strong>
-           <small>Expected expense · not posted</small></span><MoneyValue amountMinor={c.amountMinor} currency={c.currencyCode}/></div>):
+         <span><strong>{board.availableCategories.find(x=>x.categoryId===c.categoryId)?.path.join(" / ")||"Recurring expense"}</strong>
+           <small>{dateLabel(c.expectedAt,board.profile.locale,board.profile.timeZone)} · expected, not posted</small></span><MoneyValue amountMinor={c.amountMinor} currency={c.currencyCode}/></div>):
         <p className="sc-plan-empty">No tracked upcoming expenses in this plan period.</p>}
       <DataProvenance source="forecast"/></section>
     </div>
