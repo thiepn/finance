@@ -138,6 +138,15 @@ export function SignalHomeView({dashboard,upcoming,trend,onNavigate,periodKind,o
              <Icon name="chevronRight" size={16}/></button>;
          })}</div>}
        {dashboard.attention.totalCount>dashboard.attention.items.length?<p className="sc-home-attention-more">Showing {dashboard.attention.items.length} of {dashboard.attention.totalCount} issues</p>:null}
+       {upcoming?.status==="ready" && upcoming.value?.upcoming?.length ? <div className="sc-home-next-bills">
+         <div className="sc-home-next-bills__head"><strong>Next commitments</strong><button type="button" onClick={()=>view("recurring")}>All recurring <Icon name="chevronRight" size={13}/></button></div>
+         {upcoming.value.upcoming.filter(row=>row.transactionType==="expense"&&row.currencyCode===currency)
+           .slice(0,2).map(row=><button type="button" className="sc-home-next-bill" key={row.patternId} onClick={()=>view("recurring")}>
+             <span><strong>{row.name}</strong><small>Expected {formatActivityDate(row.nextExpectedAt,locale,dashboard.profile.timeZone)}</small></span>
+             <MoneyValue amountMinor={Math.abs(row.amountMinor)} currency={currency} locale={locale}/>
+           </button>)}
+         <p>Expected recurring charges, not posted transactions.</p>
+       </div>:null}
      </section>
      <section className="sc-home-pace">
        {trendPoints.length>0?<FinanceTrend title="Spending pace" description="Cumulative posted net expenses vs. linear budget allocation · not a forecast" points={trendPoints} currency={currency}/>:
