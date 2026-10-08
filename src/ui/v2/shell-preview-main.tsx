@@ -4,6 +4,7 @@ import { FinanceV2Shell } from "./FinanceV2Shell.js";
 import { FinancePageHeader, MoneyMetric, FinanceTable, MoneyValue, BudgetAllocationRow, FinancialState } from "./SignalCurrent.js";
 import { resolveFinanceLocation, type RouteLocation } from "../../app/finance-router.js";
 import "./finance-app-shell.css";
+import "./shell-preview.css";
 
 /** P27 DEV-ONLY: unprivileged fixture checks the real navigation and scoped CSS.
  * Never binds to Supabase or uses actual finance records.
