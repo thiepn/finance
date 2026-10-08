@@ -51,6 +51,28 @@ try{
    add(device.id+" no private data errors",!text.includes("finance_initialize")&&!text.includes("permission denied")&&!text.includes("Your financial position"));
    await page.goto(origin+"/sign-in?next="+encodeURIComponent("//other.example"),{waitUntil:"networkidle"});
    add(device.id+" rejected external return",!(await page.locator(".sc-auth__return").count()));
+   // Separately exercise the actual Signal Current shell with public synthetic
+   // values only; never fabricate a real Supabase session.
+   await page.goto(origin+"/p27-shell-preview.html",{waitUntil:"networkidle"});
+   await page.getByRole("heading",{name:"Home"}).waitFor({timeout:12000});
+   const overflowShell=await page.evaluate(()=>Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth));
+   add(device.id+" real shell overflow",overflowShell<=1,"overflow="+overflowShell);
+   await page.screenshot({path:path.join(dest,"screenshots",device.id+"-signal-shell.png"),animations:"disabled"});
+   const shellAxe=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21a","wcag21aa"]).analyze();
+   add(device.id+" real shell accessibility",shellAxe.violations.length===0,shellAxe.violations.map(x=>x.id).join(","));
+   await page.getByRole("button",{name:/More/}).click();
+   add(device.id+" More lists settings",await page.getByRole("link",{name:"Settings & account"}).isVisible());
+   await page.keyboard.press("Escape");
+   add(device.id+" Escape closes More",await page.getByRole("link",{name:"Settings & account"}).count()===0);
+   await page.getByRole("button",{name:"Switch to light appearance"}).first().click();
+   add(device.id+" light theme",await page.locator(".sc-root[data-sc-theme=light]").count()===1);
+   if(device.width>599){
+     await page.getByRole("link",{name:"Activity",exact:true}).first().click();
+     add(device.id+" shell Activity navigation",await page.getByRole("heading",{name:"Activity",exact:true}).isVisible());
+   }else{
+     await page.locator(".sc-app-bottom-nav").getByRole("link",{name:"Activity"}).click();
+     add(device.id+" mobile Activity navigation",await page.getByRole("heading",{name:"Activity",exact:true}).isVisible());
+   }
    await ctx.close();
  }
 }finally{if(browser)await browser.close();server.kill("SIGTERM")}
