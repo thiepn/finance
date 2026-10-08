@@ -151,6 +151,7 @@ export function ActivityPage() {
       if(next)params.set("q",next);else params.delete("q");
       const search=params.toString();
       window.history.replaceState(null,"","/activity"+(search?"?"+search:""));
+      window.dispatchEvent(new Event("finance:navigate"));
     }
   }
   return (
