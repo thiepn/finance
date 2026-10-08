@@ -58,7 +58,7 @@ function IncompleteDetail({label,onBack}: {label:string;onBack:()=>void}){
  return <FinancialState kind="empty" title={label+" detail view"} description="This deep link is recognized and protected. The complete detail workspace is being migrated in a later Finance phase; no records have been changed." primaryAction={{label:"Open list",onClick:onBack}}/>;
 }
 function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(target:string,replace?:boolean)=>void}){
- const toLegacy=(key:string)=>navigate(fromLegacyKey(key));
+ const toLegacy=(key:string)=>navigate(key==="activity-new"?"/activity/new":fromLegacyKey(key));
  const productId=route.params.productId??null;
  switch(route.id){
    case "home":return <OverviewPage onNavigate={toLegacy}/>;
