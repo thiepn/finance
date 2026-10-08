@@ -73,7 +73,7 @@ npm run build
 
 `npm run validate:p26` verifies generated tokens, scope isolation, component inventory and non-mounted production entrypoint. `npm test` includes SSR presentation tests for exact minor units, zero/three-decimal currencies, receipt source semantics, accessible details and no double-post implication.
 
-The **Finance P26 React Visual QA** workflow launches the actual React showcase (not static HTML from P25) and captures 28 viewport/screen/theme combinations: desktop/mobile core pages plus 1024px/320px stress cases. It runs axe WCAG A/AA tags, catches uncaught browser errors, page overflow and wrong theme. The final artifact supplies `index.html`, PNGs and `report.json`.
+The **Finance P26 React Visual QA** workflow launches the actual React showcase (not static HTML from P25) and captures 28 viewport/screen/theme combinations: desktop/mobile core pages plus 1024px/320px stress cases. It runs axe WCAG A/AA tags, catches uncaught browser errors, page overflow and wrong theme. The final artifact supplies `index.html`, PNGs and `report.json`. The verified [P26 React Visual QA run](https://github.com/thiepn/finance/actions/runs/37769597318) captured **28/28 real React views**, with **zero page overflow cases**, **zero uncaught errors** and **zero tagged axe A/AA violations** in the tested states. These are synthetic fixtures, not an authenticated production qualification.
 
 Automated axe checks do **not** certify WCAG conformance; authenticated journeys, keyboard traversal, real phone camera, screen reader use and actual ledger data remain for P27–P39.
 
