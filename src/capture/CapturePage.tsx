@@ -5,6 +5,7 @@ import type { LocalReceiptCaptureDraft, ReceiptCaptureMethod } from "../domain/r
 import { createFinanceBrowserRuntime } from "../integrations/supabase-client.js";
 import { SupabaseFinanceReceiptCaptureService, type SupabaseReceiptClient } from "../services/supabase-receipt-capture.js";
 import { Badge, Button, Surface } from "../ui/components/Primitives.js";
+import { ReceiptLocalPagePreview } from "./ReceiptLocalPagePreview.js";
 import "./capture-page.css";
 
 export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void }) {
@@ -16,6 +17,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [confirmDiscard,setConfirmDiscard]=useState(false);
   const controller = runtime && userId ? new ReceiptCaptureController(
     new SupabaseFinanceReceiptCaptureService({
       rpc: runtime.rpcClient.rpc.bind(runtime.rpcClient),
@@ -36,7 +38,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
       const rows = await store.list();
       if (mounted) setDrafts(rows.filter(row => row.userId === data.user.id));
     }).catch(reason => {
-      if (mounted) setError(reason instanceof Error ? reason.message : String(reason));
+      if (mounted) setError("Receipt drafts could not be loaded. Try reopening Capture.");
     });
     return () => { mounted = false; };
   }, [runtime, store]);
@@ -50,7 +52,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
     setError(null);
     setSuccess(false);
     try { await action(); await reload(); }
-    catch (reason) { setError(reason instanceof Error ? reason.message : String(reason)); }
+    catch { setError("The receipt action could not be confirmed. Your local draft is retained when possible; verify its status before retrying."); }
     finally { setBusy(false); }
   }
   function begin(method: ReceiptCaptureMethod) {
@@ -93,7 +95,8 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
   }
   function discard() {
     if (!active || !controller) return;
-    void perform(async () => { await controller.cancel(active); setActive(null); });
+    if(!confirmDiscard){setConfirmDiscard(true);return;}
+    void perform(async () => { await controller.cancel(active); setActive(null);setConfirmDiscard(false); });
   }
   const rows = active?.pages.filter(page => page.state !== "pending-delete") ?? [];
   return (
@@ -103,13 +106,13 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
         <Button variant="secondary" onClick={() => onNavigate("receipts")}>Receipt review</Button>
       </div>
       {error ? <Surface><p role="alert" className="f-capture-error">{error}</p></Surface> : null}
-      {success ? <Surface><Badge tone="positive">Captured</Badge><p>Receipt saved. Check the Receipts page to reconcile it against your ledger.</p></Surface> : null}
+      {success ? <Surface><Badge tone="positive">Captured</Badge><p>Receipt saved as private evidence. It did not post a transaction.</p><Button onClick={()=>onNavigate("receipts")} variant="primary">Open receipt inbox</Button></Surface> : null}
       {!runtime ? <Surface><p>Finance backend is not configured.</p></Surface>
       : !userId ? <Surface><p>A signed-in Finance account is required to upload private receipts.</p></Surface>
       : !active ? <>
           <Surface className="f-capture-start">
             <h2>New receipt</h2>
-            <p>Photograph a paper receipt or select saved images and PDFs. Multiple pages are supported.</p>
+            <p>Photograph a paper receipt or select saved images and PDFs. Multiple pages are supported. Files remain in a device-local draft until you save.</p>
             <div className="f-capture-actions">
               <Button disabled={busy} onClick={() => begin("camera")} variant="primary">Use camera</Button>
               <Button disabled={busy} onClick={() => begin("file")} variant="secondary">Choose files</Button>
@@ -136,7 +139,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
             </label>
             <div className="f-capture-pages">
               {rows.map((page, i) => <div className="f-capture-page-row" key={page.clientPageId}>
-                <div><strong>Page {i + 1}</strong><span>{(page.byteSize / 1024).toFixed(0)} KB · {page.state}</span></div>
+                <div><ReceiptLocalPagePreview page={page}/><strong>Page {i + 1}</strong><span>{(page.byteSize / 1024).toFixed(0)} KB · {page.state}</span></div>
                 <div className="f-capture-actions">
                   <Button disabled={busy || i === 0} onClick={() => movePage(page.clientPageId, -1)} variant="ghost">Up</Button>
                   <Button disabled={busy || i === rows.length - 1} onClick={() => movePage(page.clientPageId, 1)} variant="ghost">Down</Button>
@@ -147,7 +150,8 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
             </div>
             <div className="f-capture-actions">
               <Button disabled={busy || rows.length === 0} onClick={finish} variant="primary">{busy ? "Saving…" : "Save receipt"}</Button>
-              <Button disabled={busy} onClick={discard} variant="secondary">Discard draft</Button>
+              <Button disabled={busy} onClick={discard} variant="secondary">{confirmDiscard?"Confirm discard":"Discard draft"}</Button>
+              {confirmDiscard?<Button disabled={busy} onClick={()=>setConfirmDiscard(false)} variant="ghost">Keep draft</Button>:null}
             </div>
             <p>Uploading does not create a ledger expense. Match your receipt with its transaction in Receipts.</p>
           </Surface>
