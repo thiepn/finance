@@ -8,3 +8,17 @@
 .f-transaction-form__actions{display:flex;align-items:center;gap:var(--f-space-3);grid-column:1/-1;justify-content:space-between}
 @media(max-width:850px){.f-transaction-form{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.f-transaction-form{grid-template-columns:1fr}.f-transaction-form__actions{flex-direction:column;align-items:stretch}}
+
+/* P29 uses the original authorized EUR posting RPCs, but visually exposes a
+   full-page Signal Current entry workspace instead of an inline modal. */
+.sc-root.sc-app .f-transaction-composer{box-shadow:none;max-width:1040px;padding:22px;border:1px solid var(--sc-border);border-radius:9px;background:var(--sc-surface);gap:22px}
+.sc-root.sc-app .f-transaction-composer h2{font-size:20px;letter-spacing:-.025em}
+.sc-root.sc-app .f-transaction-form{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.f-transaction-splits{grid-column:1/-1;border-top:1px solid var(--sc-border);border-bottom:1px solid var(--sc-border);padding:17px 0;display:grid;gap:10px}
+.f-transaction-splits__heading{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.f-transaction-splits__heading strong{font-size:13px}
+.f-transaction-split{display:grid;grid-template-columns:minmax(150px,1.4fr) minmax(100px,.65fr) auto;align-items:end;gap:12px}
+.f-transaction-split .f-button{min-height:43px}
+.f-transaction-split-warning{color:var(--sc-warning)!important;font-size:12px}
+.sc-root.sc-app .f-transaction-form input,.sc-root.sc-app .f-transaction-form select{border-radius:6px}
+@media(max-width:600px){.sc-root.sc-app .f-transaction-composer{padding:15px}.sc-root.sc-app .f-transaction-form{grid-template-columns:1fr}.f-transaction-split{grid-template-columns:1fr 1fr}.f-transaction-split .f-button{grid-column:1/-1}.f-transaction-form__actions{gap:12px}}
