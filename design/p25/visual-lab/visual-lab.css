@@ -144,7 +144,7 @@ body[data-device="mobile"] .mobile-tabs{display:flex;position:sticky;bottom:0;le
 .cat-main{flex:1;min-width:0}.cat-main>div:first-child{display:flex;justify-content:space-between;gap:8px;font-size:12px}.cat-main strong{font-weight:700}.cat-main b{font-weight:700;white-space:nowrap}.cat-main small{display:block;color:var(--muted);font-size:10px;margin:5px 0 8px}.category-bar{height:4px}
 @media (max-width:389px){body[data-device="mobile"] .screens{padding-left:13px;padding-right:13px}.mobile-mini-metrics strong{font-size:16px}.mobile-hero>.money{font-size:32px}}
 /* A · Ledger Atelier — warm instrument, organic green, copper, calibrated quietness. */
-body[data-direction="a"] .frame{--page:#f8f7f2;--surface:#fffdfa;--navbg:#eeeee6;--ink:#183b33;--text:#27332f;--muted:#4f6156;--line:#deded3;--accent:#176653;--accent2:#b98843;--pos:#107151;--neg:#b64e44;--warn:#88550c;--soft:#e8efea;--radius:7px;--shadow:0 5px 22px rgba(28,56,44,.03)}
+body[data-direction="a"] .frame{--page:#f8f7f2;--surface:#fffdfa;--navbg:#eeeee6;--ink:#183b33;--text:#27332f;--muted:#4f6156;--line:#deded3;--accent:#176653;--accent2:#b98843;--pos:#107151;--neg:#93352b;--warn:#88550c;--soft:#e8efea;--radius:7px;--shadow:0 5px 22px rgba(28,56,44,.03)}
 body[data-direction="a"] .metric.featured{border-left:3px solid var(--accent)}
 body[data-direction="a"] .home-grid .board{border-radius:8px}
 body[data-direction="a"] .mobile-hero>.money{font-family:Georgia,serif;font-variant-numeric:lining-nums;letter-spacing:-.05em}
@@ -261,3 +261,5 @@ body[data-direction="b"][data-device="desktop"] .attention-board{border-left:2px
  body[data-direction="b"][data-device="desktop"] .lower-grid{grid-template-columns:minmax(0,1.45fr) minmax(210px,.75fr)}
  body[data-direction="b"][data-device="desktop"] .budget-board{order:1}
 }
+
+body[data-direction="b"][data-mode="alternate"] .detail-receipt{background:var(--soft)}
