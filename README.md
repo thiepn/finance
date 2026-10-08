@@ -62,3 +62,5 @@ Target origin: `https://finance.thiepn.dev`
 - **P28** — [Signal Current real-data Home](docs/P28_HOME_REDESIGN.md): source-labelled posted/plan/valuation/recurring totals, real spending pace, attention/receipt evidence, budget/category/activity flows, responsive 320px–desktop and synthetic-only browser QA. Follow-on screen detail migrations remain P29+.
 
 - **P29** — [Signal Current Activity & transaction workspace](docs/P29_ACTIVITY_TRANSACTION_WORKSPACE.md): real searchable/paginated ledger, protected record details, audited void, exact category splits, synthetic-only visual QA. EUR-only new posting and no unsupported in-place edits.
+
+- **P30** — [Signal Current Receipt Studio](docs/P30_RECEIPT_STUDIO.md): private receipt inbox, signed original evidence, manual reconciliation, device-local multi-page capture, and explicit extraction-correction limitations.
