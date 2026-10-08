@@ -11,6 +11,7 @@
  <div class="lab-brand"><strong>P25 · Finance Visual Lab</strong><span>Three distinct directions • synthetic data • not the live app</span></div>
  <div class="lab-controls">
   <label>Direction<select id="direction"><option value="a">A — Ledger Atelier</option><option value="b">B — Signal Current</option><option value="c">C — Editor's Ledger</option></select></label>
+  <label>Theme<select id="mode"><option value="default">Primary</option><option value="alternate">Alternate</option></select></label>
   <label>Device<select id="device"><option value="desktop">Desktop 1440</option><option value="mobile">Mobile 390</option></select></label>
   <label>Screen<select id="screen"><option value="home">Home</option><option value="activity">Activity</option><option value="receipt">Receipt review</option><option value="scan">Receipt capture</option><option value="plan">Plan</option></select></label>
   <button id="captureMode" type="button">Clean preview</button>
@@ -132,14 +133,14 @@
  <nav class="mobile-tabs" aria-label="Mobile mockup bottom tabs"><span class="selected">⌂<small>Home</small></span><span>▤<small>Activity</small></span><span class="capture-action">▢<small>Scan</small></span><span>◫<small>Plan</small></span><span>◎<small>Explore</small></span></nav>
 </div>
 <script>
-(()=>{const params=new URLSearchParams(location.search);const dir=document.getElementById("direction"),device=document.getElementById("device"),screen=document.getElementById("screen");
-let which=params.get("direction")||"a",dev=params.get("device")||"desktop",view=params.get("screen")||"home";
+(()=>{const params=new URLSearchParams(location.search);const dir=document.getElementById("direction"),device=document.getElementById("device"),screen=document.getElementById("screen"),mode=document.getElementById("mode");
+let which=params.get("direction")||"a",dev=params.get("device")||"desktop",view=params.get("screen")||"home",theme=params.get("mode")||"default";
 if(!["a","b","c"].includes(which))which="a";if(!["desktop","mobile"].includes(dev))dev="desktop";
 const views=dev==="mobile"?["home","scan","plan"]:["home","activity","receipt"];if(!views.includes(view))view="home";
-function sync(){document.body.dataset.direction=which;document.body.dataset.device=dev;document.body.dataset.screen=view;dir.value=which;device.value=dev;screen.innerHTML=(dev==="mobile"?[["home","Home"],["scan","Scan"],["plan","Plan"]]:[["home","Home"],["activity","Activity"],["receipt","Receipt review"]]).map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("");screen.value=view;
+function sync(){document.body.dataset.direction=which;document.body.dataset.device=dev;document.body.dataset.screen=view;document.body.dataset.mode=theme;dir.value=which;mode.value=theme;device.value=dev;screen.innerHTML=(dev==="mobile"?[["home","Home"],["scan","Scan"],["plan","Plan"]]:[["home","Home"],["activity","Activity"],["receipt","Receipt review"]]).map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("");screen.value=view;
 document.getElementById("appbar-context").textContent="/ "+(view==="home"?"Home":view==="activity"?"Activity":view==="receipt"?"Receipts":view==="scan"?"Scan":"Plan");
-const u=new URL(location.href);u.searchParams.set("direction",which);u.searchParams.set("device",dev);u.searchParams.set("screen",view);history.replaceState(null,"",u);
+const u=new URL(location.href);u.searchParams.set("direction",which);u.searchParams.set("device",dev);u.searchParams.set("screen",view);u.searchParams.set("mode",theme);history.replaceState(null,"",u);
 }
-dir.addEventListener("change",()=>{which=dir.value;sync()});device.addEventListener("change",()=>{dev=device.value;view="home";sync()});screen.addEventListener("change",()=>{view=screen.value;sync()});document.getElementById("captureMode").addEventListener("click",()=>document.body.classList.toggle("clean"));if(params.get("capture")==="1")document.body.classList.add("clean");sync();})();
+dir.addEventListener("change",()=>{which=dir.value;sync()});mode.addEventListener("change",()=>{theme=mode.value;sync()});device.addEventListener("change",()=>{dev=device.value;view="home";sync()});screen.addEventListener("change",()=>{view=screen.value;sync()});document.getElementById("captureMode").addEventListener("click",()=>document.body.classList.toggle("clean"));if(params.get("capture")==="1")document.body.classList.add("clean");sync();})();
 </script>
 </body></html>
