@@ -13,7 +13,7 @@ P25 uses **three completely explicit visual directions**, not simply three accen
 3. Both a principal and inverse **light/dark mode**.
 4. Consistent factual synthetic figures (not real-account data).
 5. Static browser-rendered HTML/CSS to check text, layout and contrast at real viewports, beyond generated imagery.
-6. Automation capturing **48 concept screens** plus six narrow-width stress captures, with axe accessibility results and page-overflow checks.
+6. Automation capturing **48 concept screens** plus six narrow-width stress captures, with axe accessibility results and page-overflow checks. The reviewed run has **54 screenshots, 0 overflow failures and 0 axe tagged violations**; see the QA report for scope and limitations.
 
 Files:
 - [Design direction contracts](../design/p25/directions.json)
@@ -21,6 +21,7 @@ Files:
 - [Concept CSS](../design/p25/visual-lab/visual-lab.css)
 - [Screenshot runner](../scripts/capture-finance-p25.mjs)
 - [Screenshot workflow](../.github/workflows/finance-p25-visual-qa.yml)
+- [Verified visual QA outcomes](P25_VISUAL_QA_RESULTS.md)
 
 **Important distinction:** AI-rendered moodboards are inspirational illustrations only. The **HTML/CSS gallery and `directions.json`** are the evidence-grade design comparators. The gallery is not a working finance application and none of its controls writes to a backend.
 
