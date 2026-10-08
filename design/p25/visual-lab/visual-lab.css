@@ -209,3 +209,19 @@ body[data-direction="c"] .camera-stage{background:#131717;border-radius:0}
 body[data-direction="c"] .scan-page-strip div{border-radius:0}
 body[data-direction="c"] .cat-icon{border-radius:0}
 body[data-direction="c"] .chart-key i{border-radius:0}
+
+/* Each candidate must work in both light and dark. 'alternate' flips primary mode. */
+body[data-direction="a"][data-mode="alternate"] .frame{
+ --page:#0d1918;--surface:#162821;--navbg:#11201d;--text:#edf4ed;--muted:#b3c7bd;--line:#355148;--accent:#8ad4ae;--accent2:#e4ab69;--pos:#81d4b1;--neg:#ff9c96;--warn:#e5ae68;--soft:#1f3930;--shadow:0 8px 24px rgba(0,0,0,.13)
+}
+body[data-direction="a"][data-mode="alternate"] .metric.featured{border-color:var(--accent)}
+body[data-direction="b"][data-mode="alternate"] .frame{
+ --page:#f2f7fc;--surface:#ffffff;--navbg:#e7f0fa;--text:#182c49;--muted:#546982;--line:#c8d6e5;--accent:#135ab3;--accent2:#b94f3d;--pos:#0a7663;--neg:#b33d43;--warn:#a64b35;--soft:#dceafb;--shadow:0 5px 18px rgba(30,58,98,.04)
+}
+body[data-direction="b"][data-mode="alternate"] .metric.featured{background:#e3f0ff}
+body[data-direction="b"][data-mode="alternate"] .solid-action,body[data-direction="b"][data-mode="alternate"] .mobile-end-action{color:#ffffff}
+body[data-direction="c"][data-mode="alternate"] .frame{
+ --page:#151719;--surface:#1c2022;--navbg:#121416;--text:#f0f1ed;--muted:#b1b9bd;--line:#474b4d;--accent:#a0b8ff;--accent2:#e09a86;--pos:#84c8a7;--neg:#f2a095;--warn:#f2a095;--soft:#283247;--shadow:none
+}
+body[data-direction="c"][data-mode="alternate"] .solid-action,body[data-direction="c"][data-mode="alternate"] .mobile-end-action{color:#111622}
+/* P25 visual lab displays a real, high-contrast synthetic preview—not a functional money app. */
