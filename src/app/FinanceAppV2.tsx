@@ -12,6 +12,7 @@ import { MerchantsPage, RulesPage } from "./ClassificationPages.js";
 import { ProductIntelligencePage } from "../product-intelligence/ProductIntelligencePage.js";
 import { RecurringPage } from "../recurring/RecurringPage.js";
 import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js";
+import { ReceiptStudioDetail } from "../receipt-matching/ReceiptStudioDetail.js";
 import { PlanningPage } from "../planning/PlanningPage.js";
 import { WealthPage } from "../wealth/WealthPage.js";
 import { ImportPage } from "../imports/ImportPage.js";
@@ -77,8 +78,8 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
      onProductChange={id=>navigate(id?"/explore/products/"+encodeURIComponent(id):"/explore/products")}
      selectedProductId={productId}/>;
    case "recurring":return <RecurringPage onNavigate={toLegacy}/>;
-   case "receipts":return <ReceiptMatchingPage onNavigate={toLegacy}/>;
-   case "receipt-detail":return <ActivityRecordPage kind="receipt" recordId={route.params.receiptId!} onNavigate={navigate}/>;
+   case "receipts":return <ReceiptMatchingPage onNavigate={navigate}/>;
+   case "receipt-detail":return <ReceiptStudioDetail receiptId={route.params.receiptId!} onNavigate={navigate}/>;
    case "accounts":return <WealthPage mode="accounts" onNavigate={toLegacy}/>;
    case "account-detail":return <IncompleteDetail label="Account" onBack={()=>navigate("/wealth/accounts")}/>;
    case "plan":return <PlanningPage mode="budget" onNavigate={toLegacy}/>;

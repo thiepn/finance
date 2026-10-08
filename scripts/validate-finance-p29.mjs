@@ -10,7 +10,7 @@ const model=fs.readFileSync("src/activity/activity-workspace-model.ts","utf8");
 assert(page.includes("ActivityWorkspace.js"),"Live Activity route is not mounted");
 assert(app.includes('case "activity":return <ActivityPage onNavigate={navigate}/>;'),"App route not wired");
 assert(app.includes('case "activity-detail":return <ActivityRecordPage'),"Transaction detail still placeholder");
-assert(app.includes('case "receipt-detail":return <ActivityRecordPage'),"Receipt detail still placeholder");
+assert(app.includes('case "receipt-detail":return <ActivityRecordPage') || app.includes('case "receipt-detail":return <ReceiptStudioDetail'),"Protected receipt detail still placeholder");
 assert(workspace.includes("controller.search")&&workspace.includes("controller.getFilterCatalog"),"Missing real data queries");
 assert(detail.includes('controller.getDetail')&&detail.includes('ledger.voidTransaction'),"Missing live detail/void paths");
 assert(detail.includes("reason.trim().length<10")&&detail.includes("!confirmed"),"Accidental void guard missing");

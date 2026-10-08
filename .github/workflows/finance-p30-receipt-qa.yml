@@ -1,0 +1,37 @@
+name: Finance P30 Receipt React QA
+on:
+  pull_request:
+    paths:
+      - "src/receipt-matching/**"
+      - "src/capture/**"
+      - "p30-receipt-preview.html"
+      - "scripts/capture-finance-p30.mjs"
+      - ".github/workflows/finance-p30-receipt-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  receipt-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install temporary Chromium audit tools
+        run: |
+          npm install --no-save --no-package-lock playwright @axe-core/playwright
+          npx playwright install --with-deps chromium
+      - name: Exercise P30 real inbox UI on synthetic data
+        run: node scripts/capture-finance-p30.mjs
+      - name: Upload responsive receipt QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: finance-p30-receipt-qa
+          path: p30-artifacts/
+          retention-days: 14
+          if-no-files-found: warn

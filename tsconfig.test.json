@@ -71,6 +71,7 @@
     "src/ui/v2/signal-current.test.ts",
     "src/app/finance-router.test.ts",
     "src/overview/signal-home-model.test.ts",
-    "src/activity/activity-workspace-model.test.ts"
+    "src/activity/activity-workspace-model.test.ts",
+    "src/receipt-matching/receipt-studio-model.test.ts"
   ]
 }

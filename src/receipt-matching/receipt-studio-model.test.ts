@@ -1,0 +1,25 @@
+import type {ReceiptTransactionMatch} from "../domain/receipt-matching.js";
+import {inReceiptQueue,percentCovered,receiptErrorCopy,receiptStatusLabel,validateMatchAmount} from "./receipt-studio-model.js";
+function assert(value:unknown,message:string):asserts value{if(!value)throw Error("P30: "+message)}
+assert(inReceiptQueue("unmatched","attention"),"unmatched in attention");
+assert(inReceiptQueue("suggested_match","suggested"),"suggested filtering");
+assert(inReceiptQueue("partially_matched","partial"),"partial filtering");
+assert(!inReceiptQueue("multi_payment_matched","attention"),"fully matched out of review");
+assert(inReceiptQueue("multi_payment_matched","matched"),"multi-payment treated as matched");
+assert(percentCovered(null,0)===null,"unknown total never becomes zero coverage");
+assert(percentCovered(0,0)===null,"zero denominator yields unavailable");
+assert(percentCovered(10000,12345)===100,"coverage display clamps excess");
+assert(percentCovered(10000,2500)===25,"coverage accurate");
+assert(receiptStatusLabel("partially_matched")==="Partially Matched","human readable status");
+const match={status:"suggested",transaction:{matchableAmountMinor:3500}} as ReceiptTransactionMatch;
+assert(validateMatchAmount("12,34",2400,match)===1234,"locale safe exact cents");
+assert(validateMatchAmount("12.34",2400,match)===1234,"dot cents accepted");
+assert(validateMatchAmount("24,01",2400,match)===null,"over remaining rejected");
+assert(validateMatchAmount("35,01",null,match)===null,"over matchable rejected");
+assert(validateMatchAmount("1.234",null,match)===null,"more than two decimals rejected");
+assert(validateMatchAmount("-1",null,match)===null,"negative rejected");
+assert(validateMatchAmount("0",null,match)===null,"zero rejected");
+assert(validateMatchAmount("NaN",null,match)===null,"invalid amount rejected");
+assert(validateMatchAmount("10,00",null,{...match,status:"confirmed"})===null,"confirmed match cannot be confirmed twice");
+assert(!receiptErrorCopy.action.includes("finance_"),"no raw RPC errors displayed");
+console.log("P30 receipt filtering, money coverage, manual matching validation and error isolation passed");

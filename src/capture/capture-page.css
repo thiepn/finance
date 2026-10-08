@@ -13,3 +13,27 @@
 .f-capture-page-row{display:flex;justify-content:space-between;align-items:center;gap:var(--f-space-3);padding:var(--f-space-3);border:1px solid var(--f-border);border-radius:var(--f-radius-sm)}
 .f-capture-page-row>div:first-child{display:grid;gap:.3rem}
 @media(max-width:700px){.f-capture-page-row{align-items:flex-start;flex-direction:column}.f-capture-page-row .f-capture-actions{width:100%;justify-content:space-between}}
+
+/* P30 — scoped capture visual upgrade; existing private draft controller is retained. */
+.sc-root.sc-app .f-capture-page{gap:14px}
+.sc-root.sc-app .f-capture-page>.f-page-heading{padding:5px 0 15px;border-bottom:1px solid var(--sc-border)}
+.sc-root.sc-app .f-capture-page>.f-page-heading h1{font-size:24px;letter-spacing:-.035em}
+.sc-root.sc-app .f-capture-page>.f-page-heading p{font-size:12px;line-height:1.5;color:var(--sc-muted)}
+.sc-root.sc-app .f-capture-page>.f-surface{padding:20px;border:1px solid var(--sc-border);border-radius:9px;background:var(--sc-surface);box-shadow:none}
+.sc-root.sc-app .f-capture-page h2{font-size:15px;font-weight:750}
+.sc-root.sc-app .f-capture-start{border-top:2px solid var(--sc-accent)!important}
+.sc-root.sc-app .f-capture-actions .f-button{min-height:43px}
+.sc-root.sc-app .f-capture-draft{min-height:62px;padding:12px;border:1px solid var(--sc-border);border-radius:5px;background:var(--sc-subtle)}
+.sc-root.sc-app .f-capture-draft:hover{border-color:var(--sc-accent)}
+.sc-root.sc-app .f-capture-file-label{background:var(--sc-accent);color:var(--sc-accent-ink);border-radius:5px;min-height:44px;align-items:center;font-weight:740}
+.sc-root.sc-app .f-capture-pages{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.sc-root.sc-app .f-capture-page-row{align-items:stretch;flex-direction:column;gap:9px;border:1px solid var(--sc-border);border-radius:7px;padding:13px;background:var(--sc-canvas)}
+.sc-root.sc-app .f-capture-page-row>div:first-child{display:grid;gap:5px}
+.sc-root.sc-app .f-capture-page-row .f-capture-actions{gap:5px;justify-content:space-between;flex-wrap:wrap}
+.sc-root.sc-app .f-capture-page-row .f-capture-actions .f-button{flex:1;min-width:60px}
+.sc-capture-preview{display:grid;gap:8px;min-width:0;margin-bottom:9px}
+.sc-capture-preview img{display:block;width:100%;height:210px;object-fit:contain;background:var(--sc-subtle);border:1px solid var(--sc-border);border-radius:5px}
+.sc-capture-preview__file{display:grid;place-items:center;text-align:center;height:160px;background:var(--sc-subtle);color:var(--sc-muted);border:1px dashed var(--sc-border);font-size:12px}
+.sc-capture-preview a{color:var(--sc-accent);font-size:11px;font-weight:720;text-decoration:underline}
+.sc-root.sc-app .f-capture-upload>.f-capture-actions:last-of-type{border-top:1px solid var(--sc-border);padding-top:14px}
+@media(max-width:600px){.sc-root.sc-app .f-capture-page>.f-page-heading{align-items:stretch;flex-direction:column;gap:11px}.sc-root.sc-app .f-capture-page>.f-surface{padding:15px}.sc-root.sc-app .f-capture-pages{grid-template-columns:1fr}.sc-root.sc-app .f-capture-actions{gap:8px}.sc-capture-preview img{height:275px}}

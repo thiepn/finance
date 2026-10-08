@@ -1,0 +1,120 @@
+/* P30 Signal Current receipt studio — evidence-first, deliberately not a SaaS card wall. */
+.sc-receipt-studio,.sc-rstudio-detail{min-width:0;display:grid;gap:14px}
+.sc-receipt-studio__heading,.sc-rstudio-detail__heading{display:flex;align-items:end;justify-content:space-between;gap:18px;border-bottom:1px solid var(--sc-border);padding:4px 0 17px}
+.sc-receipt-studio__heading h1,.sc-rstudio-detail__heading h1{font-size:24px;letter-spacing:-.035em;line-height:1.2;margin:5px 0}
+.sc-receipt-studio__heading p,.sc-rstudio-detail__heading p{font-size:12px;color:var(--sc-muted);max-width:65ch;line-height:1.5}
+.sc-receipt-studio__summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--sc-border);border-radius:7px;background:var(--sc-surface)}
+.sc-receipt-studio__summary>div{padding:15px 19px;display:flex;align-items:baseline;gap:12px;min-width:0}
+.sc-receipt-studio__summary>div+div{border-left:1px solid var(--sc-border)}
+.sc-receipt-studio__summary strong{font-size:23px;font-weight:780;font-variant-numeric:tabular-nums}
+.sc-receipt-studio__summary span{font-size:11px;color:var(--sc-muted)}
+.sc-receipt-studio__toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.sc-receipt-studio__filters{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.sc-receipt-studio__filters button{min-height:39px;background:transparent;border:1px solid transparent;color:var(--sc-muted);font-size:11px;border-radius:5px;padding:8px 11px;cursor:pointer}
+.sc-receipt-studio__filters button:hover{background:var(--sc-subtle)}
+.sc-receipt-studio__filters button[aria-pressed=true]{color:var(--sc-accent);border-color:var(--sc-border);background:var(--sc-subtle);font-weight:760}
+.sc-receipt-studio__link,.sc-rstudio-back{border:0;background:transparent;color:var(--sc-accent);font-weight:730;font-size:11px;padding:8px 0;cursor:pointer;white-space:nowrap}
+.sc-receipt-studio__queue{border:1px solid var(--sc-border);border-radius:9px;background:var(--sc-surface);overflow:hidden}
+.sc-receipt-studio__queue-title{display:flex;align-items:center;justify-content:space-between;padding:15px 17px;border-bottom:1px solid var(--sc-border);gap:9px}
+.sc-receipt-studio__queue-title h2{font-size:15px;font-weight:760}
+.sc-receipt-studio__queue-title span{font-size:11px;color:var(--sc-muted)}
+.sc-receipt-studio__row{display:flex;align-items:center;gap:15px;min-height:81px;padding:13px 18px;color:var(--sc-text);border-bottom:1px solid var(--sc-border)}
+.sc-receipt-studio__row:last-child{border-bottom:0}
+.sc-receipt-studio__row:hover{background:var(--sc-subtle)}
+.sc-receipt-studio__row-icon{display:grid;place-items:center;flex:none;width:38px;height:44px;color:var(--sc-coral);background:var(--sc-subtle);border:1px solid var(--sc-border);border-radius:4px;font-size:15px;font-weight:800}
+.sc-receipt-studio__row-text{display:grid;gap:5px;flex:1;min-width:0}
+.sc-receipt-studio__row-text strong{font-size:13px;font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-receipt-studio__row-text small,.sc-receipt-studio__row-value small{font-size:11px;color:var(--sc-muted);line-height:1.4}
+.sc-receipt-studio__row-value{display:grid;justify-items:end;gap:4px;text-align:right;min-width:0}
+.sc-receipt-studio__row-value .sc-money{font-size:13px;font-weight:750;white-space:normal;overflow-wrap:anywhere}
+.sc-receipt-studio__row-arrow{font-size:22px;color:var(--sc-muted);flex:none}
+.sc-receipt-studio__empty{padding:22px}
+.sc-receipt-studio__empty>.sc-financial-state{margin:auto}
+.sc-receipt-studio__foot{display:flex;align-items:center;flex-wrap:wrap;gap:6px;color:var(--sc-muted);font-size:11px}
+.sc-rstudio-detail__summary{display:grid;gap:9px;justify-items:end;min-width:0}
+.sc-rstudio-detail__summary>.sc-money{font-size:28px;white-space:normal;overflow-wrap:anywhere}
+.sc-rstudio-detail__grid{display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);gap:14px;align-items:start}
+.sc-rstudio-detail__right{min-width:0;display:grid;gap:14px}
+.sc-rstudio-panel{min-width:0;background:var(--sc-surface);border:1px solid var(--sc-border);border-radius:9px;padding:18px}
+.sc-rstudio-panel__heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.sc-rstudio-panel__heading h2{font-size:15px;font-weight:760}
+.sc-rstudio-panel__heading .sc-button{font-size:11px}
+.sc-rstudio-panel h3{font-size:12px;font-weight:760;margin:23px 0 9px}
+.sc-rstudio-panel h3:first-child{margin-top:0}
+.sc-rstudio-muted,.sc-rstudio-footnote{font-size:11px;color:var(--sc-muted);line-height:1.6}
+.sc-rstudio-footnote{margin-top:15px}
+.sc-rstudio-missing{color:var(--sc-muted);font-size:12px;line-height:1.6;border:1px dashed var(--sc-border);border-radius:5px;padding:25px 15px}
+.sc-rstudio-dl{display:grid;grid-template-columns:145px minmax(0,1fr);gap:11px 9px;font-size:12px;margin:0}
+.sc-rstudio-dl dt{color:var(--sc-muted)}
+.sc-rstudio-dl dd{margin:0;overflow-wrap:anywhere}
+.sc-rstudio-tag{color:var(--sc-muted);font-size:10px;font-weight:730;white-space:nowrap}
+.sc-rstudio-coverage{display:grid;gap:9px;margin:17px 0;padding:14px 0;border-top:1px solid var(--sc-border)}
+.sc-rstudio-coverage>div:first-child{display:flex;justify-content:space-between;font-size:11px}
+.sc-rstudio-coverage>div:last-child{height:7px;overflow:hidden;background:var(--sc-border);border-radius:5px}
+.sc-rstudio-coverage>div:last-child>span{height:100%;display:block;background:var(--sc-accent);border-radius:5px}
+.sc-rstudio-evidence{display:grid;gap:14px}
+.sc-rstudio-evidence__page{display:grid;gap:7px;min-width:0;border:1px solid var(--sc-border);padding:10px}
+.sc-rstudio-evidence__page img{display:block;max-width:100%;width:100%;max-height:600px;object-fit:contain;background:var(--sc-subtle)}
+.sc-rstudio-evidence__page>a:last-child{font-size:11px;color:var(--sc-accent);text-decoration:underline}
+.sc-rstudio-evidence__pdf{padding:65px 12px;text-align:center;color:var(--sc-muted);font-size:12px}
+.sc-rstudio-candidate{border:1px solid var(--sc-border);border-radius:7px;padding:14px;display:grid;gap:11px;margin:10px 0}
+.sc-rstudio-candidate__head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sc-rstudio-candidate__head>span:last-child{font-size:10px;color:var(--sc-muted)}
+.sc-rstudio-candidate__title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-width:0}
+.sc-rstudio-candidate__title>div{display:grid;gap:5px;min-width:0}
+.sc-rstudio-candidate__title strong{font-size:12px}
+.sc-rstudio-candidate__title small{font-size:10px;color:var(--sc-muted)}
+.sc-rstudio-candidate__title>.sc-money{font-size:12px;white-space:normal;overflow-wrap:anywhere;text-align:right}
+.sc-rstudio-candidate__evidence{display:flex;flex-wrap:wrap;gap:7px;font-size:10px;color:var(--sc-muted)}
+.sc-rstudio-candidate__evidence span{padding:4px;background:var(--sc-subtle);border-radius:3px}
+.sc-rstudio-candidate__actions{display:flex;align-items:end;gap:9px;flex-wrap:wrap}
+.sc-rstudio-candidate__actions label{display:grid;gap:5px;font-size:11px;color:var(--sc-muted);flex:1;min-width:110px}
+.sc-rstudio-candidate__actions input{width:100%;min-height:40px;border:1px solid var(--sc-border);border-radius:5px;padding:8px;background:var(--sc-canvas);color:var(--sc-text);font:inherit}
+.sc-rstudio-candidate__actions .sc-button{min-height:40px;font-size:11px}
+.sc-rstudio-invalid{width:100%;color:var(--sc-negative);font-size:10px}
+.sc-rstudio-confirmed{color:var(--sc-positive);font-size:11px;flex:1}
+.sc-rstudio-items{display:grid}
+.sc-rstudio-items>div{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--sc-border);padding:10px 0}
+.sc-rstudio-items>div:last-child{border-bottom:0}
+.sc-rstudio-items>div>span:first-child{display:grid;gap:3px;min-width:0}
+.sc-rstudio-items strong{font-size:12px}
+.sc-rstudio-items small{font-size:10px;color:var(--sc-muted)}
+.sc-rstudio-items .sc-money{font-size:11px;white-space:normal;overflow-wrap:anywhere;text-align:right}
+.sc-rstudio-success{color:var(--sc-positive);font-size:12px}
+.sc-rstudio-error{color:var(--sc-negative);font-size:12px}
+@media(max-width:1050px){.sc-rstudio-detail__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.sc-rstudio-detail__grid{grid-template-columns:1fr}.sc-receipt-studio__summary>div{padding:12px 9px;display:grid;gap:3px}.sc-receipt-studio__filters{overflow-x:auto;flex-wrap:nowrap;max-width:100%;scrollbar-width:thin}.sc-receipt-studio__filters button{white-space:nowrap}}
+@media(max-width:600px){
+ .sc-receipt-studio__heading,.sc-rstudio-detail__heading{flex-direction:column;align-items:stretch;gap:13px}
+ .sc-receipt-studio__heading h1,.sc-rstudio-detail__heading h1{font-size:23px}
+ .sc-receipt-studio__heading .sc-button{align-self:flex-start}
+ .sc-receipt-studio__toolbar{display:grid;gap:8px}
+ .sc-receipt-studio__link{justify-self:end}
+ .sc-receipt-studio__row{gap:9px;padding:12px 10px;min-height:74px}
+ .sc-receipt-studio__row-icon{width:30px;height:37px;font-size:12px}
+ .sc-receipt-studio__row-text strong{font-size:12px}
+ .sc-receipt-studio__row-value{max-width:42%;overflow-wrap:anywhere}
+ .sc-receipt-studio__row-value .sc-money{font-size:11px}
+ .sc-receipt-studio__row-value small{font-size:9px}
+ .sc-receipt-studio__row-arrow{display:none}
+ .sc-receipt-studio__summary strong{font-size:19px}
+ .sc-receipt-studio__summary span{font-size:9px}
+ .sc-rstudio-detail__summary{justify-items:start}
+ .sc-rstudio-detail__summary>.sc-money{font-size:25px}
+ .sc-rstudio-panel{padding:13px}
+ .sc-rstudio-dl{grid-template-columns:105px minmax(0,1fr)}
+ .sc-rstudio-candidate__actions{flex-wrap:wrap}
+ .sc-rstudio-candidate__actions label{flex-basis:100%}
+}
+@media(max-width:350px){.sc-receipt-studio__row-text small{font-size:9px}.sc-receipt-studio__row-icon{display:none}.sc-rstudio-candidate__title{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.sc-receipt-studio *,.sc-rstudio-detail *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* P30 visual review: do not conceal filter choices in a horizontally
+   clipped strip on narrow phones. The full set is visible without gestures. */
+@media(max-width:600px){
+ .sc-receipt-studio__filters{flex-wrap:wrap;overflow:visible;max-width:100%;gap:4px}
+ .sc-receipt-studio__filters button{min-height:40px;white-space:normal;padding:8px 10px;font-size:11px}
+}
+@media(max-width:350px){
+ .sc-receipt-studio__filters button{font-size:10px;padding:8px}
+}
