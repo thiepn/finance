@@ -36,6 +36,7 @@ const whitelistedQueries: Record<string,readonly string[]> = {
   "/activity":["q","from","to","merchant","kind","account"],
   "/activity/new":["type","returnTo"],
   "/plan":["period","category"],
+  "/plan/goals":["period"],
   "/explore":["period","compare"],
   "/explore/categories":["period","category"],
   "/explore/merchants":["period","merchant"],
