@@ -53,3 +53,6 @@ Target origin: `https://finance.thiepn.dev`
 - **P25** — [visual direction exploration](docs/P25_VISUAL_DIRECTIONS.md) with [A/B/C static design lab](design/p25/visual-lab/index.html), 48 screenshot references and 3× light/dark treatments; **Signal Current (B) selected and locked in P25L**.
 
 - **P25L** — [Signal Current reference lock](docs/P25L_SIGNAL_CURRENT_LOCK.md), approved dark/light [design tokens](design/p25/signal-current.tokens.json), [pixel-reference manifest](design/p25/signal-current-reference-manifest.json). Implementation is P26+; live Finance UI unchanged.
+
+
+- **P26** — [Signal Current React design system](docs/P26_SIGNAL_CURRENT_DESIGN_SYSTEM.md): scoped dark/light tokens generated from P25L, accessible money/ledger/budget/chart/receipt/state primitives, [synthetic Vite showcase](p26-showcase.html), SSR and real-browser QA; integration with production routes begins in P27.

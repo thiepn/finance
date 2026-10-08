@@ -7,13 +7,15 @@
   "scripts": {
     "validate:ia": "node scripts/validate-finance-ia.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/processing/*.test.js .tmp-test/review/*.test.js .tmp-test/activity/*.test.js .tmp-test/overview/*.test.js .tmp-test/analytics/*.test.js .tmp-test/spending-explorer/*.test.js .tmp-test/product-intelligence/*.test.js .tmp-test/recurring/*.test.js .tmp-test/planning/*.test.js .tmp-test/wealth/*.test.js .tmp-test/imports/*.test.js .tmp-test/receipt-matching/*.test.js .tmp-test/ask/*.test.js .tmp-test/ui/*.test.js && rm -rf .tmp-mcp-test && tsc -p tsconfig.mcp-test.json && node .tmp-mcp-test/api/mcp.test.js && npm run validate:plugin",
+    "test": "rm -rf .tmp-test && tsc -p tsconfig.test.json && node --test .tmp-test/ui/v2/*.test.js .tmp-test/processing/*.test.js .tmp-test/review/*.test.js .tmp-test/activity/*.test.js .tmp-test/overview/*.test.js .tmp-test/analytics/*.test.js .tmp-test/spending-explorer/*.test.js .tmp-test/product-intelligence/*.test.js .tmp-test/recurring/*.test.js .tmp-test/planning/*.test.js .tmp-test/wealth/*.test.js .tmp-test/imports/*.test.js .tmp-test/receipt-matching/*.test.js .tmp-test/ask/*.test.js .tmp-test/ui/*.test.js && rm -rf .tmp-mcp-test && tsc -p tsconfig.mcp-test.json && node .tmp-mcp-test/api/mcp.test.js && npm run validate:plugin",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "validate:plugin": "node scripts/validate-plugin.mjs",
     "validate:p25": "node scripts/validate-finance-p25.mjs",
-    "validate:p25l": "node scripts/validate-finance-p25l.mjs"
+    "validate:p25l": "node scripts/validate-finance-p25l.mjs",
+    "generate:signal-tokens": "node scripts/generate-finance-p26-tokens.mjs",
+    "validate:p26": "node scripts/generate-finance-p26-tokens.mjs --check && node scripts/validate-finance-p26.mjs"
   },
   "devDependencies": {
     "typescript": "7.0.2",
