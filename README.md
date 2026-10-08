@@ -50,4 +50,6 @@ Backend project: THIEPN Core
 Product namespace: `finance`  
 Target origin: `https://finance.thiepn.dev`
 
-- **P25** — [visual direction exploration](docs/P25_VISUAL_DIRECTIONS.md) with [A/B/C static design lab](design/p25/visual-lab/index.html), 48 screenshot references and 3× light/dark treatments; **visual direction selection pending**.
+- **P25** — [visual direction exploration](docs/P25_VISUAL_DIRECTIONS.md) with [A/B/C static design lab](design/p25/visual-lab/index.html), 48 screenshot references and 3× light/dark treatments; **Signal Current (B) selected and locked in P25L**.
+
+- **P25L** — [Signal Current reference lock](docs/P25L_SIGNAL_CURRENT_LOCK.md), approved dark/light [design tokens](design/p25/signal-current.tokens.json), [pixel-reference manifest](design/p25/signal-current-reference-manifest.json). Implementation is P26+; live Finance UI unchanged.
