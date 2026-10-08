@@ -56,7 +56,7 @@ export const fixtureUpcoming={
   {patternId:"rent",name:"Rent",transactionType:"expense",merchantName:"Landlord",isSubscription:false,amountMinor:60000,currencyCode:"EUR",nextExpectedAt:"2026-11-01T11:00:00Z",daysToNext:12,health:"upcoming"},
   {patternId:"phone",name:"Mobile plan",transactionType:"expense",merchantName:"Mobile provider",isSubscription:true,amountMinor:2500,currencyCode:"EUR",nextExpectedAt:"2026-10-25T11:00:00Z",daysToNext:5,health:"upcoming"}
  ]
-} as RecurringDashboard;
+} as unknown as RecurringDashboard;
 export function fixtureScenario(kind:"normal"|"no-plan"|"no-accounts"|"empty"|"overrun"|"source-error"){
  if(kind==="normal")return fixtureOverview;
  const d=structuredClone(fixtureOverview);
