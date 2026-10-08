@@ -75,11 +75,7 @@ export function usePlanningWorkspace(anchorDate: string | null = null): Planning
     setError(null);
 
     try {
-      await runtime.recurring.syncPatterns(
-        null,
-        new Date().toISOString(),
-      );
-      const next = await runtime.planning.getDashboard();
+      const next = await runtime.planning.getDashboard(anchorDate);
       if (id !== requestId.current) return;
       setDashboard(next);
       setState("ready");
@@ -87,11 +83,7 @@ export function usePlanningWorkspace(anchorDate: string | null = null): Planning
       if (id !== requestId.current) return;
       setDashboard(null);
       setState("error");
-      setError(
-        cause instanceof Error
-          ? cause.message
-          : "Planning data could not be loaded.",
-      );
+      setError("Planning data could not be loaded. Retry.");
     }
   }, [runtime, anchorDate]);
 
@@ -107,11 +99,7 @@ export function usePlanningWorkspace(anchorDate: string | null = null): Planning
         await action();
         await refresh();
       } catch (cause) {
-        setActionError(
-          cause instanceof Error
-            ? cause.message
-            : "Planning action failed.",
-        );
+        setActionError("The change could not be confirmed. Refresh the plan before retrying.");
       } finally {
         setBusyKey(null);
       }
