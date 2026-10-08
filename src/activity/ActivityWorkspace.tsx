@@ -21,6 +21,8 @@ type Props={
 export function ActivityWorkspaceView({rows,catalog,filter,loading,loadingMore,error,catalogError,hasMore,
  onNavigate,onSearch,onLoadMore,onRefresh}:Props){
  const [draft,setDraft]=useState(filter);
+ const [advancedOpen,setAdvancedOpen]=useState(false);
+ const advancedActive=Boolean(filter.from||filter.to||filter.kind||filter.account||filter.merchant);
  useEffect(()=>setDraft(filter),[filter.q,filter.from,filter.to,filter.kind,filter.merchant,filter.account]);
  function submit(event:FormEvent){event.preventDefault();onSearch(draft);}
  const resultCount=rows.length;
@@ -37,6 +39,11 @@ export function ActivityWorkspaceView({rows,catalog,filter,loading,loadingMore,e
      <label className="sc-activity-filter__search">Search
        <input type="search" value={draft.q} maxLength={250} onChange={e=>setDraft({...draft,q:e.target.value})}
          placeholder="Merchant, category or note" autoComplete="off" aria-label="Search financial activity"/></label>
+     <button type="button" className="sc-activity-filter__toggle" aria-expanded={advancedOpen}
+       aria-controls="finance-advanced-filters" onClick={()=>setAdvancedOpen(v=>!v)}>
+       {advancedOpen?"Hide filters":"More filters"}{advancedActive?" · active":""}
+     </button>
+     <div className={"sc-activity-filter__advanced"+(advancedOpen?" is-open":"")} id="finance-advanced-filters">
      <label>From<input type="date" value={draft.from} max={draft.to||undefined} onChange={e=>setDraft({...draft,from:e.target.value})}/></label>
      <label>To<input type="date" value={draft.to} min={draft.from||undefined} onChange={e=>setDraft({...draft,to:e.target.value})}/></label>
      <label>Type<select value={draft.kind} onChange={e=>setDraft({...draft,kind:e.target.value as ActivityRouteFilters["kind"]})}>
@@ -47,7 +54,7 @@ export function ActivityWorkspaceView({rows,catalog,filter,loading,loadingMore,e
      </select></label>
      <label>Merchant<select value={draft.merchant} onChange={e=>setDraft({...draft,merchant:e.target.value})}>
        <option value="">All merchants</option>{catalog?.merchants.map(x=><option value={x.id} key={x.id}>{x.name}</option>)}
-     </select></label>
+     </select></label></div>
      <div className="sc-activity-filter__actions"><FinanceButton type="submit">Apply</FinanceButton>
        <FinanceButton variant="quiet" onClick={()=>{setDraft(emptyActivityFilters);onSearch(emptyActivityFilters)}}>Clear</FinanceButton></div>
    </form>
