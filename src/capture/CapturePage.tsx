@@ -17,7 +17,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [confirmDiscard,setConfirmDiscard]=useState(false);
+  const [discardCandidate,setDiscardCandidate]=useState<string|null>(null);
   const controller = runtime && userId ? new ReceiptCaptureController(
     new SupabaseFinanceReceiptCaptureService({
       rpc: runtime.rpcClient.rpc.bind(runtime.rpcClient),
@@ -57,6 +57,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
   }
   function begin(method: ReceiptCaptureMethod) {
     if (!controller) return;
+    setDiscardCandidate(null);
     void perform(async () => { setActive(await controller.create(method)); });
   }
   function addFiles(event: ChangeEvent<HTMLInputElement>) {
@@ -95,8 +96,8 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
   }
   function discard() {
     if (!active || !controller) return;
-    if(!confirmDiscard){setConfirmDiscard(true);return;}
-    void perform(async () => { await controller.cancel(active); setActive(null);setConfirmDiscard(false); });
+    if(discardCandidate!==active.clientCaptureId){setDiscardCandidate(active.clientCaptureId);return;}
+    void perform(async () => { await controller.cancel(active); setActive(null);setDiscardCandidate(null); });
   }
   const rows = active?.pages.filter(page => page.state !== "pending-delete") ?? [];
   return (
@@ -122,7 +123,7 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
             <h2>Saved drafts on this device</h2>
             {drafts.length ? drafts.map(draft =>
               <button className="f-capture-draft" type="button" key={draft.clientCaptureId}
-                disabled={busy} onClick={() => setActive(draft)}>
+                disabled={busy} onClick={() => {setDiscardCandidate(null);setActive(draft)}}>
                 <strong>{draft.pages.length} page(s)</strong>
                 <span>{new Date(draft.updatedAt).toLocaleString("de-DE")} · {draft.state}</span>
               </button>
@@ -150,8 +151,8 @@ export function CapturePage({ onNavigate }: { onNavigate: (key: string) => void 
             </div>
             <div className="f-capture-actions">
               <Button disabled={busy || rows.length === 0} onClick={finish} variant="primary">{busy ? "Saving…" : "Save receipt"}</Button>
-              <Button disabled={busy} onClick={discard} variant="secondary">{confirmDiscard?"Confirm discard":"Discard draft"}</Button>
-              {confirmDiscard?<Button disabled={busy} onClick={()=>setConfirmDiscard(false)} variant="ghost">Keep draft</Button>:null}
+              <Button disabled={busy} onClick={discard} variant="secondary">{discardCandidate===active.clientCaptureId?"Confirm discard":"Discard draft"}</Button>
+              {discardCandidate===active.clientCaptureId?<Button disabled={busy} onClick={()=>setDiscardCandidate(null)} variant="ghost">Keep draft</Button>:null}
             </div>
             <p>Uploading does not create a ledger expense. Match your receipt with its transaction in Receipts.</p>
           </Surface>
