@@ -42,7 +42,7 @@ export function TransactionComposer({ onCreated, onClose }: { onCreated: (transa
     void Promise.all([runtime.ledger.getAccountBalances(), classification.getCategories(), classification.getMerchants()])
       .then(([a, c, m]) => {
         if (active) { setAccounts(a); setCategories(c); setMerchants(m); }
-      }).catch(e => { if (active) setError(e instanceof Error ? e.message : String(e)); })
+      }).catch(() => { if (active) setError("Accounts and categories could not be loaded. Try reopening transaction entry."); })
       .finally(() => { if (active) setReady(true); });
     return () => { active = false; };
   }, [runtime, classification]);
@@ -55,7 +55,7 @@ export function TransactionComposer({ onCreated, onClose }: { onCreated: (transa
   const allocations = splits.map(row=>({categoryId:row.categoryId,amountMinor:amountToMinor(row.amount)??0}));
   const splitError = kind==="transfer"||amountMinor===null?null:validateAllocationsForPosting(amountMinor,allocations);
   const canSave = Boolean(runtime && currentAccount && currentAccount.currencyCode === "EUR" &&
-    amountMinor && validDate && (kind === "transfer" ? destinationAllowed.some(a => a.accountId === destinationId)
+    amountMinor && ready && !busy && validDate && (kind === "transfer" ? destinationAllowed.some(a => a.accountId === destinationId)
       : !splitError));
   async function submit(e: FormEvent) {
     e.preventDefault();
