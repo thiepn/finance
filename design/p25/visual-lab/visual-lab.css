@@ -263,3 +263,25 @@ body[data-direction="b"][data-device="desktop"] .attention-board{border-left:2px
 }
 
 body[data-direction="b"][data-mode="alternate"] .detail-receipt{background:var(--soft)}
+
+/* P25 semantic state specimens */
+body[data-device="desktop"][data-screen="states"] .desktop-states,
+body[data-device="mobile"][data-screen="states"] .mobile-states{display:block}
+.states-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.state-card{min-height:246px;display:flex;flex-direction:column;align-items:flex-start;gap:13px;padding:23px 22px}
+.state-card h2,.state-mobile-panel h2{font-size:18px;letter-spacing:-.025em;line-height:1.25;margin:0;font-weight:700}
+.state-card p,.state-mobile-panel p{font-size:12px;line-height:1.6;color:var(--muted);margin:0;max-width:48ch}
+.state-card small{margin-top:auto;color:var(--muted);font-size:10px}
+.state-kicker{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--accent)}
+.state-kicker.warning{color:var(--warn)}
+.state-actions{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.progress-demo{width:100%;height:7px;border-radius:20px;background:var(--line);overflow:hidden;margin:2px 0}
+.progress-demo span{display:block;height:100%;background:var(--accent);border-radius:20px}
+.state-mobile-panel{padding:22px 0;border-top:1px solid var(--line);display:grid;gap:13px}
+.state-mobile-panel h2{font-size:18px}
+.state-mobile-panel .mobile-end-action{margin-top:8px}
+.state-mobile-panel .mini-secondary{color:var(--accent);text-align:center;font-size:12px;font-weight:700;padding:5px}
+body[data-direction="c"][data-device="desktop"] .state-card{border:0;border-top:1px solid var(--line);background:transparent}
+body[data-direction="b"][data-device="desktop"] .states-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+body[data-direction="b"] .state-card:first-child{border-top:2px solid var(--accent)}
+@media (max-width:1100px){.states-grid{grid-template-columns:1fr 1fr}.state-card{padding:15px;min-height:290px}}
