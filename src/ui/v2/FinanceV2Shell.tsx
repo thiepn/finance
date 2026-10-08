@@ -103,7 +103,7 @@ export function FinanceV2Shell({children,routeId,section,title,onNavigate,onSign
            <input type="search" id="finance-global-search" name="q" placeholder="Search transactions and receipts"/>
          </form>
          <button className="sc-app-icon-button" aria-label={theme==="dark"?"Switch to light appearance":"Switch to dark appearance"} onClick={toggle} type="button"><Icon name={theme==="dark"?"sun":"moon"}/></button>
-         <div className="sc-app-more" ref={menuRef}>
+         <div className="sc-app-more" ref={menuRef} onKeyDown={e=>{if(e.key==="Escape"){setMenuOpen(false);(e.currentTarget.querySelector("button") as HTMLButtonElement)?.focus();}}}>
            <button type="button" className="sc-app-more-button" aria-controls="finance-more-list" aria-expanded={menuOpen} onClick={()=>setMenuOpen(v=>!v)} onKeyDown={e=>{if(e.key==="Escape")setMenuOpen(false)}}>More <span aria-hidden="true">⌄</span></button>
            {menuOpen?<div id="finance-more-list" className="sc-app-more-list">{more.map(item=>link(item.id,item.label,undefined,"sc-app-more-link"))}
              <button disabled={loggingOut} onClick={()=>void signOut()} type="button" className="sc-app-more-link">Sign out</button>
@@ -111,7 +111,7 @@ export function FinanceV2Shell({children,routeId,section,title,onNavigate,onSign
          </div>
        </div>
      </header>
-     <main id="finance-main" className="sc-app-main" ref={mainRef} tabIndex={-1}>{children}</main>
+     <main id="finance-main" className="sc-app-main" aria-label={title} ref={mainRef} tabIndex={-1}>{children}</main>
    </div>
    <nav className="sc-app-bottom-nav" aria-label="Primary mobile navigation">
      {mobile.map(item=>link(item.id,item.label,item.icon,"sc-app-tab"+(item.id==="capture"?" sc-app-tab--scan":"")+(section===item.section&&item.id!=="capture"?" is-active":"") ))}
