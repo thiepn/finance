@@ -51,8 +51,11 @@ export function buildSpendingPace(
 ):FinanceTrendPoint[] {
   if(!series || !series.current.length)return[];
   // Currency/period disagreement means never chart a seemingly authoritative amount.
+  // The RPCs may encode equivalent UTC instants differently (Z / +00:00).
+  // Compare instants, not timestamp serialization bytes.
   if(series.profile.currencyCode!==dashboard.profile.currencyCode||
-     series.period.start!==dashboard.period.start||series.period.end!==dashboard.period.end)return[];
+     Date.parse(series.period.start)!==Date.parse(dashboard.period.start)||
+     Date.parse(series.period.end)!==Date.parse(dashboard.period.end))return[];
   const periodStart=Date.parse(dashboard.period.start),periodEnd=Date.parse(dashboard.period.end);
   const asOf=Date.parse(dashboard.period.asOf);
   if(!Number.isFinite(periodStart)||!Number.isFinite(periodEnd)||periodEnd<=periodStart||!Number.isFinite(asOf))return[];
