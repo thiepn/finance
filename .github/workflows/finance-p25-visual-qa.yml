@@ -1,0 +1,40 @@
+name: Finance P25 Concept Visual QA
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "design/p25/**"
+      - "scripts/capture-finance-p25.mjs"
+      - ".github/workflows/finance-p25-visual-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  concept-visual-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install isolated screenshot and accessibility tooling
+        run: |
+          npm install --no-save --no-package-lock playwright @axe-core/playwright
+          npx playwright install --with-deps chromium
+      - name: Validate renderer syntax
+        run: node --check scripts/capture-finance-p25.mjs
+      - name: Capture three concept directions
+        run: node scripts/capture-finance-p25.mjs
+      - name: Publish P25 preview screenshots and findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: finance-p25-concept-visual-qa
+          path: p25-artifacts/
+          retention-days: 14
+          if-no-files-found: warn

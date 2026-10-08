@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THIEPN Finance · P25 design laboratory (synthetic fixtures)</title>
+<link rel="stylesheet" href="./visual-lab.css">
+</head>
+<body data-direction="a" data-device="desktop" data-screen="home">
+<div class="lab-toolbar">
+ <div class="lab-brand"><strong>P25 · Finance Visual Lab</strong><span>Three distinct directions • synthetic data • not the live app</span></div>
+ <div class="lab-controls">
+  <label>Direction<select id="direction"><option value="a">A — Ledger Atelier</option><option value="b">B — Signal Current</option><option value="c">C — Editor's Ledger</option></select></label>
+  <label>Theme<select id="mode"><option value="default">Primary</option><option value="alternate">Alternate</option></select></label>
+  <label>Device<select id="device"><option value="desktop">Desktop 1440</option><option value="mobile">Mobile 390</option></select></label>
+  <label>Screen<select id="screen"><option value="home">Home</option><option value="activity">Activity</option><option value="receipt">Receipt review</option><option value="scan">Receipt capture</option><option value="plan">Plan</option></select></label>
+  <button id="captureMode" type="button">Clean preview</button>
+ </div>
+</div>
+<div class="frame" id="finance-preview">
+ <aside class="sidebar">
+  <div class="brand"><div class="brand-symbol"><span></span><span></span><span></span></div><div><strong>THIEPN</strong><small>FINANCE</small></div></div>
+  <nav class="primary-nav" aria-label="Mockup primary navigation">
+   <span class="nav-link selected"><i class="dot"></i>Home</span>
+   <span class="nav-link"><i class="dot"></i>Activity</span>
+   <span class="nav-link"><i class="dot"></i>Plan</span>
+   <span class="nav-link"><i class="dot"></i>Explore</span>
+   <span class="nav-link"><i class="dot"></i>Receipts</span>
+   <span class="nav-link"><i class="dot"></i>Wealth</span>
+  </nav>
+  <div class="sidebar-bottom"><div class="account-caption">YOUR ACCOUNTS</div><div class="account-row">Main checking <b>€1,520.30</b></div><div class="account-row">Savings <b>€1,350.00</b></div><div class="sidebar-divider"></div><div class="account-row">Settings <span>↗</span></div></div>
+ </aside>
+ <div class="main-wrap">
+ <header class="appbar"><div class="location"><strong>Finance</strong><span id="appbar-context">/ Home</span></div><div class="header-actions"><span class="search-hint">⌕ &nbsp; Search transactions and receipts</span><span class="month-hint">Oct 2026 ▾</span><span class="account-avatar">TN</span><span class="more-label">More ⌄</span></div></header>
+ <main class="screens">
+ <section class="screen desktop-home">
+  <header class="section-head"><div><span class="eyebrow">OCTOBER 2026</span><h1>Home</h1></div><div class="actions"><span class="plain-action">Scan receipt</span><span class="solid-action">+ New transaction</span></div></header>
+  <div class="metrics">
+   <div class="metric featured"><span class="metric-label">AVAILABLE TO SPEND</span><strong class="money large">€1,240.50</strong><small>Planned remaining · October</small></div>
+   <div class="metric"><span class="metric-label">CASH POSITION</span><strong class="money">€2,870.30</strong><small>2 cash accounts</small></div>
+   <div class="metric"><span class="metric-label">UPCOMING</span><strong class="money caution">€745.00</strong><small>Expected in next 30 days</small></div>
+   <div class="metric"><span class="metric-label">SPENT THIS MONTH</span><strong class="money">€862.40</strong><small>Of €1,500.00 budget</small></div>
+  </div>
+  <div class="home-grid">
+   <div class="board chart-board"><div class="board-head"><div><h2>Spending pace</h2><p>Posted expenses against monthly allocation</p></div><span class="small-link">Details ↗</span></div><div class="chart-key"><span><i></i>Actual €862.40</span><span><i class="plan-key"></i>Budget pace</span></div>
+    <svg class="main-chart" viewBox="0 0 640 230" role="img" aria-label="Synthetic spending pace rising to 862 euros by October 20, against budget pace up to 1500 euros at month end">
+     <g class="gridlines"><line x1="40" y1="30" x2="615" y2="30"/><line x1="40" y1="85" x2="615" y2="85"/><line x1="40" y1="140" x2="615" y2="140"/><line x1="40" y1="194" x2="615" y2="194"/></g>
+     <text x="7" y="34">€1.5k</text><text x="7" y="89">€1k</text><text x="7" y="144">€500</text><text x="20" y="198">€0</text>
+     <polyline class="chart-plan" points="40,194 160,160 270,120 382,91 505,61 615,30"/>
+     <path class="chart-fill" d="M40 194 L95 182 L155 175 L210 160 L250 151 L298 132 L333 124 L382 113 L430 99 L430 194Z"/>
+     <polyline class="chart-actual" points="40,194 95,182 155,175 210,160 250,151 298,132 333,124 382,113 430,99"/>
+     <circle class="chart-point" cx="430" cy="99" r="5"/>
+     <text class="chart-date" x="40" y="222">1 Oct</text><text class="chart-date" x="200" y="222">10 Oct</text><text class="chart-date" x="400" y="222">20 Oct</text><text class="chart-date" x="585" y="222">31 Oct</text>
+    </svg>
+   </div>
+   <div class="board attention-board"><div class="board-head"><h2>Needs attention</h2><span class="counter">3</span></div><div class="attention-row"><span class="attention-icon">!</span><div><strong>2 transactions</strong><small>Awaiting classification</small></div><b>↗</b></div><div class="attention-row"><span class="attention-icon">▤</span><div><strong>1 receipt</strong><small>Ready to review and match</small></div><b>↗</b></div><div class="attention-row"><span class="attention-icon">◷</span><div><strong>Next payment: Rent</strong><small>1 Nov · €600.00 planned</small></div><b>↗</b></div></div>
+  </div>
+  <div class="lower-grid"><div class="board recent-board"><div class="board-head"><h2>Recent activity</h2><span class="small-link">View all ↗</span></div><table><thead><tr><th>DATE</th><th>MERCHANT</th><th>CATEGORY</th><th>ACCOUNT</th><th class="right">AMOUNT</th></tr></thead><tbody>
+   <tr><td>8 Oct</td><td><span class="merchant-mark">R</span> REWE</td><td>Groceries</td><td>Main checking</td><td class="right negative">−€42.35</td></tr>
+   <tr><td>7 Oct</td><td><span class="merchant-mark train">DB</span> DB Regio</td><td>Transport</td><td>Main checking</td><td class="right negative">−€12.80</td></tr>
+   <tr><td>1 Oct</td><td><span class="merchant-mark income">↗</span> Salary</td><td>Income</td><td>Main checking</td><td class="right positive">+€1,650.00</td></tr>
+   </tbody></table></div>
+   <div class="board budget-board"><div class="board-head"><h2>Budget progress</h2><span class="small-link">Plan ↗</span></div><strong>€637.60 <small>remaining</small></strong><div class="bar"><span style="width:57.49%"></span></div><p>57% spent · €1,500.00 planned</p><div class="budget-small-row"><span>Groceries</span><b>€184.75 / €300</b></div><div class="budget-small-row"><span>Housing</span><b>€410 / €600</b></div></div>
+  </div>
+  <div class="footnote">SYNTHETIC DATA · Planned ≠ posted ledger · Last updated 12:45</div>
+ </section>
+
+ <section class="screen desktop-activity">
+  <header class="section-head"><div><span class="eyebrow">FINANCIAL LEDGER</span><h1>Activity</h1></div><div class="actions"><span class="plain-action">Import statement</span><span class="solid-action">+ New transaction</span></div></header>
+  <div class="filter-row"><div class="field-search">⌕ &nbsp; Search REWE, products, notes…</div><span class="filter-pill">October ▾</span><span class="filter-pill">All accounts ▾</span><span class="filter-pill">Categories ▾</span><span class="filter-pill">Filters ▾</span></div>
+  <div class="workspace-activity"><div class="board ledger-board">
+   <div class="ledger-stats"><strong>Transactions</strong><span>438 entries · 3 requiring review</span></div>
+   <table><thead><tr><th>DATE</th><th>MERCHANT</th><th>CATEGORY</th><th>ACCOUNT</th><th class="right">AMOUNT</th></tr></thead><tbody>
+   <tr class="selected-row"><td>8 Oct</td><td><span class="merchant-mark">R</span> REWE</td><td>Groceries</td><td>Main</td><td class="right negative">−€42.35</td></tr>
+   <tr><td>7 Oct</td><td><span class="merchant-mark train">DB</span> DB Regio</td><td>Transport</td><td>Main</td><td class="right negative">−€12.80</td></tr>
+   <tr><td>6 Oct</td><td><span class="merchant-mark other">dm</span> dm</td><td>Personal care</td><td>Main</td><td class="right negative">−€18.45</td></tr>
+   <tr><td>5 Oct</td><td><span class="merchant-mark other">A</span> Amazon</td><td>Shopping</td><td>Visa</td><td class="right negative">−€37.99</td></tr>
+   <tr><td>4 Oct</td><td><span class="merchant-mark other">♬</span> Spotify</td><td>Subscriptions</td><td>Main</td><td class="right negative">−€10.99</td></tr>
+   <tr><td>3 Oct</td><td><span class="merchant-mark">R</span> REWE</td><td>Groceries</td><td>Main</td><td class="right negative">−€29.90</td></tr>
+   <tr><td>2 Oct</td><td><span class="merchant-mark train">DB</span> DB Regio</td><td>Transport</td><td>Main</td><td class="right negative">−€8.90</td></tr>
+   <tr><td>1 Oct</td><td><span class="merchant-mark income">↗</span> Salary</td><td>Income</td><td>Main</td><td class="right positive">+€1,650.00</td></tr>
+   </tbody></table><div class="list-footer">Showing 8 of 438 <span>Load more ↗</span></div></div>
+   <aside class="board details-board"><div class="detail-subhead">TRANSACTION DETAIL <span>↗</span></div><span class="merchant-mark bigmark">R</span><h2>REWE</h2><div class="detail-money">−€42.35</div><p>8 Oct 2026 · Posted</p><div class="detail-section"><div><span>ACCOUNT</span><strong>Main checking</strong></div><div><span>CATEGORY</span><strong>Groceries</strong></div><div><span>STATUS</span><strong>Reconciled</strong></div></div><div class="detail-receipt"><span>▤</span><div><strong>Receipt linked</strong><small>3 items reviewed</small></div><b>↗</b></div><div class="detail-actions"><span>Edit transaction</span><span>Split into categories</span></div><small class="provenance">Posted ledger · Receipt is supporting evidence, not another expense.</small></aside></div>
+  <div class="footnote">SYNTHETIC DATA · Selection has a stable detail route</div>
+ </section>
+
+ <section class="screen desktop-receipt">
+  <header class="section-head"><div><span class="eyebrow">RECEIPTS / REVIEW</span><h1>REWE · 8 Oct 2026</h1></div><div class="actions"><span class="plain-action">Keep unmatched</span><span class="solid-action">Review match</span></div></header>
+  <div class="receipt-workspace"><div class="board receipt-source"><div class="board-head"><h2>Original document</h2><span class="small-link">Zoom · Rotate</span></div><div class="paper-stage">
+   <div class="receipt-paper"><div class="receipt-top"><strong>REWE</strong><span>MARKT KÖLN</span><small>Hohenzollernring 18</small><small>50672 Köln</small></div><div class="receipt-pair"><span>Bio Vollkornbrot</span><span>€3.29</span></div><div class="receipt-pair"><span>Äpfel 1.5 kg</span><span>€5.06</span></div><div class="receipt-pair"><span>Milch 2×</span><span>€2.58</span></div><div class="receipt-pair"><span>Gemüse &amp; Obst</span><span>€12.40</span></div><div class="receipt-pair"><span>Haushalt</span><span>€19.02</span></div><hr><div class="receipt-pair total"><span>SUMME EUR</span><span>42,35</span></div><div class="receipt-serial">08.10.2026 12:45 · Karte</div><div class="receipt-thanks">Vielen Dank für Ihren Einkauf!</div></div>
+  </div><div class="receipt-pager">‹ &nbsp; Page 1 of 2 &nbsp; › <span>View source · Private storage</span></div></div>
+  <div class="board receipt-editor"><div class="board-head"><h2>Extracted details</h2><span class="status-pill">Needs review</span></div><div class="editor-tabs"><span class="is-active">Details</span><span>Items</span><span>Matching</span></div>
+   <div class="form-row"><label>Merchant</label><div class="fake-input">REWE <span>⌄</span></div></div>
+   <div class="form-row two-col"><div><label>Purchase date</label><div class="fake-input">08.10.2026</div></div><div><label>Amount</label><div class="fake-input money">€42.35</div></div></div>
+   <div class="form-row"><label>Suggested category</label><div class="fake-input">Groceries <span>⌄</span></div></div>
+   <div class="match-box"><span class="status-pill">Possible match</span><strong>Main checking · 8 Oct · −€42.35</strong><small>Receipt match won't add a second expense.</small></div>
+   <div class="editor-bottom"><span class="plain-action">Save corrections</span><span class="solid-action">Confirm match</span></div><div class="provenance">OCR suggestions are not authoritative until reviewed.</div>
+  </div></div>
+ </section>
+
+ <section class="screen mobile-home">
+  <header class="mobile-section-head"><span class="eyebrow">OCTOBER 2026</span><h1>Home</h1></header>
+  <div class="mobile-hero"><span class="metric-label">AVAILABLE TO SPEND</span><strong class="money">€1,240.50</strong><small>Planned remaining for October</small></div>
+  <div class="mobile-mini-metrics"><div><span>Cash position</span><strong class="money">€2,870.30</strong></div><div><span>Upcoming</span><strong class="money caution">€745.00</strong></div></div>
+  <div class="mobile-section"><div class="mobile-head"><h2>Spending pace</h2><span>Details ↗</span></div><div class="mobile-spend"><strong>€862.40</strong><span>of €1,500.00 budget</span></div><div class="mobile-progress"><span style="width:57.49%"></span></div><svg class="mobile-chart" viewBox="0 0 330 95" role="img" aria-label="Synthetic month spending progress line"><polyline class="chart-plan" points="5,90 328,5"/><polyline class="chart-actual" points="5,90 35,82 72,75 112,66 164,52 205,42 243,31"/><circle class="chart-point" cx="243" cy="31" r="3"/></svg></div>
+  <div class="mobile-section"><div class="mobile-head"><h2>Needs attention</h2><span class="count-inline">3 items</span></div><div class="mobile-row"><span class="attention-icon">!</span><div><b>2 transactions</b><small>Uncategorized</small></div><b>›</b></div><div class="mobile-row"><span class="attention-icon">▤</span><div><b>1 receipt</b><small>Ready for review</small></div><b>›</b></div></div>
+  <div class="mobile-section"><div class="mobile-head"><h2>Recent activity</h2><span>All ↗</span></div><div class="mobile-row"><span class="merchant-mark">R</span><div><b>REWE</b><small>Today · Groceries</small></div><b class="negative money">−€42.35</b></div><div class="mobile-row"><span class="merchant-mark train">DB</span><div><b>DB Regio</b><small>Yesterday · Transport</small></div><b class="negative money">−€12.80</b></div><div class="mobile-row"><span class="merchant-mark income">↗</span><div><b>Salary</b><small>1 Oct · Income</small></div><b class="positive money">+€1,650</b></div></div>
+  <div class="mobile-end-action">+ Add transaction</div>
+ </section>
+
+ <section class="screen mobile-scan">
+  <header class="mobile-section-head"><span class="eyebrow">RECEIPTS / CAPTURE</span><h1>Scan receipt</h1></header>
+  <div class="camera-stage"><div class="camera-top">AUTO · DOCUMENT <span>FLASH OFF</span></div><div class="camera-frame"><div class="camera-paper"><strong>REWE</strong><span>Ihr Markt</span><div class="line"></div><small>Bio Vollkornbrot   3,29</small><small>Äpfel 1.5 kg     5,06</small><small>Gemüse           12,40</small><small>Weitere Artikel  21,60</small><div class="line"></div><b>GESAMT €42,35</b><small>08.10.2026</small></div></div><div class="camera-bottom"><span>▧ Gallery</span><span class="shutter"></span><span>↻ Retake</span></div></div>
+  <div class="scan-status"><span class="status-dot"></span> Receipt edges detected <span>2 pages captured</span></div>
+  <div class="scan-page-strip"><div>Page 1</div><div>Page 2</div><div>+ Add</div></div>
+  <div class="mobile-end-action">Review &amp; upload</div><div class="scan-privacy">Images stay on this device until you upload. No ledger entry is created automatically.</div>
+ </section>
+
+ <section class="screen mobile-plan">
+  <header class="mobile-section-head"><span class="eyebrow">OCTOBER 2026</span><h1>Plan</h1></header>
+  <div class="plan-switch"><span class="selected">Budget</span><span>Goals</span><span>Recurring</span></div>
+  <div class="mobile-hero plan-summary"><span class="metric-label">MONTHLY BUDGET</span><strong class="money">€1,500.00</strong><div class="plan-numbers"><span>Spent <strong>€862.40</strong></span><span>Remaining <strong>€637.60</strong></span></div><div class="mobile-progress"><span style="width:57.49%"></span></div></div>
+  <div class="mobile-section"><div class="mobile-head"><h2>Allocations</h2><span>Adjust ↗</span></div>
+  <div class="category-row"><span class="cat-icon">◇</span><div class="cat-main"><div><strong>Groceries</strong><b>€115.25 left</b></div><small>€184.75 of €300.00</small><div class="category-bar"><span style="width:61.6%"></span></div></div></div>
+  <div class="category-row"><span class="cat-icon">⌂</span><div class="cat-main"><div><strong>Housing</strong><b>€190.00 left</b></div><small>€410.00 of €600.00</small><div class="category-bar"><span style="width:68.33%"></span></div></div></div>
+  <div class="category-row"><span class="cat-icon">↗</span><div class="cat-main"><div><strong>Transport</strong><b>€65.80 left</b></div><small>€84.20 of €150.00</small><div class="category-bar"><span style="width:56.13%"></span></div></div></div>
+  <div class="category-row"><span class="cat-icon">♧</span><div class="cat-main"><div><strong>Dining</strong><b>€47.40 left</b></div><small>€72.60 of €120.00</small><div class="category-bar"><span style="width:60.5%"></span></div></div></div>
+  <div class="category-row"><span class="cat-icon">▢</span><div class="cat-main"><div><strong>Shopping</strong><b>€31.60 left</b></div><small>€68.40 of €100.00</small><div class="category-bar"><span style="width:68.4%"></span></div></div></div>
+  <div class="category-row"><span class="cat-icon">·</span><div class="cat-main"><div><strong>Other</strong><b>€187.55 left</b></div><small>€42.45 of €230.00</small><div class="category-bar"><span style="width:18.46%"></span></div></div></div>
+  </div><div class="mobile-end-action">Adjust allocations</div>
+ </section>
+
+ <section class="screen desktop-states">
+  <header class="section-head"><div><span class="eyebrow">SYSTEM STATES / DESIGN REFERENCE</span><h1>Finance states</h1></div><div class="actions"><span class="plain-action">State library</span></div></header>
+  <div class="states-grid">
+   <div class="board state-card"><span class="state-kicker">01 · AUTH REQUIRED</span><h2>Sign in to view Activity</h2><p>Your private transactions and receipts become available after you sign in. You'll return to your search when finished.</p><div class="state-actions"><span class="solid-action">Continue with Google</span><span class="plain-action">Email sign-in link</span></div><small>No financial data requested until your session is verified.</small></div>
+   <div class="board state-card"><span class="state-kicker">02 · FIRST USE</span><h2>No transactions yet</h2><p>Add a financial account or import a bank statement to begin. This is an empty account, not a network failure.</p><div class="state-actions"><span class="solid-action">Add an account</span><span class="plain-action">Import transactions</span></div><small>We never invent an account balance.</small></div>
+   <div class="board state-card"><span class="state-kicker warning">03 · TEMPORARILY OFFLINE</span><h2>Activity couldn't load</h2><p>The service is unavailable. Your typed changes have been preserved locally where appropriate. Nothing has been posted.</p><div class="state-actions"><span class="solid-action">Retry safely</span><span class="plain-action">Return to Home</span></div><small>Never show errors as “zero transactions”.</small></div>
+   <div class="board state-card"><span class="state-kicker">04 · RECEIPT PROCESSING</span><h2>Extracting receipt items</h2><p>Page 2 of 3 is being analyzed. Your original source image is stored as private evidence; no ledger entry is created.</p><div class="progress-demo"><span style="width:63%"></span></div><div class="state-actions"><span class="plain-action">Keep working</span></div><small>Status: Processing, 2 of 3 pages queued.</small></div>
+  </div>
+ </section>
+ <section class="screen mobile-states">
+  <header class="mobile-section-head"><span class="eyebrow">STATE REFERENCES</span><h1>Account &amp; recovery</h1></header>
+  <div class="state-mobile-panel"><span class="state-kicker">SIGN IN</span><h2>Sign in to view Activity</h2><p>Private ledger records are visible only after you sign in. You'll return to your previous search.</p><div class="mobile-end-action">Continue with Google</div><div class="mini-secondary">Use email sign-in link</div></div>
+  <div class="state-mobile-panel"><span class="state-kicker">NEW ACCOUNT</span><h2>Start with your first account</h2><p>Add an account or import a statement. No fake balance is displayed.</p><span class="small-link">Add account ↗</span></div>
+  <div class="state-mobile-panel"><span class="state-kicker warning">OFFLINE</span><h2>Something didn't load</h2><p>Your entries are unchanged. Try again when connected.</p><span class="small-link">Retry ↗</span></div>
+  <div class="state-mobile-panel"><span class="state-kicker">PROCESSING</span><h2>Reading receipt</h2><div class="progress-demo"><span style="width:63%"></span></div><p>Original document remains private evidence.</p></div>
+ </section>
+ </main></div>
+ <nav class="mobile-tabs" aria-label="Mobile mockup bottom tabs"><span class="selected">⌂<small>Home</small></span><span>▤<small>Activity</small></span><span class="capture-action">▢<small>Scan</small></span><span>◫<small>Plan</small></span><span>◎<small>Explore</small></span></nav>
+</div>
+<script>
+(()=>{const params=new URLSearchParams(location.search);const dir=document.getElementById("direction"),device=document.getElementById("device"),screen=document.getElementById("screen"),mode=document.getElementById("mode");
+let which=params.get("direction")||"a",dev=params.get("device")||"desktop",view=params.get("screen")||"home",theme=params.get("mode")||"default";
+if(!["a","b","c"].includes(which))which="a";if(!["desktop","mobile"].includes(dev))dev="desktop";
+const views=dev==="mobile"?["home","scan","plan","states"]:["home","activity","receipt","states"];if(!views.includes(view))view="home";
+function sync(){document.body.dataset.direction=which;document.body.dataset.device=dev;document.body.dataset.screen=view;document.body.dataset.mode=theme;dir.value=which;mode.value=theme;device.value=dev;screen.innerHTML=(dev==="mobile"?[["home","Home"],["scan","Scan"],["plan","Plan"],["states","States"]]:[["home","Home"],["activity","Activity"],["receipt","Receipt review"],["states","States"]]).map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("");screen.value=view;
+document.getElementById("appbar-context").textContent="/ "+(view==="home"?"Home":view==="activity"?"Activity":view==="receipt"?"Receipts":view==="scan"?"Scan":view==="states"?"States":"Plan");
+const u=new URL(location.href);u.searchParams.set("direction",which);u.searchParams.set("device",dev);u.searchParams.set("screen",view);u.searchParams.set("mode",theme);history.replaceState(null,"",u);
+}
+dir.addEventListener("change",()=>{which=dir.value;sync()});mode.addEventListener("change",()=>{theme=mode.value;sync()});device.addEventListener("change",()=>{dev=device.value;view="home";sync()});screen.addEventListener("change",()=>{view=screen.value;sync()});document.getElementById("captureMode").addEventListener("click",()=>document.body.classList.toggle("clean"));if(params.get("capture")==="1")document.body.classList.add("clean");sync();})();
+</script>
+</body></html>

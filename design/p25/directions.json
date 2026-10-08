@@ -1,0 +1,285 @@
+{
+  "phase": "P25",
+  "status": "three-candidates-pending-user-visual-selection",
+  "selectedDirection": null,
+  "lockPolicy": "Do not implement P26 or claim final reference lock before explicit user selection after viewing rendered concept screens.",
+  "provenance": "Synthetic and illustrative content only. Screenshots are design sketches, not authenticated production UI or financial service results.",
+  "shared": {
+    "product": "THIEPN Finance",
+    "informationArchitecture": "P24 six desktop primary, five mobile tabs",
+    "screens": {
+      "desktop": [
+        "home",
+        "activity",
+        "receipt"
+      ],
+      "mobile": [
+        "home",
+        "scan",
+        "plan"
+      ]
+    },
+    "fixture": {
+      "locale": "de-DE",
+      "currency": "EUR",
+      "date": "2026-10-08",
+      "availableToSpendMinor": 124050,
+      "cashPositionMinor": 287030,
+      "upcomingMinor": 74500,
+      "monthlyBudgetMinor": 150000,
+      "postedSpentMinor": 86240,
+      "remainingBudgetMinor": 63760,
+      "categories": [
+        {
+          "name": "Groceries",
+          "budgetMinor": 30000,
+          "spentMinor": 18475
+        },
+        {
+          "name": "Housing",
+          "budgetMinor": 60000,
+          "spentMinor": 41000
+        },
+        {
+          "name": "Transport",
+          "budgetMinor": 15000,
+          "spentMinor": 8420
+        },
+        {
+          "name": "Dining",
+          "budgetMinor": 12000,
+          "spentMinor": 7260
+        },
+        {
+          "name": "Shopping",
+          "budgetMinor": 10000,
+          "spentMinor": 6840
+        },
+        {
+          "name": "Other",
+          "budgetMinor": 23000,
+          "spentMinor": 4245
+        }
+      ]
+    },
+    "contentMustShow": [
+      "Posted amount provenance",
+      "Budget forecast is not cash balance",
+      "Receipt evidence is not additional spending",
+      "Page titles are compact task labels",
+      "One dominant action per screen",
+      "Mobile More has all secondary destinations"
+    ],
+    "allColorsMustMeet": [
+      "Normal text 4.5:1",
+      "Large text 3:1",
+      "Relevant nontext graphical/controls 3:1 where WCAG requires"
+    ],
+    "layouts": [
+      "1440x900",
+      "1024x768",
+      "390x844",
+      "320x640"
+    ],
+    "accessibility": [
+      "Native semantic navigation in production, lab uses illustrative static elements",
+      "Keyboard and focus behavior in P27 implementation",
+      "No color-only financial statuses",
+      "Accessible data table companion for charts",
+      "prefers-reduced-motion"
+    ]
+  },
+  "directions": [
+    {
+      "id": "a",
+      "name": "Ledger Atelier",
+      "summary": "Quiet, premium, warm finance instrument for a calm consumer experience",
+      "primaryMode": "light",
+      "styleFamily": "Warm functional editorial",
+      "tones": {
+        "page": "#f8f7f2",
+        "surface": "#fffdfa",
+        "sidebar": "#eeeee6",
+        "text": "#27332f",
+        "accent": "#176653",
+        "secondary": "#b98843",
+        "negative": "#b64e44"
+      },
+      "alternate": {
+        "page": "#0d1918",
+        "surface": "#162821",
+        "text": "#edf4ed",
+        "accent": "#8ad4ae"
+      },
+      "typography": {
+        "ui": "Inter/System sans",
+        "numbers": "Tabular sans with restrained Georgia large-scale numerals"
+      },
+      "density": "medium",
+      "geometry": "7px radius, clear structural dividers",
+      "nav": "Warm surface sidebar with one prominent active item",
+      "charts": "Single green actual path; copper dashed target; understated fill",
+      "receipt": "Original white receipt on warm-grey document stage; aligned forms",
+      "mobile": "Available amount first, large list rows, native camera emphasis",
+      "motion": "120–180ms low-amplitude fade or translate, no parallax",
+      "strengths": [
+        "Calm familiarity",
+        "Cross-device consistency",
+        "Approachable monetary hierarchy"
+      ],
+      "risks": [
+        "Too similar to conventional card-based finance products if surfaces are not simplified",
+        "Colors need rigorous contrast checks in alternate theme"
+      ],
+      "distinctnessRequirements": [
+        "No hero marketing sentences",
+        "Financial tables unboxed when dense",
+        "No circular gauge clutter",
+        "Design hierarchy depends on aligned monetary columns"
+      ]
+    },
+    {
+      "id": "b",
+      "name": "Signal Current",
+      "summary": "Confident dark-first consumer finance with differentiated active signals",
+      "primaryMode": "dark",
+      "styleFamily": "Graphite, electric cyan, restrained coral",
+      "tones": {
+        "page": "#0a1426",
+        "surface": "#12233b",
+        "sidebar": "#0e1b31",
+        "text": "#f0f7ff",
+        "accent": "#43d6da",
+        "secondary": "#fa9279",
+        "negative": "#ff8c88"
+      },
+      "alternate": {
+        "page": "#f2f7fc",
+        "surface": "#ffffff",
+        "text": "#182c49",
+        "accent": "#135ab3"
+      },
+      "typography": {
+        "ui": "Modern system sans",
+        "numbers": "Compact tabular sans for fast scan"
+      },
+      "density": "medium",
+      "geometry": "11px radius; narrow accent strokes; no decorative blur",
+      "nav": "Deep-navy navigation and bright selected state",
+      "charts": "Cyan measured spend line, coral future commitments, uncluttered baseline",
+      "receipt": "High-contrast image review; controls share mobile card rhythm",
+      "mobile": "Immediate money overview; touch-sized status/attention components",
+      "motion": "160–200ms gentle emphasis restricted to confirmed interactions",
+      "strengths": [
+        "Strong distinctiveness",
+        "Dark mode quality",
+        "Clear focus on priority updates"
+      ],
+      "risks": [
+        "Card-based visual hierarchy can become generic gaming/fintech UI",
+        "Too many saturated signals may distract or suggest false semantic importance"
+      ],
+      "distinctnessRequirements": [
+        "Do not use glowing line charts everywhere",
+        "Use one accent action per screen",
+        "Enforce tabular density in ledger",
+        "Avoid neon/pill badges as default status"
+      ]
+    },
+    {
+      "id": "c",
+      "name": "Editor's Ledger",
+      "summary": "Swiss-inspired editorial register where exact figures and evidence are primary",
+      "primaryMode": "light",
+      "styleFamily": "High-contrast paper, thin lines, typography-first financial editorial",
+      "tones": {
+        "page": "#fcfcf8",
+        "surface": "#fffefa",
+        "sidebar": "#f7f7f0",
+        "text": "#242524",
+        "accent": "#244bc7",
+        "secondary": "#bb5a49",
+        "negative": "#b34138"
+      },
+      "alternate": {
+        "page": "#151719",
+        "surface": "#1c2022",
+        "text": "#f0f1ed",
+        "accent": "#a0b8ff"
+      },
+      "typography": {
+        "ui": "Neutral system sans",
+        "headings": "Georgia light editorial small headings",
+        "numbers": "Tabular sans in ledger, sparing serif for primary financial totals"
+      },
+      "density": "high-desktop, measured-mobile",
+      "geometry": "2px radius, zero shadow, rule-separated sections",
+      "nav": "Slim editorial task index, sections revealed in context",
+      "charts": "Hairline grid, cobalt actual, rust target/negative; direct labels over decorative legends",
+      "receipt": "Two-column scanner workbench with source image and form, emphasis on proof",
+      "mobile": "Paper-like vertical hierarchy, consistent bottom bar and task-first controls",
+      "motion": "90–150ms simple interpolation, no card hover lift",
+      "strengths": [
+        "Clearly non-SaaS identity",
+        "Maximum data legibility and traceability",
+        "Excellent foundation for analytic tasks"
+      ],
+      "risks": [
+        "Could feel austere for casual users",
+        "Dense desktop presentation needs careful mobile touch adaptation"
+      ],
+      "distinctnessRequirements": [
+        "Do not turn all content into cards",
+        "Keep titles small and task-centered",
+        "Use serif as accent, never at expense of numbers",
+        "Prioritize source-data tables and receipt side-by-side workbench"
+      ]
+    }
+  ],
+  "evaluationRubric": {
+    "dimensions": [
+      {
+        "name": "Financial clarity",
+        "weight": 25,
+        "measure": "Can person distinguish posted, budget, forecast, cash and supporting evidence?"
+      },
+      {
+        "name": "Daily-task speed",
+        "weight": 20,
+        "measure": "Can target workflows finish with minimal switching and clear action hierarchy?"
+      },
+      {
+        "name": "Information density & hierarchy",
+        "weight": 15,
+        "measure": "Does desktop show useful rows and mobile avoid cramped tables?"
+      },
+      {
+        "name": "Distinctive finance identity",
+        "weight": 15,
+        "measure": "Does experience avoid generic SaaS dashboard, giant welcome statement, gratuitous cards?"
+      },
+      {
+        "name": "Mobile ergonomics",
+        "weight": 15,
+        "measure": "Does navigation remain discoverable with real one-handed touch tasks?"
+      },
+      {
+        "name": "Accessibility & responsive robustness",
+        "weight": 10,
+        "measure": "Contrast and dimensions meet testing targets; full screen reader/keyboard only after implementation"
+      }
+    ],
+    "scoringPolicy": "Qualitative criteria pending user evaluation; automated contrast checks separately recorded. Do not manufacture usability scores or claim a benchmark win.",
+    "benchmarkSources": [
+      "https://help.copilot.money/en/articles/6045480-dashboard-tab-overview",
+      "https://actualbudget.org/docs/tour/budget/",
+      "https://www.monarchmoney.com/landing/budgeting-tools"
+    ],
+    "nonNegotiable": [
+      "No large one-sentence hero banners",
+      "No separate AI chat dashboard",
+      "No simulated production account state",
+      "No fabricated financial precision claims"
+    ]
+  }
+}

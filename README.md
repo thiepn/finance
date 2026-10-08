@@ -49,3 +49,5 @@ Core principles:
 Backend project: THIEPN Core  
 Product namespace: `finance`  
 Target origin: `https://finance.thiepn.dev`
+
+- **P25** — [visual direction exploration](docs/P25_VISUAL_DIRECTIONS.md) with [A/B/C static design lab](design/p25/visual-lab/index.html), 48 screenshot references and 3× light/dark treatments; **visual direction selection pending**.

@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "validate:plugin": "node scripts/validate-plugin.mjs"
+    "validate:plugin": "node scripts/validate-plugin.mjs",
+    "validate:p25": "node scripts/validate-finance-p25.mjs"
   },
   "devDependencies": {
     "typescript": "7.0.2",
