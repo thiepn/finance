@@ -44,6 +44,8 @@ Core principles:
 - **P22** — complete core UI workflows (Activity, manual posting, Scan, Merchants, Rules, Settings), route wiring, TSX type checks: released
 - **P23** — source-confirmed product/UX audit, 17-route inventory, anonymous desktop/mobile screenshots, automated accessibility checks and V2.0 redesign brief: completed for public/anonymous surfaces; authenticated UX qualification pending. See [P23 audit](docs/P23_UX_VISUAL_AUDIT.md) and [visual evidence](docs/P23_VISUAL_CAPTURE_RESULTS.md)
 
+- **P24** — [information architecture & navigation spec](docs/P24_INFORMATION_ARCHITECTURE.md), [low-fidelity wireframes](docs/P24_LOFI_WIREFRAMES.md), [delivery handoff](docs/P24_IMPLEMENTATION_HANDOFF.md), and 12 [user journeys](design/p24/journey-contract.json): specification only, not implemented in production
+
 Backend project: THIEPN Core  
 Product namespace: `finance`  
 Target origin: `https://finance.thiepn.dev`
