@@ -13,7 +13,7 @@ export function currencyMinorDigits(currency: string): number {
   let digits = exponentCache.get(iso);
   if (digits === undefined) {
     const nf = new Intl.NumberFormat("en", { style: "currency", currency: iso });
-    digits = nf.resolvedOptions().maximumFractionDigits;
+    digits = nf.resolvedOptions().maximumFractionDigits ?? 2;
     exponentCache.set(iso, digits);
   }
   return digits;
