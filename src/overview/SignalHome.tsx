@@ -9,7 +9,8 @@ import { availableToSpend, buildSpendingPace, formatActivityDate, percentOf,
 import { overviewStatusCopy, attentionCopy, overviewMetricTrend } from "./overview-model.js";
 import { Icon } from "../ui/icons/Icon.js";
 import { DataProvenance, FinanceButton, FinanceTrend, FinancialState, MoneyValue,
-  type MoneySource, type FinanceTrendPoint } from "../ui/v2/SignalCurrent.js";
+  type FinanceTrendPoint } from "../ui/v2/SignalCurrent.js";
+import type { MoneySource } from "../ui/v2/finance-presentation.js";
 import "./signal-home.css";
 
 type ExtraState<T> = {status:"loading"|"ready"|"error";value:T|null};
@@ -110,10 +111,11 @@ export function SignalHomeView({dashboard,upcoming,trend,onNavigate,periodKind,o
        detail={dashboard.accounts.activeCount?dashboard.accounts.activeCount+" active tracked account"+(dashboard.accounts.activeCount===1?"":"s"):"No tracked accounts yet"}
        tone={position!==null&&position<0?"negative":"default"}/>
      <HomeMetric label="Upcoming · 30 days" minor={upcomingMinor} currency={currency} locale={locale} source="forecast"
-       status={recurringStatus} detail={upcoming?.status==="ready"?"Tracked recurring expenses only":"Recurring commitments source"} tone="warning"/>
+       status={recurringStatus==="ready"?undefined:recurringStatus} detail={upcoming?.status==="ready"?"Tracked recurring expenses only":"Recurring commitments source"} tone="warning"/>
      <HomeMetric label="Net spending" minor={safeMinor(dashboard.summary.netSpentMinor)} currency={currency} locale={locale}
        source="posted" detail={dashboard.summary.expenseCount+" posted expense"+(dashboard.summary.expenseCount===1?"":"s")}/>
    </div>
+   <div className="sc-home-mobile-spent"><span>Net spending this period</span><MoneyOrDash amount={safeMinor(dashboard.summary.netSpentMinor)} board={dashboard}/><small>Posted ledger expenses, net of refunds</small></div>
    <div className="sc-home-brief">
      <div><span>Posted income</span><MoneyOrDash amount={safeMinor(dashboard.summary.incomeMinor)} board={dashboard}/>
        <small>{formatTrend(incomeTrend.ratio)} vs previous period</small></div>
