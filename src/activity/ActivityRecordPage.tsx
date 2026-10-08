@@ -39,13 +39,18 @@ export function ActivityRecordPage({kind,recordId,onNavigate}:ActivityRecordPage
    setBusy(true);setWriteError(null);
    try{
      await runtime.ledger.voidTransaction({transactionId:detail.activity.transactionId??detail.activity.id,reason:reason.trim()});
-     setVoidOpen(false);setConfirmed(false);setReason("");setSuccess(true);
-     // Reread actual persisted status, never optimistically adjust monetary values.
-     const next=await controller!.getDetail("transaction",recordId);
-     setDetail(next);
    }catch(e){
      setWriteError(normalizeActivityError(e,"write")+
-       " If you attempted to void this record, refresh its status before trying again.");
+       " Refresh its status before attempting another void.");
+     setBusy(false);return;
+   }
+   // The write was accepted. A failed read must not be reported as a failed write.
+   setVoidOpen(false);setConfirmed(false);setReason("");setSuccess(true);
+   try{
+     const next=await controller!.getDetail("transaction",recordId);
+     setDetail(next);
+   }catch{
+     setWriteError("The void request was accepted, but the updated record could not load. Refresh Activity to verify its status.");
    }finally{setBusy(false)}
  }
  const back=kind==="receipt"?"/receipts":"/activity";
