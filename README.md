@@ -56,3 +56,5 @@ Target origin: `https://finance.thiepn.dev`
 
 
 - **P26** — [Signal Current React design system](docs/P26_SIGNAL_CURRENT_DESIGN_SYSTEM.md): scoped dark/light tokens generated from P25L, accessible money/ledger/budget/chart/receipt/state primitives, [synthetic Vite showcase](p26-showcase.html), SSR and real-browser QA; integration with production routes begins in P27.
+
+- **P27** — [Signal Current navigation, canonical routing and account guard](docs/P27_NAVIGATION_AUTH_AND_SHELL.md): real application shell with six desktop areas, five mobile tabs + More, 17 hash migrations, verified Supabase session boundary, and restricted Vercel SPA refresh rewrites; existing financial page bodies continue until P28–P37.
