@@ -14,6 +14,7 @@ import { RecurringPage } from "../recurring/RecurringPage.js";
 import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js";
 import { ReceiptStudioDetail } from "../receipt-matching/ReceiptStudioDetail.js";
 import { PlanningPage } from "../planning/PlanningPage.js";
+import { SignalPlanPage } from "../planning/SignalPlan.js";
 import { WealthPage } from "../wealth/WealthPage.js";
 import { ImportPage } from "../imports/ImportPage.js";
 import { AskFinancePage } from "../ask/AskFinancePage.js";
@@ -82,7 +83,7 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "receipt-detail":return <ReceiptStudioDetail receiptId={route.params.receiptId!} onNavigate={navigate}/>;
    case "accounts":return <WealthPage mode="accounts" onNavigate={toLegacy}/>;
    case "account-detail":return <IncompleteDetail label="Account" onBack={()=>navigate("/wealth/accounts")}/>;
-   case "plan":return <PlanningPage mode="budget" onNavigate={toLegacy}/>;
+   case "plan":return <SignalPlanPage onNavigate={navigate}/>;
    case "goals":return <PlanningPage mode="goals" onNavigate={toLegacy}/>;
    case "net-worth":return <WealthPage mode="net-worth" onNavigate={toLegacy}/>;
    case "imports":return <ImportPage onNavigate={toLegacy}/>;

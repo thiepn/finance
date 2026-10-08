@@ -50,7 +50,7 @@ export interface PlanningWorkspace {
   ): Promise<void>;
 }
 
-export function usePlanningWorkspace(): PlanningWorkspace {
+export function usePlanningWorkspace(anchorDate: string | null = null): PlanningWorkspace {
   const runtime = useMemo(createFinanceBrowserRuntime, []);
   const [state, setState] = useState<PlanningLoadState>(
     runtime ? "loading" : "unconfigured",
@@ -74,28 +74,8 @@ export function usePlanningWorkspace(): PlanningWorkspace {
     setState("loading");
     setError(null);
 
-    const session = await runtime.client.auth.getSession();
-    if (id !== requestId.current) return;
-
-    if (session.error) {
-      setState("error");
-      setDashboard(null);
-      setError(session.error.message);
-      return;
-    }
-
-    if (!session.data.session) {
-      setState("unauthenticated");
-      setDashboard(null);
-      return;
-    }
-
     try {
-      await runtime.recurring.syncPatterns(
-        null,
-        new Date().toISOString(),
-      );
-      const next = await runtime.planning.getDashboard();
+      const next = await runtime.planning.getDashboard(anchorDate);
       if (id !== requestId.current) return;
       setDashboard(next);
       setState("ready");
@@ -103,13 +83,9 @@ export function usePlanningWorkspace(): PlanningWorkspace {
       if (id !== requestId.current) return;
       setDashboard(null);
       setState("error");
-      setError(
-        cause instanceof Error
-          ? cause.message
-          : "Planning data could not be loaded.",
-      );
+      setError("Planning data could not be loaded. Retry.");
     }
-  }, [runtime]);
+  }, [runtime, anchorDate]);
 
   useEffect(() => {
     void refresh();
@@ -123,11 +99,7 @@ export function usePlanningWorkspace(): PlanningWorkspace {
         await action();
         await refresh();
       } catch (cause) {
-        setActionError(
-          cause instanceof Error
-            ? cause.message
-            : "Planning action failed.",
-        );
+        setActionError("The change could not be confirmed. Refresh the plan before retrying.");
       } finally {
         setBusyKey(null);
       }

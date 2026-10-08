@@ -64,3 +64,5 @@ Target origin: `https://finance.thiepn.dev`
 - **P29** — [Signal Current Activity & transaction workspace](docs/P29_ACTIVITY_TRANSACTION_WORKSPACE.md): real searchable/paginated ledger, protected record details, audited void, exact category splits, synthetic-only visual QA. EUR-only new posting and no unsupported in-place edits.
 
 - **P30** — [Signal Current Receipt Studio](docs/P30_RECEIPT_STUDIO.md): private receipt inbox, signed original evidence, manual reconciliation, device-local multi-page capture, and explicit extraction-correction limitations.
+
+- **P31** — [Signal Current Plan & Budget Workspace](docs/P31_PLAN_BUDGET_WORKSPACE.md): real period-specific budgets, exact category allocations/rollover, safe-to-spend distinction, spending pace, recurring and goal context; existing Goals route preserved.
