@@ -40,5 +40,5 @@ for(const invalid of [
  const value=safePrivatePath(invalid);
  assert.equal(value,invalid==="/settings?q=some-private-data"?"/settings":null,invalid+" rejected or canonicalized");
 }
-for(const uri of ["/api/mcp","/api/oauth-protected-resource","/.well-known/oauth-protected-resource","/privacy","/terms","/support","/assets/a.js"])assert(isServerPath(uri),uri+" is reserved");
+for(const uri of ["/api/mcp","/api/oauth-protected-resource","/.well-known/oauth-protected-resource","/privacy","/terms","/support","/assets/a.js"])assert.equal(isServerPath(uri),true,uri+" is reserved");
 console.log("P27 router and return-target safeguards passed");
