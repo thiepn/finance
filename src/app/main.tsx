@@ -5,6 +5,8 @@ import "../ui/styles/base.css";
 import "../ui/styles/components.css";
 import "../ui/styles/shell.css";
 import "./app.css";
+import "../ui/v2/finance-app-shell.css";
+import "./finance-auth.css";
 import "../overview/overview.css";
 import "../ui/charts/charts.css";
 import "../spending-explorer/spending-explorer.css";

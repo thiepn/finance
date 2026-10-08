@@ -20,6 +20,10 @@
     {
       "source": "/support",
       "destination": "/api/support"
+    },
+    {
+      "source": "/(activity|plan|explore|receipts|wealth|import|settings|ask|sign-in|auth)(.*)",
+      "destination": "/index.html"
     }
   ],
   "functions": {

@@ -8,7 +8,12 @@ import "./activity-page.css";
 import { TransactionComposer } from "./TransactionComposer.js";
 
 const batchSize = 30;
-function hashSearch() { return typeof window === "undefined" ? "" : new URLSearchParams(window.location.hash.split("?", 2)[1] ?? "").get("q") ?? ""; }
+function hashSearch() {
+  if(typeof window==="undefined")return "";
+  const query=window.location.pathname==="/activity"
+    ? window.location.search : window.location.hash.split("?",2)[1]??"";
+  return new URLSearchParams(query).get("q")??"";
+}
 function monetary(item: ActivityItem) {
   return item.amountMinor === null
     ? "Receipt evidence"
@@ -72,12 +77,16 @@ export function ActivityPage() {
   const [refreshTick, setRefreshTick] = useState(0);
   useEffect(() => {
     const updateSearchFromHash = () => {
-      if (!window.location.hash.startsWith("#activity")) return;
+      if (window.location.pathname!=="/activity" && !window.location.hash.startsWith("#activity")) return;
       const next = hashSearch();
-      if (next) { setQueryDraft(next); setQuery(next); }
+      setQueryDraft(next); setQuery(next);
     };
     window.addEventListener("hashchange", updateSearchFromHash);
-    return () => window.removeEventListener("hashchange", updateSearchFromHash);
+    window.addEventListener("popstate", updateSearchFromHash);
+    window.addEventListener("finance:navigate", updateSearchFromHash);
+    return () => {window.removeEventListener("hashchange", updateSearchFromHash);
+      window.removeEventListener("popstate", updateSearchFromHash);
+      window.removeEventListener("finance:navigate", updateSearchFromHash);};
   }, []);
   const requestId = useRef(0);
   const detailRequestId = useRef(0);
@@ -135,7 +144,16 @@ export function ActivityPage() {
       if (id === detailRequestId.current) setDetailError(reason instanceof Error ? reason.message : String(reason));
     }
   }
-  function submit(e: FormEvent) { e.preventDefault(); setQuery(queryDraft.trim()); }
+  function submit(e: FormEvent) {
+    e.preventDefault();const next=queryDraft.trim();setQuery(next);
+    if(window.location.pathname==="/activity"){
+      const params=new URLSearchParams(window.location.search);
+      if(next)params.set("q",next);else params.delete("q");
+      const search=params.toString();
+      window.history.replaceState(null,"","/activity"+(search?"?"+search:""));
+      window.dispatchEvent(new Event("finance:navigate"));
+    }
+  }
   return (
     <div className="f-activity-page">
       <div className="f-page-heading">

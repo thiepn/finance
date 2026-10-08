@@ -193,3 +193,10 @@ export function resetFinanceBrowserRuntimeForTests(): void {
   runtime = undefined;
   initializePromise = null;
 }
+
+/** Invalidate per-identity finance initialization across sign-out/sign-in.
+ * Authentication itself remains owned by the singleton Supabase client.
+ */
+export function invalidateFinanceInitialization():void {
+  initializePromise=null;
+}

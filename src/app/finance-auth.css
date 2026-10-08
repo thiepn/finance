@@ -1,0 +1,22 @@
+@import "../ui/v2/signal-current.css";
+.sc-auth { min-height:100dvh; display:flex; flex-direction:column; background:var(--sc-canvas); }
+.sc-auth__header { min-height:64px; border-bottom:1px solid var(--sc-border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,50px); }
+.sc-auth__header strong { font-size:13px;letter-spacing:.12em; }
+.sc-auth__header strong span { color:var(--sc-accent); }
+.sc-auth__header>a,.sc-auth__footer>a { color:var(--sc-muted);font-size:12px;text-decoration:underline; }
+.sc-auth__main { width:min(100%,480px);margin:auto; padding:45px 21px; }
+.sc-auth__identity { margin-bottom:26px; }
+.sc-auth__identity h1 { font-size:28px;line-height:1.2;letter-spacing:-.035em;margin:7px 0 12px; }
+.sc-auth__identity>p { font-size:13px;color:var(--sc-muted);line-height:1.7; }
+.sc-auth__identity .sc-auth__return { margin-top:10px;color:var(--sc-accent); }
+.sc-auth__form { background:var(--sc-surface);border:1px solid var(--sc-border);border-radius:11px;padding:24px;display:grid;gap:16px; }
+.sc-auth__form>.sc-button { width:100%;min-height:46px; }
+.sc-auth__divider { text-align:center;font-size:11px;color:var(--sc-muted);padding:3px 0; }
+.sc-auth__form form { display:grid;gap:10px; }
+.sc-auth__form label { font-size:11px;color:var(--sc-muted);font-weight:700; }
+.sc-auth__form input { width:100%;min-height:44px;padding:10px 12px;background:var(--sc-canvas);color:var(--sc-text);border:1px solid var(--sc-border);border-radius:6px; }
+.sc-auth__form input:focus { border-color:var(--sc-accent); }
+.sc-auth__form p { font-size:11px;line-height:1.6;color:var(--sc-muted); }
+.sc-auth__form .sc-auth__error { color:var(--sc-negative); }
+.sc-auth__footer { display:flex;gap:18px;justify-content:center;padding:20px;border-top:1px solid var(--sc-border); }
+@media(max-width:600px){.sc-auth__main{padding:26px 16px}.sc-auth__form{padding:18px}}
