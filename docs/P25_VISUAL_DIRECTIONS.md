@@ -1,6 +1,6 @@
 # P25 — Three Visual Directions and Design Selection
 
-**Status:** THREE CANDIDATES DELIVERED. **No visual direction is locked until the user selects it.**  
+**Status:** THREE CANDIDATES DELIVERED; **B — Signal Current chosen and locked on 2026-10-08**. See [official P25L reference](P25L_SIGNAL_CURRENT_LOCK.md).  
 **Product:** THIEPN Finance V2.0; **Phase:** P25; **Date:** 2026-10-08.  
 **Boundary:** Design-only. The live React application, ledger and THIEPN Core authentication are intentionally unchanged.
 
@@ -104,7 +104,7 @@ P25 makes a **non-validated expert design judgment**, not a measured superiority
 
 No mockup can prove task times, real-account behavior or screen reader access. Those remain for P27–P39.
 
-**Provisional design preference (not a lock): C** because it establishes the clearest differentiation from standard dashboard layouts, while keeping the P24 information architecture and receipt evidence intact. A is the calmer mainstream alternative; B is most expressive/dark-first. The user chooses after seeing all three.
+**Historical provisional design preference (superseded by owner selection): C** because it establishes the clearest differentiation from standard dashboard layouts, while keeping the P24 information architecture and receipt evidence intact. A is the calmer mainstream alternative; B is most expressive/dark-first. The user chooses after seeing all three.
 
 ### Non-negotiable failures
 
@@ -152,4 +152,4 @@ One direction selection must be explicit. Once selected, perform a **P25L Refere
 4. Commit/PR the frozen specification. Record deliberate exceptions only with rationale.
 5. Authorize P26 design system development and P27 navigation implementation against the locked target.
 
-**P25 is not "fully reference-locked" until selection occurs.** The design exploration and QA artifacts can be finalized and merged without making an unwanted design choice.
+**B has now been explicitly selected and is reference-locked in [P25L](P25L_SIGNAL_CURRENT_LOCK.md).** The design exploration and QA artifacts can be finalized and merged without making an unwanted design choice.
