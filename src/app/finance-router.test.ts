@@ -1,4 +1,7 @@
-import { strict as assert } from "node:assert";
+const assert={
+ equal(actual:unknown,expected:unknown,message="values differ"){if(actual!==expected)throw Error(message+": "+String(actual)+" !== "+String(expected))},
+ throws(fn:()=>unknown){let threw=false;try{fn()}catch{threw=true}if(!threw)throw Error("Expected validation to throw")}
+};
 import { financeRoutes, financePathFor, fromLegacyKey, resolveFinanceLocation, safePrivatePath, isServerPath } from "./finance-router.js";
 
 const legacy=financeRoutes.filter(r=>"legacy" in r);
