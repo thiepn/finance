@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { OverviewDashboard, OverviewPeriodKind } from "../domain/overview.js";
 import type { AnalyticsTimeSeries } from "../domain/analytics.js";
 import type { RecurringDashboard } from "../domain/recurring.js";
@@ -101,7 +101,7 @@ export function SignalHomeView({dashboard,upcoming,trend,onNavigate,periodKind,o
    <div className="sc-home-refresh"><div className="sc-home-status"><span className={"sc-home-status__dot sc-home-status__dot--"+dashboard.financialStatus.tone} aria-hidden="true"/>
      <strong>{status.title}</strong><span>{status.detail}</span></div>
      <div className="sc-home-freshness"><span>As of {freshness}</span><button type="button" disabled={refreshing} onClick={onRefresh} aria-label="Refresh Finance Home">
-       <Icon name="refresh" size={15}/><span>Refresh</span></button></div>
+       <Icon name="recurring" size={15}/><span>Refresh</span></button></div>
    </div>
    <div className="sc-home-metrics">
      <HomeMetric label="Available to spend" minor={available} currency={currency} locale={locale} source="planned"
@@ -198,7 +198,7 @@ export function OverviewPage({onNavigate}:{onNavigate:(key:string)=>void}){
  const [periodKind,setPeriodKind]=useState<OverviewPeriodKind>("month");
  const loader=useOverview(periodKind);
  const extras=useHomeExtras(loader.dashboard);
- const refresh=useCallback(()=>{extras.refresh();void loader.refresh();},[extras.refresh,loader.refresh]);
+ const refresh=()=>{extras.refresh();void loader.refresh();};
  if(loader.state==="loading")return <div className="sc-home sc-home-loading" aria-busy="true">
    <header className="sc-home-header"><div><span className="sc-eyebrow">FINANCE HOME</span><h1>Home</h1></div></header>
    <div className="sc-home-loading__metrics">{[0,1,2,3].map(i=><div key={i} className="sc-home-placeholder"/>)}</div>
