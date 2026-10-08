@@ -51,7 +51,11 @@ export function TransactionComposer({ onCreated, onClose }: { onCreated: (transa
   const accountsForPosting = accounts.filter(a => a.currencyCode === "EUR");
   const allowedCategories = categories.filter(c => !c.isArchived && (c.kind === kind || c.kind === "both"));
   const destinationAllowed = accountsForPosting.filter(a => a.accountId !== accountId);
-  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(new Date(date + "T12:00:00").valueOf());
+  const validDate = /^\\d{4}-\\d{2}-\\d{2}$/.test(date) && (()=>{
+    const d = new Date(date+"T12:00:00");
+    return Number.isFinite(d.getTime()) && d.getFullYear()===Number(date.slice(0,4)) &&
+      d.getMonth()+1===Number(date.slice(5,7)) && d.getDate()===Number(date.slice(8,10));
+  })();
   const allocations = splits.map(row=>({categoryId:row.categoryId,amountMinor:amountToMinor(row.amount)??0}));
   const splitError = kind==="transfer"||amountMinor===null?null:validateAllocationsForPosting(amountMinor,allocations);
   const canSave = Boolean(runtime && currentAccount && currentAccount.currencyCode === "EUR" &&
