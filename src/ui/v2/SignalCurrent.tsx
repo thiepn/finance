@@ -198,7 +198,7 @@ export interface FinanceTableProps<T> {
   emptyMessage?: string;
 }
 export function FinanceTable<T>({ caption, rows, columns, rowKey, rowHref, emptyMessage = "No records found." }: FinanceTableProps<T>) {
-  return <div className="sc-table-scroll"><table className="sc-table">
+  return <div className="sc-table-scroll" role="region" aria-label={caption + " table"} tabIndex={0}><table className="sc-table">
     <caption>{caption}</caption>
     <thead><tr>{columns.map(c => <th key={c.id} scope="col" className={c.align === "end" ? "sc-align-end" : undefined}>{c.label}</th>)}
       {rowHref ? <th scope="col"><span className="sc-visually-hidden">Details</span></th> : null}</tr></thead>
