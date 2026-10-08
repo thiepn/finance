@@ -43,7 +43,7 @@ function useHomeExtras(dashboard:OverviewDashboard|null):Extras {
 const periods:{value:OverviewPeriodKind;label:string}[]=[
  {value:"week",label:"Week"},{value:"month",label:"Month"},{value:"quarter",label:"Quarter"},{value:"year",label:"Year"}
 ];
-type MetricProps={label:string;minor:number|null;currency:string;locale:string;source:MoneySource;detail:string;primary?:boolean;tone?:"default"|"negative"|"warning";status?:"loading"|"error"};
+type MetricProps={label:string;minor:number|null;currency:string;locale:string;source:MoneySource;detail:string;primary?:boolean;tone?:"default"|"negative"|"warning";status?:"loading"|"error"|undefined};
 function HomeMetric({label,minor,currency,locale,source,detail,primary=false,tone="default",status}:MetricProps){
  return <section className={"sc-home-metric"+(primary?" sc-home-metric--primary":"")} aria-label={label}>
   <div className="sc-home-metric__label">{label}</div>
