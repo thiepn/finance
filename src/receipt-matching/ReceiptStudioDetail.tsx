@@ -19,8 +19,9 @@ function Candidate({match,receiptCurrency,remaining,busy,onAction}:{
 }){
  const [amount,setAmount]=useState(()=>new Intl.NumberFormat("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}).format(match.matchedAmountMinor/100));
  const matched=match.status==="confirmed",rejected=match.status==="rejected";
- const valid=validateMatchAmount(amount,remaining,match);
  const tx=match.transaction;
+ const supportedCurrency=receiptCurrency===tx.reportingCurrency && currencyMinorDigits(receiptCurrency)===2;
+ const valid=supportedCurrency?validateMatchAmount(amount,remaining,match):null;
  return <article className="sc-rstudio-candidate">
    <div className="sc-rstudio-candidate__head"><span className="sc-eyebrow">{receiptStatusLabel(match.status)}</span>
      {match.confidence!==null?<span>Candidate confidence: {Math.round(match.confidence*100)}%</span>:null}</div>
