@@ -16,7 +16,8 @@
     "validate:p25l": "node scripts/validate-finance-p25l.mjs",
     "generate:signal-tokens": "node scripts/generate-finance-p26-tokens.mjs",
     "validate:p26": "node scripts/generate-finance-p26-tokens.mjs --check && node scripts/validate-finance-p26.mjs",
-    "validate:p27": "node scripts/validate-finance-p27.mjs"
+    "validate:p27": "node scripts/validate-finance-p27.mjs",
+    "validate:p28": "node scripts/validate-finance-p28.mjs"
   },
   "devDependencies": {
     "typescript": "7.0.2",
