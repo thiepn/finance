@@ -68,21 +68,26 @@ function localDate(date: Date): string {
 }
 
 function validDate(value: unknown): value is string {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return false;
+  }
+  const timestamp = Date.parse(`${value}T12:00:00Z`);
   return (
-    typeof value === "string" &&
-    /^\d{4}-\d{2}-\d{2}$/.test(value) &&
-    !Number.isNaN(Date.parse(`${value}T12:00:00Z`))
+    Number.isFinite(timestamp) &&
+    new Date(timestamp).toISOString().slice(0, 10) === value
   );
 }
 
-function normalizeBaseUrl(value: string): string | null {
+export function normalizeCoreGatewayUrl(value: string): string | null {
   try {
     const url = new URL(value);
-    if (!["https:", "http:"].includes(url.protocol)) return null;
-    url.pathname = url.pathname.replace(/\/+$/, "");
-    url.search = "";
-    url.hash = "";
-    return url.toString().replace(/\/$/, "");
+    const localDevelopment =
+      url.protocol === "http:" &&
+      ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname);
+    if (url.protocol !== "https:" && !localDevelopment) return null;
+    if (url.username || url.password || url.search || url.hash) return null;
+    if (url.pathname !== "/" && url.pathname !== "") return null;
+    return url.origin;
   } catch {
     return null;
   }
@@ -176,7 +181,7 @@ export function createFinanceAiInterpreter(
   client: SupabaseClient,
   coreGatewayUrl: string | undefined,
 ): FinanceQuestionInterpreter | null {
-  const baseUrl = coreGatewayUrl ? normalizeBaseUrl(coreGatewayUrl) : null;
+  const baseUrl = coreGatewayUrl ? normalizeCoreGatewayUrl(coreGatewayUrl) : null;
   if (!baseUrl) return null;
 
   return async (question: string, now: Date): Promise<AskFinanceParseResult> => {

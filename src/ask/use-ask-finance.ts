@@ -10,6 +10,7 @@ export function useAskFinance() {
 
   const ask = useCallback(
     async (question: string) => {
+      setAnswer(null);
       if (!runtime) {
         setError(
           "Finance is not connected. Configure the Supabase runtime before using Ask Finance.",
