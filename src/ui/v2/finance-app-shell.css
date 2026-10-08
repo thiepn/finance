@@ -118,3 +118,5 @@
  .sc-app-tab { font-size:9px; }
  .sc-app-more-list { right:-3px; }
 }
+
+.sc-app-more-error { color:var(--sc-negative); font-size:11px; margin:4px 7px 7px; }
