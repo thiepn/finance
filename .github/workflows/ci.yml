@@ -25,6 +25,7 @@ jobs:
       - run: npm run validate:ia
       - run: npm run validate:p25
       - run: npm run validate:p25l
+      - run: npm run validate:p26
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
