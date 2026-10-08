@@ -44,9 +44,9 @@ assert(state.includes("Sign in")&&!state.includes("finance_initialize"),"state h
 const failure=render(createElement(FinancialState,{kind:"error",title:"Something went wrong",description:"Try again"}));
 assert(failure.includes('role="alert"'),"critical error announced");
 const table=render(createElement(FinanceTable,{
- caption:"Synthetic ledger",rows:[{id:"a",amount:-100}],rowKey:x=>x.id,
- columns:[{id:"amount",label:"Amount",render:x=>String(x.amount),align:"end"}],
- rowHref:x=>"/activity/transaction/"+x.id
+ caption:"Synthetic ledger",rows:[{id:"a",amount:-100}],rowKey:(x:{id:string;amount:number})=>x.id,
+ columns:[{id:"amount",label:"Amount",render:(x:{id:string;amount:number})=>String(x.amount),align:"end"}],
+ rowHref:(x:{id:string;amount:number})=>"/activity/transaction/"+x.id
 }));
 assert(table.includes("<caption>")&&table.includes('scope="col"')&&table.includes("View"),"semantic table includes accessible details");
 const row=render(createElement(LedgerRow,{merchant:"REWE",dateLabel:"8 Oct",category:"Groceries",amountMinor:-4235,href:"/activity"}));
