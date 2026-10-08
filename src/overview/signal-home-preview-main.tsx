@@ -7,6 +7,7 @@ import type { OverviewPeriodKind } from "../domain/overview.js";
 import { fromLegacyKey, resolveFinanceLocation } from "../app/finance-router.js";
 import { FinancialState } from "../ui/v2/SignalCurrent.js";
 import "../ui/v2/finance-app-shell.css";
+import "./signal-home-preview.css";
 function HomePreview(){
  const [scenario,setScenario]=useState<"normal"|"no-plan"|"no-accounts"|"empty"|"overrun"|"source-error">("normal");
  const [period,setPeriod]=useState<OverviewPeriodKind>("month");
