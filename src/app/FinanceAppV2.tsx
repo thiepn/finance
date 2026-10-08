@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFinanceBrowserRuntime } from "../integrations/supabase-client.js";
 import { SignalCurrentScope, FinanceButton, FinancialState } from "../ui/v2/SignalCurrent.js";
 import { FinanceV2Shell } from "../ui/v2/FinanceV2Shell.js";
@@ -21,7 +21,7 @@ import {
   fromLegacyKey, resolveFinanceLocation, safePrivatePath,
   type RouteLocation,
 } from "./finance-router.js";
-import { consumeReturnIntent, storeReturnIntent, useFinanceSession } from "./useFinanceSession.js";
+import { clearReturnIntent, consumeReturnIntent, storeReturnIntent, useFinanceSession } from "./useFinanceSession.js";
 
 function currentRoute():RouteLocation {
  return resolveFinanceLocation(typeof window!=="undefined"?window.location.href:"/");
@@ -92,7 +92,6 @@ export function FinanceApp(){
  const {route,navigate}=useFinanceRoute();
  const session=useFinanceSession();
  const runtime=createFinanceBrowserRuntime();
- const signOutNotice=useRef(false);
  useEffect(()=>{
    if(session.status==="signed-out"&&!route.isPublic&&route.id!=="not-found"){
      storeReturnIntent(route.canonical);
@@ -127,7 +126,7 @@ export function FinanceApp(){
    <main className="sc-auth__main"><FinancialState kind="empty" title="Page not found" description="That Finance destination does not exist." primaryAction={{label:"Go to Home",onClick:()=>navigate("/")}}/></main></SignalCurrentScope>;
  return <FinanceV2Shell key={session.user.id} routeId={route.id} section={route.section}
    title={route.title} email={session.user.email??null} onNavigate={navigate}
-   onSignOut={async()=>{if(!runtime)return;const {error}=await runtime.client.auth.signOut();if(error)throw new Error("Sign-out failed"); signOutNotice.current=true; navigate("/sign-in",true);}}>
+   onSignOut={async()=>{if(!runtime)return;const {error}=await runtime.client.auth.signOut();if(error)throw new Error("Sign-out failed"); clearReturnIntent(); navigate("/sign-in",true);}}>
    <FinancePrivatePage route={route} navigate={navigate}/>
  </FinanceV2Shell>;
 }
