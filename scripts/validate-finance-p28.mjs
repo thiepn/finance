@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+import fs from "node:fs";
+import assert from "node:assert/strict";
+const root=fs.readFileSync("src/overview/OverviewPage.tsx","utf8");
+const main=fs.readFileSync("src/app/FinanceAppV2.tsx","utf8");
+const home=fs.readFileSync("src/overview/SignalHome.tsx","utf8");
+const model=fs.readFileSync("src/overview/signal-home-model.ts","utf8");
+const css=fs.readFileSync("src/overview/signal-home.css","utf8");
+const entry=fs.readFileSync("src/app/main.tsx","utf8");
+assert(root.includes('export { OverviewPage } from "./SignalHome.js"'),"P28 page not active");
+assert(main.includes('<OverviewPage onNavigate={toLegacy}'),"P27 private gate no longer routes to actual Home");
+assert(!entry.includes("signal-home.fixture")&&!home.includes("signal-home.fixture"),"Synthetic finance fixtures must never appear in active Finance Home");
+assert(!entry.includes("signal-home-preview")&&!main.includes("signal-home-preview"),"P28 development preview must not be production mounted");
+assert(home.includes("runtime.recurring.getDashboard")&&home.includes("runtime.analytics.getTimeSeries"),"Upcoming/pace must use real services");
+assert(home.includes("Tracked net position")&&home.includes("Tracked recurring expenses only"),"Source provenance must remain explicit");
+assert(home.includes("Available to spend")&&home.includes("configured allocations"),"Available amount must be tied to configured budget");
+assert(home.includes("Receipt evidence")||home.includes("Evidence"),"Receipt evidence not silently counted as spending");
+assert(model.includes("safeMinor")&&model.includes("isPosted?cumulative:null"),"Future actual financial values must be absent");
+assert(css.includes("@media(max-width:350px)")&&css.includes("sc-home-mobile-spent"),"Small phone monetary display missing");
+assert(!css.includes("linear-gradient("),"No generic gradient template");
+assert(fs.existsSync("p28-home-preview.html"),"Synthetic isolated browser QA fixture missing");
+console.log("P28 Home route, source integrity and preview isolation verified");

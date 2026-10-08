@@ -69,6 +69,7 @@
     "src/ask/ask-finance-engine.ts",
     "src/ask/ask-finance-engine.test.ts",
     "src/ui/v2/signal-current.test.ts",
-    "src/app/finance-router.test.ts"
+    "src/app/finance-router.test.ts",
+    "src/overview/signal-home-model.test.ts"
   ]
 }

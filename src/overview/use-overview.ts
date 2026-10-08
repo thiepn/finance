@@ -42,22 +42,10 @@ export function useOverview(
     setState("loading");
     setError(null);
 
-    const sessionResult = await runtime.client.auth.getSession();
-    if (id !== requestId.current) return;
-
-    if (sessionResult.error) {
-      setState("error");
-      setDashboard(null);
-      setError(sessionResult.error.message);
-      return;
-    }
-
-    if (!sessionResult.data.session) {
-      setState("unauthenticated");
-      setDashboard(null);
-      return;
-    }
-
+    // P27's verified getUser boundary owns authentication. Home mounts only
+    // inside that private route, so a second getSession adds latency and can
+    // conflict with Supabase's auth event lock. Backend RPC/RLS remains the
+    // authoritative permission check.
     try {
       const next = await runtime.overview.getDashboard({
         periodKind,
@@ -83,18 +71,6 @@ export function useOverview(
   useEffect(() => {
     void refresh();
   }, [refresh]);
-
-  useEffect(() => {
-    if (!runtime) return undefined;
-
-    const {
-      data: { subscription },
-    } = runtime.client.auth.onAuthStateChange(() => {
-      void refresh();
-    });
-
-    return () => subscription.unsubscribe();
-  }, [refresh, runtime]);
 
   return {
     state,

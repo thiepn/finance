@@ -7,7 +7,6 @@ import "../ui/styles/shell.css";
 import "./app.css";
 import "../ui/v2/finance-app-shell.css";
 import "./finance-auth.css";
-import "../overview/overview.css";
 import "../ui/charts/charts.css";
 import "../spending-explorer/spending-explorer.css";
 import "../product-intelligence/product-intelligence.css";
