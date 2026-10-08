@@ -73,7 +73,7 @@ These **eight screen families in two themes plus two stress views** are frozen a
 
 The reference filenames and SHA-256 hashes are in [signal-current-reference-manifest.json](../design/p25/signal-current-reference-manifest.json).
 
-**Asset pinning:** a dedicated main-branch Actions workflow downloads *that exact* P25 run artifact, verifies each selected screenshot against the SHA-256 manifest, and commits the checked PNGs to `design/p25/locked-references/`. This is intentionally decoupled from the design-spec PR to avoid stuffing large unreviewed binary assets into arbitrary GitHub API writes. If a repository policy blocks bot commits, the locked source, hashes and Actions artifact still define the exact references, and the verified reference ZIP can be uploaded manually. Do not claim images are present in GitHub until confirmed.
+**Asset pinning complete:** [P25L Reference Freeze run](https://github.com/thiepn/finance/actions/runs/37767894681) successfully verified all 18 selected PNG SHA-256 hashes and committed the files to [`design/p25/locked-references/`](../design/p25/locked-references). The exact screenshots are now version-controlled in the repository, not dependent on the temporary original Actions artifact. Pinning was performed in a separate hash-checked workflow so unreviewed binary assets were never silently substituted.
 
 **The generated concept boards** are visual inspiration only and may contain illegible text or invented totals. They are **not** the frozen implementation target; only the browser-rendered synthetic data/screens and the design contracts are authoritative.
 
