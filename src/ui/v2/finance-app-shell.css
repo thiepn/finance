@@ -1,0 +1,120 @@
+@import "./signal-current.css";
+
+/* P27 migration shell. New navigation is locked Signal Current; legacy
+   routes are temporarily styled through variable aliases, never globally. */
+.sc-root.sc-app {
+ --f-bg:var(--sc-canvas);
+ --f-surface:var(--sc-surface);
+ --f-surface-raised:var(--sc-surface);
+ --f-surface-subtle:var(--sc-subtle);
+ --f-surface-hover:var(--sc-subtle);
+ --f-surface-pressed:var(--sc-border);
+ --f-text:var(--sc-text);
+ --f-text-secondary:var(--sc-muted);
+ --f-text-tertiary:var(--sc-muted);
+ --f-text-inverse:var(--sc-accent-ink);
+ --f-border:var(--sc-border);
+ --f-border-strong:var(--sc-border);
+ --f-accent:var(--sc-accent);
+ --f-accent-hover:var(--sc-accent);
+ --f-accent-pressed:var(--sc-accent);
+ --f-accent-soft:var(--sc-subtle);
+ --f-accent-text:var(--sc-accent);
+ --f-chart-1:var(--sc-chart-actual);
+ --f-chart-2:var(--sc-chart-budget);
+ --f-chart-3:var(--sc-positive);
+ --f-chart-4:var(--sc-warning);
+ --f-chart-5:var(--sc-muted);
+ --f-chart-6:var(--sc-coral);
+ --f-chart-grid:var(--sc-grid);
+ --f-positive:var(--sc-positive);
+ --f-positive-soft:var(--sc-subtle);
+ --f-negative:var(--sc-negative);
+ --f-negative-soft:var(--sc-subtle);
+ --f-warning:var(--sc-warning);
+ --f-warning-soft:var(--sc-subtle);
+ --f-focus:var(--sc-accent);
+ --f-radius-xs:5px;
+ --f-radius-sm:6px;
+ --f-radius-md:9px;
+ --f-radius-lg:11px;
+ --f-radius-xl:11px;
+ --f-shadow-xs:none;
+ --f-shadow-sm:none;
+ --f-shadow-md:0 10px 28px #0003;
+ --f-content-max:1370px;
+ min-height:100vh;
+ display:grid;
+ grid-template-columns:205px minmax(0,1fr);
+}
+.sc-root.sc-app .f-button--primary { color:var(--sc-accent-ink); }
+.sc-root.sc-app .f-stat--emphasis { background:var(--sc-surface);border-top:2px solid var(--sc-accent); }
+.sc-root.sc-app .f-surface { box-shadow:none; }
+.sc-root.sc-app .f-page-heading h1,
+.sc-root.sc-app .f-overview-heading h1 { font-size:clamp(21px,2vw,25px);line-height:1.2; }
+.sc-skip { position:fixed;top:8px;left:8px;z-index:1000;background:var(--sc-accent);color:var(--sc-accent-ink)!important;padding:10px 15px;transform:translateY(-180%); }
+.sc-skip:focus { transform:translateY(0); }
+.sc-app-sidebar { position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:14px;min-width:0;padding:22px 11px 15px;background:var(--sc-sidebar);border-right:1px solid var(--sc-border); }
+.sc-app-brand { display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--sc-border);padding:1px 10px 21px; }
+.sc-app-brand__mark { color:var(--sc-accent);font-size:25px;letter-spacing:-8px;padding-right:7px; }
+.sc-app-brand strong { display:block;font-size:12px;letter-spacing:.14em;line-height:1.1; }
+.sc-app-brand small { display:block;color:var(--sc-muted);font-size:10px;letter-spacing:.13em;margin-top:4px; }
+.sc-app-primary { display:grid;gap:3px; }
+.sc-app-navitem { min-height:42px;display:flex;align-items:center;gap:12px;color:var(--sc-muted);font-weight:690;font-size:12px;border-radius:5px;border-left:3px solid transparent;padding:0 12px; }
+.sc-app-navitem:hover,.sc-app-sublink:hover,.sc-app-option:hover { background:var(--sc-subtle); }
+.sc-app-navitem.is-active { background:var(--sc-subtle);border-left-color:var(--sc-accent);color:var(--sc-accent); }
+.sc-app-secondary { display:grid;gap:2px;border-top:1px solid var(--sc-border);padding:17px 5px 0;margin-top:3px; }
+.sc-app-secondary .sc-eyebrow { font-size:9px;padding:0 6px 7px; }
+.sc-app-sublink { min-height:36px;display:flex;align-items:center;padding:6px 10px;font-size:11px;border-radius:4px;color:var(--sc-muted); }
+.sc-app-sublink[aria-current="page"] { color:var(--sc-accent);font-weight:740; }
+.sc-app-sidebar-bottom { margin-top:auto;display:grid;gap:5px;border-top:1px solid var(--sc-border);padding-top:13px; }
+.sc-app-option { display:flex;align-items:center;gap:10px;padding:9px 11px;min-height:40px;color:var(--sc-muted);font-size:11px;border:0;border-radius:5px;background:transparent;text-align:left;cursor:pointer; }
+.sc-app-account { display:flex;align-items:center;gap:9px;margin-top:8px;border-top:1px solid var(--sc-border);padding:14px 3px 0; }
+.sc-app-account__avatar { display:grid;place-items:center;border-radius:50%;background:var(--sc-accent);color:var(--sc-accent-ink);height:29px;width:29px;font-size:12px;font-weight:800;flex:none; }
+.sc-app-account>span:last-child { min-width:0;display:grid;gap:3px; }
+.sc-app-account strong { font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.sc-app-account small { font-size:10px;color:var(--sc-muted); }
+.sc-app-workspace { min-width:0; }
+.sc-app-header { position:sticky;top:0;z-index:30;height:63px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--sc-surface);border-bottom:1px solid var(--sc-border);padding:0 26px; }
+.sc-app-location { font-size:12px;display:flex;align-items:center;gap:8px;white-space:nowrap; }
+.sc-app-location span { color:var(--sc-muted); }
+.sc-app-header-actions { display:flex;align-items:center;gap:12px; }
+.sc-app-search { min-width:190px;width:clamp(200px,25vw,330px);min-height:38px;display:flex;align-items:center;gap:9px;border:1px solid var(--sc-border);padding:0 11px;border-radius:6px;color:var(--sc-muted); }
+.sc-app-search:focus-within { border-color:var(--sc-accent); }
+.sc-app-search input { width:100%;background:transparent;border:0;color:var(--sc-text);font-size:11px;outline:0; }
+.sc-app-search input::placeholder { color:var(--sc-muted); }
+.sc-app-icon-button,.sc-app-more-button { background:transparent;border:1px solid var(--sc-border);border-radius:6px;display:flex;align-items:center;justify-content:center;min-height:38px;padding:0 10px;color:var(--sc-text);font-weight:680;font-size:11px; }
+.sc-app-icon-button:hover,.sc-app-more-button:hover { background:var(--sc-subtle); }
+.sc-app-more { position:relative; }
+.sc-app-more-button { gap:8px; }
+.sc-app-more-list { position:absolute;top:calc(100% + 6px);right:0;min-width:208px;max-width:calc(100vw - 25px);display:grid;gap:2px;padding:7px;background:var(--sc-surface);border:1px solid var(--sc-border);box-shadow:0 12px 26px #0003;border-radius:6px;z-index:40; }
+.sc-app-more-link { display:block;width:100%;padding:11px;border:0;text-align:left;background:transparent;font-size:12px;border-radius:4px;color:var(--sc-text);cursor:pointer; }
+.sc-app-more-link:hover { background:var(--sc-subtle); }
+.sc-app-main { width:min(100%,1370px);min-width:0;margin:auto;padding:17px clamp(15px,2.4vw,30px) 40px;outline:none; }
+.sc-app-bottom-nav { display:none; }
+@media(max-width:1023px) {
+ .sc-root.sc-app { grid-template-columns:170px minmax(0,1fr); }
+ .sc-app-header { padding:0 17px; }
+ .sc-app-main { padding:14px 16px 30px; }
+ .sc-app-search { width:220px;min-width:120px; }
+}
+@media(max-width:599px) {
+ .sc-root.sc-app { display:block;padding-bottom:calc(70px + env(safe-area-inset-bottom)); }
+ .sc-app-sidebar { display:none; }
+ .sc-app-header { height:58px;padding:0 15px; }
+ .sc-app-search,.sc-app-icon-button { display:none; }
+ .sc-app-main { padding:12px 15px 30px; }
+ .sc-app-location { font-size:13px; }
+ .sc-app-bottom-nav { position:fixed;bottom:0;left:0;right:0;height:calc(70px + env(safe-area-inset-bottom));z-index:35;background:var(--sc-surface);border-top:1px solid var(--sc-border);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:5px 4px env(safe-area-inset-bottom); }
+ .sc-app-tab { min-width:0;min-height:56px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;color:var(--sc-muted);font-size:10px;font-weight:660; }
+ .sc-app-tab.is-active,.sc-app-tab[aria-current="page"] { color:var(--sc-accent); }
+ .sc-app-tab--scan svg { background:var(--sc-accent);color:var(--sc-accent-ink);height:43px;width:43px;border:4px solid var(--sc-surface);border-radius:50%;padding:8px;margin-top:-17px; }
+ .sc-app-tab--scan { gap:0; }
+ .sc-app-tab--scan span { margin-top:-1px; }
+ .sc-root.sc-app .f-page-heading h1,.sc-root.sc-app .f-overview-heading h1 { font-size:23px; }
+}
+@media(max-width:349px) {
+ .sc-app-main { padding-left:10px;padding-right:10px; }
+ .sc-app-tab { font-size:9px; }
+ .sc-app-more-list { right:-3px; }
+}
