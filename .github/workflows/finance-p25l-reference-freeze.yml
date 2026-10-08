@@ -1,0 +1,52 @@
+name: Finance P25L Reference Freeze
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "design/p25/selection.json"
+      - "design/p25/signal-current-reference-manifest.json"
+      - "scripts/promote-finance-p25-references.mjs"
+      - ".github/workflows/finance-p25l-reference-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: finance-p25l-reference-freeze
+  cancel-in-progress: false
+
+jobs:
+  freeze-approved-references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download the audited P25 screenshots
+        uses: actions/download-artifact@v4
+        with:
+          name: finance-p25-concept-visual-qa
+          repository: thiepn/finance
+          run-id: 37765096582
+          github-token: ${{ github.token }}
+          path: p25-artifacts
+      - name: Verify immutable P25L SHA-256 references
+        run: node scripts/promote-finance-p25-references.mjs
+      - name: Commit checked reference PNGs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add design/p25/locked-references/
+          if ! git diff --cached --quiet; then
+            git commit -m "P25L: pin 18 Signal Current design screenshots [reference freeze]"
+            git push origin HEAD:main
+          else
+            echo "Approved screenshot references already pinned."
+          fi

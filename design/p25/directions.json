@@ -1,7 +1,7 @@
 {
   "phase": "P25",
-  "status": "three-candidates-pending-user-visual-selection",
-  "selectedDirection": null,
+  "status": "selected-and-locked",
+  "selectedDirection": "b",
   "lockPolicy": "Do not implement P26 or claim final reference lock before explicit user selection after viewing rendered concept screens.",
   "provenance": "Synthetic and illustrative content only. Screenshots are design sketches, not authenticated production UI or financial service results.",
   "shared": {
@@ -281,5 +281,8 @@
       "No simulated production account state",
       "No fabricated financial precision claims"
     ]
-  }
+  },
+  "selectionRecord": "design/p25/selection.json",
+  "lockedDirectionName": "Signal Current",
+  "implementationStatus": "reference-only-P26-and-later"
 }

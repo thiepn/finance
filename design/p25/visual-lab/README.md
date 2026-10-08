@@ -1,6 +1,6 @@
 # P25 Visual Lab — Instructions
 
-**Three Finance design candidates. No live finance data, credentials, account integration or functional transactions.** This is a browser-rendered presentation and responsive reference source for P25.
+**B — Signal Current is the locked Finance V2.0 identity; A/C remain available as historical comparison. No live finance data, credentials, account integration or functional transactions.** This is a browser-rendered presentation and responsive reference source for P25.
 
 Run from repo root:
 
@@ -29,4 +29,4 @@ node scripts/capture-finance-p25.mjs
 
 The CI workflow `.github/workflows/finance-p25-visual-qa.yml` captures 3 concepts × 2 visual themes × 8 views (4 desktop and 4 mobile), plus 6 narrow-width stress views. It uploads `finance-p25-concept-visual-qa` containing PNGs, a gallery and machine-readable issues.
 
-**Screen fidelity limitations:** Mockup controls are illustrative and do not simulate backend actions; they intentionally do not make remote requests. The color checker is automated and cannot certify screen-reader navigation, keyboard actions or authenticated financial workflows. Direction selection and final reference lock require explicit user approval.
+**Screen fidelity limitations:** Mockup controls are illustrative and do not simulate backend actions; they intentionally do not make remote requests. The color checker is automated and cannot certify screen-reader navigation, keyboard actions or authenticated financial workflows. The user has explicitly approved B — Signal Current. Its selection, screenshot manifest and locked tokens are in `../selection.json`, `../signal-current-reference-manifest.json` and `../signal-current.tokens.json`. Production implementation still requires P26 onward.

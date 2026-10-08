@@ -1,0 +1,159 @@
+{
+  "phase": "P25L",
+  "name": "Signal Current",
+  "direction": "b",
+  "userApprovedOn": "2026-10-08",
+  "snapshotSourceCommit": "cd86af19b39f549fba54eb84dbeab21834cc2c32",
+  "sourceRun": "https://github.com/thiepn/finance/actions/runs/37765096582",
+  "exactReferenceCount": 18,
+  "referencePixels": "CI Chromium screenshots, synthetic data only",
+  "sourceHTML": "design/p25/visual-lab/index.html",
+  "sourceCSS": "design/p25/visual-lab/visual-lab.css",
+  "publishedImages": "The reference freeze action writes these PNGs into design/p25/locked-references/. Until then, the exported reference pack includes their exact bytes.",
+  "files": [
+    {
+      "name": "b-alternate-desktop-activity.png",
+      "relativePath": "design/p25/locked-references/b-alternate-desktop-activity.png",
+      "sha256": "46e98518d4cca1261176239346d31b81227209d10b6f5d4e3f4282e6f10eac4f",
+      "mode": "light",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-desktop-home.png",
+      "relativePath": "design/p25/locked-references/b-alternate-desktop-home.png",
+      "sha256": "3a3b8b234a06f635ecbf87f9e4486300327bba2138e76ac617714cdb9f7cf5d9",
+      "mode": "light",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-desktop-receipt.png",
+      "relativePath": "design/p25/locked-references/b-alternate-desktop-receipt.png",
+      "sha256": "28c42dca0930e7f4cf97d483e8ae0d4bde3f815a8117ed17141ef34b61972c0d",
+      "mode": "light",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-desktop-states.png",
+      "relativePath": "design/p25/locked-references/b-alternate-desktop-states.png",
+      "sha256": "60b7d98bfe0ae6a236d1e08a9a6e48c59386ba45a5916e4da4d18c9e4143e9e0",
+      "mode": "light",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-mobile-home.png",
+      "relativePath": "design/p25/locked-references/b-alternate-mobile-home.png",
+      "sha256": "38dcf8ad18e272fa88b7667918765fc57bbda644caa2935561bbd721d946b395",
+      "mode": "light",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-mobile-plan.png",
+      "relativePath": "design/p25/locked-references/b-alternate-mobile-plan.png",
+      "sha256": "2ad88e95e233495c34915a70c6fc9eda7649a353957feffb814029aa5b696aec",
+      "mode": "light",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-mobile-scan.png",
+      "relativePath": "design/p25/locked-references/b-alternate-mobile-scan.png",
+      "sha256": "9d0c5936a8ba21440f9c51736e1fe61e201837428109a2a4084befa47da4a7f4",
+      "mode": "light",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-alternate-mobile-states.png",
+      "relativePath": "design/p25/locked-references/b-alternate-mobile-states.png",
+      "sha256": "19d3348bc7b721e527ed235291756a72f5520b5ce89526b1839afb0738e8b08a",
+      "mode": "light",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-default-desktop-activity.png",
+      "relativePath": "design/p25/locked-references/b-default-desktop-activity.png",
+      "sha256": "206a08fa50d20f5c6876a265fcc3d61424b58452b2aa46bc65df59cd6da93da9",
+      "mode": "dark",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-default-desktop-home.png",
+      "relativePath": "design/p25/locked-references/b-default-desktop-home.png",
+      "sha256": "a4cf2232c5e4b4b5aff0d12efcec6bf884cf4e1b98a974cdc4e0b36770e2f4e1",
+      "mode": "dark",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-default-desktop-receipt.png",
+      "relativePath": "design/p25/locked-references/b-default-desktop-receipt.png",
+      "sha256": "e080c007984f577811309980b8d9be7764587562dd4c223f32daeffe1cb3fa54",
+      "mode": "dark",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-default-desktop-states.png",
+      "relativePath": "design/p25/locked-references/b-default-desktop-states.png",
+      "sha256": "ca643d849f666324578ab623d4f572d6baa86dd4e5ff1ecaa9fb36f3eb3568be",
+      "mode": "dark",
+      "device": "desktop",
+      "stress": false
+    },
+    {
+      "name": "b-default-mobile-home.png",
+      "relativePath": "design/p25/locked-references/b-default-mobile-home.png",
+      "sha256": "a6865450fcd4e6a7cf1ce6f4d552cef32a333c8b7648ce321ee20b11d7bbb9b2",
+      "mode": "dark",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-default-mobile-plan.png",
+      "relativePath": "design/p25/locked-references/b-default-mobile-plan.png",
+      "sha256": "f101b69d44cc2fff505792870e79655ce704752c21f9ac9732b96d16ba488668",
+      "mode": "dark",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-default-mobile-scan.png",
+      "relativePath": "design/p25/locked-references/b-default-mobile-scan.png",
+      "sha256": "b9568162d0af2c44e606e26405002f549fb4bccafc5c87faa5db3724891b0d9e",
+      "mode": "dark",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-default-mobile-states.png",
+      "relativePath": "design/p25/locked-references/b-default-mobile-states.png",
+      "sha256": "e217705799f6c8b9e95b357592f393bde24be4555ad01484b0066f137da7e0f1",
+      "mode": "dark",
+      "device": "mobile",
+      "stress": false
+    },
+    {
+      "name": "b-stress-desktop-activity-1024.png",
+      "relativePath": "design/p25/locked-references/b-stress-desktop-activity-1024.png",
+      "sha256": "3058d4b1d0f8d4201850ad25b016dd7585aa5c3e83c6ef49137c84d8c3b0b57b",
+      "mode": "dark",
+      "device": "desktop",
+      "stress": true
+    },
+    {
+      "name": "b-stress-mobile-home-320.png",
+      "relativePath": "design/p25/locked-references/b-stress-mobile-home-320.png",
+      "sha256": "25e5d17e26daa2dae61676f199814242c25231212b2d7701aae03509d19668ce",
+      "mode": "dark",
+      "device": "mobile",
+      "stress": true
+    }
+  ]
+}
