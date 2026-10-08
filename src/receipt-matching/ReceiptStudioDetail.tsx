@@ -79,6 +79,7 @@ export function ReceiptStudioDetail({receiptId,onNavigate}:{
  },[runtime,captureService,receiptId]);
  async function loadEvidence(){
   if(!captureService||!capture||sourceLoading)return;
+  const generation=latest.current;
   setSourceLoading(true);setSourceError(null);
   try{
    const result:EvidencePage[]=[];
@@ -89,9 +90,9 @@ export function ReceiptStudioDetail({receiptId,onNavigate}:{
     result.push({id:p.id,filename:"Page "+(p.pageIndex+1),
       kind:p.mimeType.startsWith("image/")?"image":p.mimeType==="application/pdf"?"pdf":"other",signedUrl:url});
    }
-   setEvidence(result);
-  }catch{setSourceError("Private preview is unavailable. Refresh the preview links when needed.");setEvidence([])}
-  finally{setSourceLoading(false)}
+   if(generation===latest.current)setEvidence(result);
+  }catch{if(generation===latest.current){setSourceError("Private preview is unavailable. Refresh the preview links when needed.");setEvidence([])}}
+  finally{if(generation===latest.current)setSourceLoading(false)}
  }
  // Server actions change matching metadata, not ledger posting; confirmation is
  // manual and no queue-wide auto-confirm routine is invoked here.
