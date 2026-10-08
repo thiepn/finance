@@ -8,12 +8,12 @@
 
 P25 uses **three completely explicit visual directions**, not simply three accent color options. The screenshot implementation shares the same testable financial fixture and P24 navigation obligations, but direction B changes primary information placement and direction C removes card-wall styling. Each includes:
 
-1. Desktop **Home**, dense **Activity**, two-column **Receipt review**.
-2. Mobile **Home**, native-minded **Scan**, allocation-focused **Plan**.
+1. Desktop **Home**, dense **Activity**, two-column **Receipt review**, and a **system-state reference** (sign-in, first-run, offline, processing).
+2. Mobile **Home**, native-minded **Scan**, allocation-focused **Plan**, and **recovery state** reference.
 3. Both a principal and inverse **light/dark mode**.
 4. Consistent factual synthetic figures (not real-account data).
 5. Static browser-rendered HTML/CSS to check text, layout and contrast at real viewports, beyond generated imagery.
-6. Automation capturing 36 concept screens and six narrow-width stress captures, with axe accessibility results and page-overflow checks.
+6. Automation capturing **48 concept screens** plus six narrow-width stress captures, with axe accessibility results and page-overflow checks.
 
 Files:
 - [Design direction contracts](../design/p25/directions.json)
@@ -138,7 +138,7 @@ python3 -m http.server 8000
 
 Open `http://localhost:8000/design/p25/visual-lab/`.
 
-Change **Direction**, **Theme**, **Device** and **Screen** from the design-lab toolbar. Choose **Clean preview** for an uncluttered comparison. The screen-selector deliberately limits desktop to Home/Activity/Receipt and mobile to Home/Scan/Plan, consistent with P24's selection brief.
+Change **Direction**, **Theme**, **Device** and **Screen** from the design-lab toolbar. Choose **Clean preview** for an uncluttered comparison. The screen-selector deliberately limits desktop to Home/Activity/Receipt/States and mobile to Home/Scan/Plan/States, consistent with P24's selection brief.
 
 Screenshots in GitHub Actions: open the `Finance P25 Concept Visual QA` run and download `finance-p25-concept-visual-qa`; open `index.html`. **Do not upload personal financial data into the fixture or screenshot artifact.**
 
