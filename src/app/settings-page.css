@@ -1,0 +1,11 @@
+.f-settings-page{display:grid;gap:var(--f-space-5)}
+.f-settings-page .f-surface{display:grid;gap:var(--f-space-4)}
+.f-settings-page h2{font-size:1rem;font-weight:700}
+.f-settings-page p{font-size:.875rem;line-height:1.6;color:var(--f-text-secondary)}
+.f-settings-auth{display:grid;justify-items:start;gap:var(--f-space-3)}
+.f-settings-auth form{display:flex;align-items:end;gap:var(--f-space-3);flex-wrap:wrap;width:100%}
+.f-settings-auth form label{display:grid;gap:.4rem;flex:1;min-width:220px;color:var(--f-text-secondary);font-size:.75rem;font-weight:650}
+.f-settings-auth input{padding:.65rem;min-height:41px;border:1px solid var(--f-border);border-radius:var(--f-radius-sm);background:var(--f-surface);color:var(--f-text)}
+.f-settings-error{color:var(--f-negative, #b44242)!important}
+.f-settings-links{display:flex;flex-wrap:wrap;gap:var(--f-space-4)}
+.f-settings-links a{color:var(--f-accent);font-size:.875rem;text-decoration:underline}

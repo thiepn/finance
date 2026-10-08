@@ -345,7 +345,7 @@ export function RecurringPage({
       value: category.monthlyMinor,
       tone: (
         ["primary", "secondary", "tertiary", "quaternary"] as const
-      )[index % 4],
+      )[index % 4] ?? "primary",
     }),
   );
 

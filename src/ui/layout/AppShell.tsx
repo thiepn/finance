@@ -127,7 +127,7 @@ export function AppShell({
 
   return (
     <div className="f-shell">
-      <a className="f-skip-link" href="#finance-main">
+      <a className="f-skip-link" href="#finance-main" onClick={(event) => { event.preventDefault(); document.getElementById("finance-main")?.focus(); }}>
         Skip to content
       </a>
 
@@ -188,10 +188,10 @@ export function AppShell({
             </span>
           </button>
           <div className="f-account-chip">
-            <div className="f-account-chip__avatar">J</div>
+            <div className="f-account-chip__avatar">F</div>
             <div className="f-account-chip__copy">
-              <strong>Personal</strong>
-              <span>EUR · Germany</span>
+              <strong>Private finance</strong>
+              <span>Account-scoped</span>
             </div>
           </div>
         </div>
@@ -207,7 +207,15 @@ export function AppShell({
             <SearchField
               className="f-topbar__search"
               placeholder="Search activity, products, merchants…"
-              shortcut="⌘ K"
+              shortcut="Enter"
+              onKeyDown={(event) => {
+                if (event.key !== "Enter") return;
+                event.preventDefault();
+                const search = event.currentTarget.value.trim();
+                if (!search) return;
+                onNavigate?.("activity");
+                window.location.hash = "activity?q=" + encodeURIComponent(search);
+              }}
             />
             <Button
               icon="ask"
@@ -232,7 +240,7 @@ export function AppShell({
           </div>
         </header>
 
-        <main className="f-main" id="finance-main">
+        <main className="f-main" id="finance-main" tabIndex={-1}>
           {children}
         </main>
       </div>

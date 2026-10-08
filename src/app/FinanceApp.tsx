@@ -11,6 +11,10 @@ import { WealthPage } from "../wealth/WealthPage.js";
 import { ImportPage } from "../imports/ImportPage.js";
 import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js";
 import { AskFinancePage } from "../ask/AskFinancePage.js";
+import { ActivityPage } from "../activity/ActivityPage.js";
+import { CapturePage } from "../capture/CapturePage.js";
+import { MerchantsPage, RulesPage } from "./ClassificationPages.js";
+import { FinanceSettingsPage } from "./FinanceSettingsPage.js";
 
 const routeMeta: Record<string, { title: string; icon: IconName }> = {
   overview: { title: "Overview", icon: "overview" },
@@ -65,11 +69,10 @@ function RouteFoundation({ routeKey }: { routeKey: string }) {
         <div className="f-route-foundation__icon">
           <Icon name={meta.icon} size={22} />
         </div>
-        <Badge tone="accent">Foundation ready</Badge>
+        <Badge tone="neutral">Unknown route</Badge>
         <h1>{meta.title}</h1>
         <p>
-          This route has the shared P9 shell and live Finance runtime available.
-          Its full product surface is implemented in its dedicated phase.
+          This page does not exist. Choose an available destination from the navigation.
         </p>
       </Surface>
     </div>
@@ -128,6 +131,16 @@ export function FinanceApp() {
     >
       {activeKey === "overview" ? (
         <OverviewPage onNavigate={navigate} />
+      ) : activeKey === "activity" ? (
+        <ActivityPage />
+      ) : activeKey === "scan" ? (
+        <CapturePage onNavigate={navigate} />
+      ) : activeKey === "merchants" ? (
+        <MerchantsPage onNavigate={navigate} />
+      ) : activeKey === "rules" ? (
+        <RulesPage />
+      ) : activeKey === "settings" ? (
+        <FinanceSettingsPage />
       ) : activeKey === "insights" ? (
         <SpendingExplorerPage
           onNavigate={navigate}

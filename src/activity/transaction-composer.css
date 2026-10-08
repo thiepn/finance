@@ -1,0 +1,10 @@
+.f-transaction-composer{display:grid;gap:var(--f-space-4)}
+.f-transaction-composer .f-section-heading{align-items:flex-start}
+.f-transaction-composer h2{font-size:1rem;font-weight:750}
+.f-transaction-composer p{font-size:.8rem;color:var(--f-text-secondary)}
+.f-transaction-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--f-space-3)}
+.f-transaction-form label{display:grid;gap:.45rem;font-size:.75rem;font-weight:650;color:var(--f-text-secondary)}
+.f-transaction-form input,.f-transaction-form select{width:100%;min-height:43px;background:var(--f-surface);color:var(--f-text);padding:.65rem;border:1px solid var(--f-border);border-radius:var(--f-radius-sm)}
+.f-transaction-form__actions{display:flex;align-items:center;gap:var(--f-space-3);grid-column:1/-1;justify-content:space-between}
+@media(max-width:850px){.f-transaction-form{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.f-transaction-form{grid-template-columns:1fr}.f-transaction-form__actions{flex-direction:column;align-items:stretch}}

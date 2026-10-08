@@ -127,7 +127,7 @@ export function FinanceLineChart({
             <YAxis
               axisLine={false}
               tick={{ fill: "var(--f-text-tertiary)", fontSize: 11 }}
-              tickFormatter={tickFormatter}
+              {...(tickFormatter ? { tickFormatter } : {})}
               tickLine={false}
               width={56}
             />
@@ -144,16 +144,12 @@ export function FinanceLineChart({
                 dot={false}
                 key={item.dataKey}
                 name={item.label}
-                onClick={
-                  onDatumActivate
-                    ? (value: unknown) => {
-                        const datum = extractDatum(value);
-                        if (datum) onDatumActivate(datum);
-                      }
-                    : undefined
-                }
+                {...(onDatumActivate ? { onClick: (value: unknown) => {
+                  const datum = extractDatum(value);
+                  if (datum) onDatumActivate(datum);
+                } } : {})}
                 stroke={chartColor(item.tone)}
-                strokeDasharray={item.comparison ? "5 5" : undefined}
+                {...(item.comparison ? { strokeDasharray: "5 5" } : {})}
                 strokeWidth={item.comparison ? 1.75 : 2.4}
                 type="monotone"
               />
@@ -200,7 +196,7 @@ export function FinanceBarChart({
             <YAxis
               axisLine={false}
               tick={{ fill: "var(--f-text-tertiary)", fontSize: 11 }}
-              tickFormatter={tickFormatter}
+              {...(tickFormatter ? { tickFormatter } : {})}
               tickLine={false}
               width={56}
             />
@@ -215,16 +211,12 @@ export function FinanceBarChart({
                 fill={chartColor(item.tone)}
                 key={item.dataKey}
                 name={item.label}
-                onClick={
-                  onDatumActivate
-                    ? (value: unknown) => {
-                        const datum = extractDatum(value);
-                        if (datum) onDatumActivate(datum);
-                      }
-                    : undefined
-                }
+                {...(onDatumActivate ? { onClick: (value: unknown) => {
+                  const datum = extractDatum(value);
+                  if (datum) onDatumActivate(datum);
+                } } : {})}
                 radius={[4, 4, 0, 0]}
-                stackId={item.stackId}
+                {...(item.stackId ? { stackId: item.stackId } : {})}
               />
             ))}
           </BarChart>
@@ -277,19 +269,11 @@ export function FinanceDonutChart({
               dataKey="value"
               innerRadius="58%"
               nameKey="label"
-              onClick={
-                onDatumActivate
-                  ? (datum: unknown) => {
-                      if (
-                        datum &&
-                        typeof datum === "object" &&
-                        "key" in datum
-                      ) {
-                        onDatumActivate(datum as FinanceDonutDatum);
-                      }
-                    }
-                  : undefined
-              }
+              {...(onDatumActivate ? { onClick: (datum: unknown) => {
+                if (datum && typeof datum === "object" && "key" in datum) {
+                  onDatumActivate(datum as FinanceDonutDatum);
+                }
+              } } : {})}
               outerRadius="82%"
               paddingAngle={2}
               stroke="var(--f-surface)"

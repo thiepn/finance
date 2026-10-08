@@ -323,7 +323,7 @@ export function SpendingExplorerPage({
       <ExplorerUnavailable
         error={loader.error}
         refresh={loader.refresh}
-        state={loader.state}
+        state={loader.state === "ready" ? "error" : loader.state}
       />
     );
   }
@@ -350,7 +350,7 @@ export function SpendingExplorerPage({
       value: row.currentMinor,
       tone: (
         ["primary", "secondary", "tertiary", "quaternary"] as const
-      )[index % 4],
+      )[index % 4] ?? "primary",
     }),
   );
 
@@ -361,7 +361,7 @@ export function SpendingExplorerPage({
       value: row.currentMinor,
       tone: (
         ["primary", "secondary", "tertiary", "quaternary"] as const
-      )[index % 4],
+      )[index % 4] ?? "primary",
     }),
   );
 

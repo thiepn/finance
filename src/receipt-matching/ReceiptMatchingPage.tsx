@@ -623,7 +623,7 @@ export function ReceiptMatchingPage({
                         ? "positive"
                         : coverage > 0
                           ? "accent"
-                          : "neutral"
+                          : "accent"
                     }
                     value={coverage}
                   />

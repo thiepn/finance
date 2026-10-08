@@ -1,0 +1,17 @@
+.f-classification-page{display:grid;gap:var(--f-space-5)}
+.f-classification-page .f-surface{display:grid;gap:var(--f-space-4)}
+.f-classification-page h2{font-size:1rem;font-weight:700}
+.f-classification-page p,.f-classification-page small{color:var(--f-text-secondary)}
+.f-classification-toolbar,.f-classification-toolbar form{display:flex;align-items:end;flex-wrap:wrap;gap:var(--f-space-3)}
+.f-classification-toolbar>label{flex:2;min-width:200px}
+.f-classification-toolbar form{flex:2;min-width:200px}
+.f-classification-toolbar form label{flex:1}
+.f-classification-page label{display:grid;gap:.35rem;font-size:.75rem;color:var(--f-text-secondary);font-weight:650}
+.f-classification-page input,.f-classification-page select{padding:.65rem;border:1px solid var(--f-border);border-radius:var(--f-radius-sm);background:var(--f-surface);color:var(--f-text);min-height:41px;width:100%}
+.f-classification-row{display:flex;justify-content:space-between;align-items:center;gap:var(--f-space-4);border-top:1px solid var(--f-border);padding:var(--f-space-4) 0}
+.f-classification-row>div:first-child{display:grid;gap:.3rem;min-width:0}
+.f-classification-row small{font-size:.75rem;overflow-wrap:anywhere}
+.f-classification-row-actions{display:flex;align-items:center;flex-wrap:wrap;gap:var(--f-space-2)}
+.f-classification-rule-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--f-space-3)}
+.f-classification-rule-form>.f-button{justify-self:start}
+@media(max-width:760px){.f-classification-rule-form{grid-template-columns:1fr}.f-classification-row{align-items:flex-start;flex-direction:column}}
