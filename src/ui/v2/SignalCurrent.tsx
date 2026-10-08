@@ -109,8 +109,8 @@ export interface FinancialStateProps {
   kind: FinancialStateKind;
   title: string;
   description: string;
-  primaryAction?: StateAction;
-  secondaryAction?: StateAction;
+  primaryAction?: StateAction | undefined;
+  secondaryAction?: StateAction | undefined;
 }
 export function FinancialState({ kind, title, description, primaryAction, secondaryAction }: FinancialStateProps) {
   const liveRole = kind === "error" || kind === "forbidden" ? "alert" : "status";
