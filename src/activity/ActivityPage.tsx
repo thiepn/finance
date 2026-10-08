@@ -5,6 +5,7 @@ import { createFinanceBrowserRuntime } from "../integrations/supabase-client.js"
 import { formatMoneyMinor } from "../ui/format/money.js";
 import { Badge, Button, Surface } from "../ui/components/Primitives.js";
 import "./activity-page.css";
+import { TransactionComposer } from "./TransactionComposer.js";
 
 const batchSize = 30;
 function hashSearch() { return typeof window === "undefined" ? "" : new URLSearchParams(window.location.hash.split("?", 2)[1] ?? "").get("q") ?? ""; }
@@ -54,6 +55,7 @@ function Detail({ detail }: { detail: ActivityDetail }) {
 export function ActivityPage() {
   const runtime = createFinanceBrowserRuntime();
   const [queryDraft, setQueryDraft] = useState(hashSearch);
+  const [showComposer, setShowComposer] = useState(false);
   const [query, setQuery] = useState(hashSearch);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -141,8 +143,9 @@ export function ActivityPage() {
           <h1>Activity</h1>
           <p>Search posted transactions and receipt evidence in one deduplicated timeline.</p>
         </div>
-        <Button onClick={() => setRefreshTick(n => n + 1)} variant="secondary">Refresh</Button>
+        <div className="f-activity-toolbar-actions"><Button onClick={() => setShowComposer(v => !v)} variant="primary">{showComposer ? "Hide entry" : "Add transaction"}</Button><Button onClick={() => setRefreshTick(n => n + 1)} variant="secondary">Refresh</Button></div>
       </div>
+      {showComposer ? <TransactionComposer onClose={() => setShowComposer(false)} onCreated={() => { setShowComposer(false); setRefreshTick(n => n + 1); }} /> : null}
       <Surface>
         <form className="f-activity-filters" onSubmit={submit}>
           <label>Search <input aria-label="Search Finance activity" placeholder="Merchant, product, category, notes…" value={queryDraft} onChange={e => setQueryDraft(e.target.value)} /></label>
