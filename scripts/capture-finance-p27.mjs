@@ -57,6 +57,21 @@ try{
    await page.getByRole("heading",{name:"Home"}).waitFor({timeout:12000});
    const overflowShell=await page.evaluate(()=>Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth));
    add(device.id+" real shell overflow",overflowShell<=1,"overflow="+overflowShell);
+   const clippedMoney=await page.evaluate(()=>{
+     const amounts=[...document.querySelectorAll(".sc-preview-metrics .sc-money")];
+     let clipped=0;
+     for(const amount of amounts){
+       const parent=amount.closest(".sc-metric");
+       if(!parent||getComputedStyle(parent).display==="none")continue;
+       const parentBox=parent.getBoundingClientRect();
+       const range=document.createRange();range.selectNodeContents(amount);
+       for(const box of range.getClientRects()){
+         if(box.width>0&&(box.right>parentBox.right+1||box.left<parentBox.left-1))clipped++;
+       }
+     }
+     return clipped;
+   });
+   add(device.id+" no clipped money figures",clippedMoney===0,"clipped="+clippedMoney);
    await page.screenshot({path:path.join(dest,"screenshots",device.id+"-signal-shell.png"),animations:"disabled"});
    const shellAxe=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21a","wcag21aa"]).analyze();
    add(device.id+" real shell accessibility",shellAxe.violations.length===0,shellAxe.violations.map(x=>x.id).join(","));
