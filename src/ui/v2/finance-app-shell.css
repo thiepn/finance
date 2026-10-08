@@ -120,3 +120,9 @@
 }
 
 .sc-app-more-error { color:var(--sc-negative); font-size:11px; margin:4px 7px 7px; }
+
+/* Monetary amounts must remain legible in real half-width mobile metrics. */
+@media(max-width:599px){
+ .sc-app-main .sc-metric .sc-money--large{min-width:0;max-width:100%;font-variant-numeric:tabular-nums;}
+ .sc-app-main .sc-metric:not(:first-child) .sc-money--large{font-size:clamp(16px,5vw,20px);white-space:normal;overflow-wrap:normal;}
+}
