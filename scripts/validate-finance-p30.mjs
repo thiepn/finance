@@ -15,7 +15,7 @@ assert(detail.includes("receiptMatching.refreshReceipt(receiptId,false)"),"candi
 assert(detail.includes("validateMatchAmount"),"manual match must validate exact cents");
 assert(detail.includes("receiptMatching.unconfirm"),"unlink must use authorized service");
 assert(capture.includes("ReceiptLocalPagePreview"),"offline preview not integrated");
-assert(capture.includes("confirmDiscard"),"draft discard guard absent");
+assert(capture.includes("discardCandidate===active.clientCaptureId"),"draft discard guard absent");
 assert(model.includes("match.transaction.matchableAmountMinor"),"cannot overconfirm a transaction");
 assert(!inbox.includes("fixture")&&!detail.includes("fixture"),"production pages may not load sample values");
 assert(!detail.includes(".from(\"finance-receipts\").getPublicUrl"),"private bucket should not expose public links");
