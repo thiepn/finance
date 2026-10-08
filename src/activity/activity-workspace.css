@@ -98,7 +98,7 @@
  .sc-activity-filter__search{grid-column:1/-1}
  .sc-activity-filter__toggle{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;
     min-height:37px;border:0;border-top:1px solid var(--sc-border);border-bottom:1px solid var(--sc-border);
-    padding:7px 2px;background:transparent;color:var(--sc-accent);font:700 11px inherit;text-align:left;cursor:pointer}
+    padding:7px 2px;background:transparent;color:var(--sc-accent);font-size:11px;font-weight:700;font-family:inherit;text-align:left;cursor:pointer}
  .sc-activity-filter__advanced{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  .sc-activity-filter__advanced.is-open{display:grid}
  .sc-activity-filter__advanced label{min-width:0}
