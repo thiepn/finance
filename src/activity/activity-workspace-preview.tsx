@@ -6,6 +6,7 @@ import {ActivityWorkspaceView} from "./ActivityWorkspace.js";
 import {FinancialState} from "../ui/v2/SignalCurrent.js";
 import {emptyActivityFilters,type ActivityRouteFilters} from "./activity-workspace-model.js";
 import "../ui/v2/finance-app-shell.css";
+import "./activity-workspace-preview.css";
 const rows:ActivityItem[]=Array.from({length:24},(_,i)=>({
  id:"synthetic-"+i,entityKind:i===3?"receipt":"transaction",
  occurredAt:new Date(Date.UTC(2026,9,24-i,11,0)).toISOString(),
@@ -21,7 +22,7 @@ const catalog:ActivityFilterCatalog={accounts:[{id:"ac-1",name:"Main checking",k
  merchants:[{id:"merchant-1",name:"REWE",merchantGroup:null}],categories:[],tags:[],products:[]};
 function Preview(){
  const [filter,setFilter]=useState<ActivityRouteFilters>(emptyActivityFilters);
- const [route,setRoute]=useState("/");
+ const [route,setRoute]=useState("/activity");
  const [condition,setCondition]=useState("normal");
  const [more,setMore]=useState(false);
  const filtered=rows.filter(x=>(filter.kind?x.entityKind===filter.kind:true)&&
