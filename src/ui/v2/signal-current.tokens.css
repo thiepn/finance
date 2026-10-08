@@ -1,0 +1,40 @@
+/* GENERATED: source design/p25/signal-current.tokens.json; do not hand edit. */
+.sc-root[data-sc-theme="dark"] {
+  --sc-canvas: #0a1426;
+  --sc-surface: #12233b;
+  --sc-sidebar: #0e1b31;
+  --sc-text: #f0f7ff;
+  --sc-muted: #b0c3d7;
+  --sc-border: #30465f;
+  --sc-accent: #43d6da;
+  --sc-accent-ink: #081a25;
+  --sc-coral: #fa9279;
+  --sc-positive: #65e4ba;
+  --sc-negative: #ff8c88;
+  --sc-warning: #ffbb82;
+  --sc-subtle: #1b3e56;
+  --sc-chart-actual: #43d6da;
+  --sc-chart-budget: #fa9279;
+  --sc-grid: #30465f;
+  color-scheme: dark;
+}
+
+.sc-root[data-sc-theme="light"] {
+  --sc-canvas: #f2f7fc;
+  --sc-surface: #ffffff;
+  --sc-sidebar: #e7f0fa;
+  --sc-text: #182c49;
+  --sc-muted: #546982;
+  --sc-border: #c8d6e5;
+  --sc-accent: #135ab3;
+  --sc-accent-ink: #ffffff;
+  --sc-coral: #b94f3d;
+  --sc-positive: #0a7663;
+  --sc-negative: #b33d43;
+  --sc-warning: #a64b35;
+  --sc-subtle: #dceafb;
+  --sc-chart-actual: #135ab3;
+  --sc-chart-budget: #b94f3d;
+  --sc-grid: #c8d6e5;
+  color-scheme: light;
+}
