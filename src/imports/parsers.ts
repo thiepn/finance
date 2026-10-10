@@ -128,11 +128,17 @@ function parseMoney(value: string, decimal: CsvImportMapping["decimalSeparator"]
     clean = clean.replace(/,/g, "");
   }
 
-  const amount = Number(clean);
-  if (!Number.isFinite(amount)) {
-    throw new Error(`Invalid amount: ${value}`);
+  // Bank statements are evidence, not approximations: never silently round
+  // sub-cent values or unsafe integers when interpreting a two-decimal export.
+  if (!/^[+-]?\\d+(?:\\.\\d{1,2})?$/.test(clean)) {
+    throw new Error(`Ambiguous or sub-cent amount: ${value}`);
   }
-  return Math.round((negativeByParens ? -amount : amount) * 100);
+  const amount = Number(clean);
+  const minor = Math.round((negativeByParens ? -amount : amount) * 100);
+  if (!Number.isFinite(amount) || !Number.isSafeInteger(minor)) {
+    throw new Error(`Invalid or unsafe bank amount: ${value}`);
+  }
+  return minor;
 }
 
 function parseDate(

@@ -72,7 +72,7 @@ export function SignalImportView({workspace,onNavigate}:{workspace:ImportWorkspa
  const [accountId,setAccountId]=useState(""),[source,setSource]=useState(""),[file,setFile]=useState<File|null>(null),[fileText,setFileText]=useState(""),
  [parsed,setParsed]=useState<ParsedImportFile|null>(null),[mapping,setMapping]=useState<CsvImportMapping|null>(null),
  [parseError,setParseError]=useState<string|null>(null),[stagingConsent,setStagingConsent]=useState(false),[commitReview,setCommitReview]=useState(false),
- [approval,setApproval]=useState(false),[approvalText,setApprovalText]=useState("");
+ [approval,setApproval]=useState(false),[approvalText,setApprovalText]=useState(""),[cancelReview,setCancelReview]=useState(false);
  const account=dashboard.accounts.find(a=>a.accountId===accountId)??null;
  const preview=workspace.preview;
  const audit=useMemo(()=>preview?previewAudit(preview,dashboard):null,[preview,dashboard]);
@@ -156,7 +156,11 @@ export function SignalImportView({workspace,onNavigate}:{workspace:ImportWorkspa
  <label>Type POST {audit?.ready??0} to confirm<input aria-label="Typed final posting approval" value={approvalText} onChange={e=>setApprovalText(e.currentTarget.value)} autoComplete="off"/></label>
  <div className="sc-import-actions"><FinanceButton disabled={!canCommit||!approval||approvalText!=="POST "+audit?.ready} onClick={finish}>Confirm ledger posting</FinanceButton>
  <FinanceButton variant="secondary" onClick={()=>{setCommitReview(false);setApproval(false);setApprovalText("")}}>Cancel</FinanceButton></div></div>}
- {preview.import.status!=="completed"&&preview.import.status!=="cancelled"?<FinanceButton variant="secondary" disabled={busy} onClick={()=>{setCommitReview(false);setApproval(false);void workspace.cancel()}}>Cancel staged import (no posted rows)</FinanceButton>:null}
+ {preview.import.status!=="completed"&&preview.import.status!=="cancelled"?!cancelReview?<FinanceButton variant="secondary" disabled={busy} onClick={()=>setCancelReview(true)}>Review staged import cancellation</FinanceButton>:
+ <div className="sc-import-confirm" role="group" aria-label="Confirm private import cancellation"><strong>Cancel unposted import and remove its private source file?</strong>
+ <p>This does not reverse any already posted ledger entry. The backend refuses cancellation when posted rows exist.</p>
+ <div className="sc-import-actions"><FinanceButton disabled={busy} onClick={()=>{setCancelReview(false);setCommitReview(false);setApproval(false);void workspace.cancel()}}>Confirm staged cancellation</FinanceButton>
+ <FinanceButton variant="secondary" onClick={()=>setCancelReview(false)}>Keep import</FinanceButton></div></div>:null}
  </section></>}
  <p className="sc-import-disclaimer">Finance import RPCs use authenticated user-scoped storage and ledger authorization. P36 adds client-side fail-closed review, not a replacement for server-side authorization or a guarantee of bank-file authenticity.</p></div>;
 }
