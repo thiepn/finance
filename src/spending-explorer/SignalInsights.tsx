@@ -80,7 +80,7 @@ export function SignalInsightsView({explorer,analytics,filters,onNavigate,catego
  const previous=explorer.summary.comparison.netSpendMinor;
  const net=explorer.summary.current.netSpendMinor;
  const refreshEvidence=explorer.summary.itemizedCoverageRatio;
- return <main className="sc-insights" aria-label="Financial insights">
+ return <div className="sc-insights" aria-label="Financial insights">
   <header className="sc-insights-header"><div><span className="sc-eyebrow">Signal Current / Posted ledger</span>
    <h1>{title}</h1><p>Investigate real spending, compare periods and open the supporting records.</p></div>
    <div className="sc-insights-header__actions"><label>Period
@@ -180,7 +180,7 @@ export function SignalInsightsView({explorer,analytics,filters,onNavigate,catego
   </section>
   <p className="sc-insight-disclaimer">Data source: authenticated, account-scoped Finance RPCs. Transfers are not income or spending.
    Receipt items provide supporting evidence only. Positive expense changes do not imply additional bank cash.</p>
- </main>;
+ </div>;
 }
 export function SignalInsightsPage({search,onNavigate,categoryMode=false}:{
  search:string;onNavigate:(path:string)=>void;categoryMode?:boolean;
