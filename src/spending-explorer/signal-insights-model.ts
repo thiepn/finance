@@ -68,10 +68,14 @@ export function insightsChartPoints(
   const current = global ? analytics!.current : explorer.series.current;
   const comparison = global ? analytics!.comparison : explorer.series.comparison;
   const previous = new Map(comparison.map(p => [p.bucketIndex, p]));
-  const read = (p: typeof current[number]): number =>
-    validMinor(metric === "net_spend" ? p.netSpendMinor :
-      metric === "income" ? ("incomeMinor" in p ? p.incomeMinor : 0) :
-      ("cashFlowMinor" in p ? p.cashFlowMinor : 0));
+  const read = (p: typeof current[number]): number => {
+    if (metric === "net_spend") return validMinor(p.netSpendMinor);
+    if (metric === "income" && "incomeMinor" in p && typeof p.incomeMinor === "number")
+      return validMinor(p.incomeMinor);
+    if (metric === "cash_flow" && "cashFlowMinor" in p && typeof p.cashFlowMinor === "number")
+      return validMinor(p.cashFlowMinor);
+    throw new TypeError("Required ledger analytics metric is missing");
+  };
   return current.map(p => {
     const old = previous.get(p.bucketIndex);
     return {

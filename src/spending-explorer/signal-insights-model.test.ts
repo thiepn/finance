@@ -1,5 +1,10 @@
 
-import { strict as assert } from "node:assert";
+const assert = Object.assign(
+ (value:unknown,message="Assertion failed"):void => {if(!value)throw Error(message)},
+ {equal:(a:unknown,b:unknown,message="Values differ"):void=>{if(a!==b)throw Error(message+": "+String(a)+" !== "+String(b))},
+  deepEqual:(a:unknown,b:unknown):void=>{if(JSON.stringify(a)!==JSON.stringify(b))throw Error("Deep equality failed")},
+  throws:(fn:()=>unknown):void=>{let threw=false;try{fn()}catch{threw=true}if(!threw)throw Error("Expected exception")}}
+);
 import { syntheticAnalytics, syntheticExplorer } from "./signal-insights.fixture.js";
 import { activityHref, defaultInsightsFilters, insightsChartPoints, insightsHref, parseInsightsFilters, validMinor } from "./signal-insights-model.js";
 const cat="00000000-0000-4000-8000-000000000011";
