@@ -8,7 +8,7 @@ for(const test of ["validateSourceFile","validateParsedImport","sha256","sourceF
  require(ui.includes(test),"visible user flow "+test);
 }
 require(ui.includes("workspace.commit()")&&ui.includes("approvalText")&&ui.includes("workspace.importFile")&&ui.includes("workspace.updateRecord"),"authenticated audited API only");
-require(model.includes("duplicateReason")&&model.includes("row.decision===\"review\"")&&model.includes("original")===false,"fail-closed posting");
+require(model.includes("duplicateReason")&&model.includes('if(review>0)blocking.push(')&&model.includes('if(ready===0)blocking.push('),"fail-closed duplicate/review/empty posting");
 require(model.includes("closingBalanceAt")&&model.includes("storagePath")&&model.includes("fileSha256"),"original custody plus possible anchor evidence");
 require(hook.includes("runtime.client.auth.getSession()"),"authenticated ledger owner");
 require(rd(".github/workflows/ci.yml").includes("npm run validate:p36"),"full CI contract");
