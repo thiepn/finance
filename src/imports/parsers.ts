@@ -130,7 +130,7 @@ function parseMoney(value: string, decimal: CsvImportMapping["decimalSeparator"]
 
   // Bank statements are evidence, not approximations: never silently round
   // sub-cent values or unsafe integers when interpreting a two-decimal export.
-  if (!/^[+-]?\\d+(?:\\.\\d{1,2})?$/.test(clean)) {
+  if (!/^[+-]?\d+(?:\.\d{1,2})?$/.test(clean)) {
     throw new Error(`Ambiguous or sub-cent amount: ${value}`);
   }
   const amount = Number(clean);
