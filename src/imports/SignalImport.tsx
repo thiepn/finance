@@ -18,9 +18,9 @@ function Mapping({headers,mapping,onChange,onApply}:{headers:readonly string[],m
  return <section className="sc-import-panel"><h2>Map CSV fields</h2><p className="sc-import-muted">Missing or ambiguous mappings must be resolved before creating an import. No rows have been uploaded.</p>
  <div className="sc-import-fields">{fields.map(([field,label])=><label key={field}>{label}<select aria-label={label} value={mapping[field]??""} onChange={e=>bind(field,e.currentTarget.value)}>
  <option value="">Not mapped</option>{headers.map(h=><option key={h} value={h}>{h}</option>)}</select></label>)}
- <label>Date order<select aria-label="Date order" value={mapping.dateFormat??"auto"} onChange={e=>onChange({...mapping,dateFormat:e.currentTarget.value as CsvImportMapping["dateFormat"]})}>
+ <label>Date order<select aria-label="Date order" value={mapping.dateFormat??"auto"} onChange={e=>onChange({...mapping,dateFormat:e.currentTarget.value as NonNullable<CsvImportMapping["dateFormat"]>})}>
  <option value="auto">Detect</option><option value="dmy">Day/month/year</option><option value="mdy">Month/day/year</option><option value="ymd">Year/month/day</option></select></label>
- <label>Decimal separator<select aria-label="Decimal separator" value={mapping.decimalSeparator??"auto"} onChange={e=>onChange({...mapping,decimalSeparator:e.currentTarget.value as CsvImportMapping["decimalSeparator"]})}>
+ <label>Decimal separator<select aria-label="Decimal separator" value={mapping.decimalSeparator??"auto"} onChange={e=>onChange({...mapping,decimalSeparator:e.currentTarget.value as NonNullable<CsvImportMapping["decimalSeparator"]>})}>
  <option value="auto">Detect</option><option value=",">Comma</option><option value=".">Period</option></select></label></div>
  <FinanceButton variant="secondary" disabled={!mapping.bookedAt||!(mapping.amount||(mapping.debit&&mapping.credit))} onClick={onApply}>Apply CSV mapping</FinanceButton></section>;
 }

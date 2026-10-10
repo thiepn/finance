@@ -33,7 +33,7 @@ export function previewAudit(p:ImportPreview,dashboard:ImportDashboard):PreviewA
   if(row.status==="imported"){continue;}
   if(!validImportId(row.recordId)||!Number.isSafeInteger(row.amountMinor)||row.amountMinor===0){blocking.push("Invalid record identity or minor-unit amount at row "+row.rowNumber);continue;}
   if(!Number.isFinite(Date.parse(row.bookedAt)))blocking.push("Invalid booking date at row "+row.rowNumber);
-  if(row.currencyCode!==p.account.currencyCode && (!Number.isSafeInteger(row.reportingAmountMinor)||!Number.isFinite(row.exchangeRate)||row.exchangeRate<=0))blocking.push("Missing verified FX reporting value/rate at row "+row.rowNumber);
+  if(row.currencyCode!==p.account.currencyCode && (!Number.isSafeInteger(row.reportingAmountMinor)||row.exchangeRate===null||!Number.isFinite(row.exchangeRate)||row.exchangeRate<=0))blocking.push("Missing verified FX reporting value/rate at row "+row.rowNumber);
   if(row.decision==="review"){review++;continue}
   if(row.decision==="duplicate"){duplicates++;continue}
   if(row.decision==="ignore"){ignored++;continue}
