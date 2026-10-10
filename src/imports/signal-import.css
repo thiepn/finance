@@ -1,0 +1,63 @@
+/* P36 Signal Current financial import and reconciliation */
+.sc-import{display:grid;gap:13px;min-width:0;padding-bottom:38px}
+.sc-import-header{display:flex;justify-content:space-between;align-items:end;gap:18px;padding:4px 0 16px;border-bottom:1px solid var(--sc-border)}
+.sc-import-header h1{font-size:clamp(23px,2.4vw,29px);line-height:1.2;letter-spacing:-.04em;margin:4px 0}
+.sc-import-header p{font-size:11px;color:var(--sc-muted);line-height:1.6;margin-top:5px}
+.sc-import-header-buttons,.sc-import-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sc-import .sc-button{min-height:40px;font-size:11px}
+.sc-import-panel{display:grid;gap:13px;min-width:0;padding:17px;background:var(--sc-surface);border:1px solid var(--sc-border);border-radius:7px}
+.sc-import-panel-head{display:flex;align-items:start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.sc-import-panel h2{font-size:15px;line-height:1.3;margin:2px 0}
+.sc-import-panel h3{font-size:13px}
+.sc-import-panel p{font-size:11px;line-height:1.6}
+.sc-import-muted,.sc-import-disclaimer{font-size:10px;line-height:1.6;color:var(--sc-muted)}
+.sc-import-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.sc-import label{display:grid;gap:6px;font-size:11px;font-weight:680;min-width:0}
+.sc-import input:not([type=checkbox]):not([type=file]),.sc-import select{width:100%;min-width:0;min-height:40px;padding:9px;border:1px solid var(--sc-border);border-radius:5px;background:var(--sc-canvas);color:var(--sc-text);font-size:11px}
+.sc-import input[type=file]{width:100%;max-width:100%;min-height:40px;font-size:11px;padding:6px;border:1px solid var(--sc-border);border-radius:5px}
+.sc-import input[type=file]::file-selector-button{padding:8px;margin-right:7px;background:var(--sc-subtle);color:var(--sc-text);border:1px solid var(--sc-border)}
+.sc-import input[type=checkbox]{width:17px;height:17px;flex:none}
+.sc-import-check{display:flex!important;flex-direction:row;align-items:center;gap:10px!important;line-height:1.5;font-size:11px}
+.sc-import-money{white-space:nowrap;font-variant-numeric:tabular-nums}
+.sc-import-table-wrap{overflow-x:auto;max-width:100%;border:1px solid var(--sc-border);border-radius:4px}
+.sc-import-table-wrap table{width:100%;min-width:410px;border-collapse:collapse;font-size:11px;text-align:left}
+.sc-import-table-wrap th,.sc-import-table-wrap td{padding:11px;border-bottom:1px solid var(--sc-border);font-variant-numeric:tabular-nums}
+.sc-import-table-wrap th{color:var(--sc-muted);font-size:10px}
+.sc-import-table-wrap caption{text-align:left;color:var(--sc-muted);font-size:10px;padding:10px}
+.sc-import-history-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--sc-border)}
+.sc-import-history-row>div{min-width:0;display:grid;gap:5px}
+.sc-import-history-row strong{font-size:12px;overflow-wrap:anywhere}
+.sc-import-history-row small{font-size:10px;color:var(--sc-muted);overflow-wrap:anywhere}
+.sc-import-tag{display:inline-block;align-self:start;padding:5px 7px;border:1px solid var(--sc-border);border-radius:3px;font-size:9px;font-weight:800;color:var(--sc-muted);text-transform:capitalize;max-width:100%;overflow-wrap:anywhere}
+.sc-import-tag.is-warning{color:var(--sc-warning);border-color:var(--sc-warning)}
+.sc-import-custody{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.sc-import-custody>div{display:grid;gap:8px;min-width:0;padding:11px;background:var(--sc-subtle)}
+.sc-import-custody span{font-size:10px;color:var(--sc-muted)}
+.sc-import-custody strong{font-size:11px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sc-import-counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.sc-import-counts>div{display:grid;gap:6px;padding:11px;background:var(--sc-subtle)}
+.sc-import-counts strong{font-size:23px;line-height:1.1}
+.sc-import-counts span{font-size:10px;color:var(--sc-muted)}
+.sc-import-record{border-top:1px solid var(--sc-border);min-width:0}
+.sc-import-record-main{display:flex;justify-content:space-between;align-items:start;gap:13px;padding:12px 1px}
+.sc-import-record-main>div:first-child{display:grid;justify-items:start;gap:6px;min-width:0}
+.sc-import-record-main strong{font-size:12px;overflow-wrap:anywhere}
+.sc-import-record-main small{font-size:10px;color:var(--sc-muted);overflow-wrap:anywhere}
+.sc-import-record-end{display:grid;justify-items:end;gap:6px;text-align:right;min-width:0}
+.sc-import-record-end>strong{font-size:13px}
+.sc-import-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:3px}
+.sc-import-link{color:var(--sc-accent)!important;font-size:11px;font-weight:720}
+.sc-import-link:hover{text-decoration:underline!important}
+.sc-import-text-button{border:0;background:transparent;color:var(--sc-accent);font-size:11px;font-weight:750;padding:8px;min-height:38px;cursor:pointer}
+.sc-import-text-button:disabled{color:var(--sc-muted);cursor:default}
+.sc-import-record-form,.sc-import-confirm{padding:14px;margin-bottom:12px;background:var(--sc-subtle);border:1px solid var(--sc-border);border-radius:6px;display:grid;gap:13px;min-width:0}
+.sc-import-confirm{border-color:var(--sc-accent)}
+.sc-import-blocked{padding:12px;border-left:3px solid var(--sc-warning);background:var(--sc-subtle);display:grid;gap:6px}
+.sc-import-blocked strong{font-size:12px;color:var(--sc-warning)}
+.sc-import-blocked p{font-size:11px}
+.sc-import-error{color:var(--sc-negative)!important;font-size:11px!important;overflow-wrap:anywhere}
+.sc-import-warning{border-left:2px solid var(--sc-warning);padding-left:10px;color:var(--sc-muted);font-size:11px}
+@media(max-width:1150px){.sc-import-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.sc-import-custody{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.sc-import-header{flex-direction:column;align-items:stretch}.sc-import-header-buttons{justify-content:flex-start}.sc-import-panel{padding:13px}.sc-import-record-main{flex-direction:column;gap:8px}.sc-import-record-end{justify-items:start;text-align:left}.sc-import-fields{grid-template-columns:1fr}.sc-import-counts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:350px){.sc-import-custody{grid-template-columns:1fr}.sc-import-counts strong{font-size:18px}.sc-import-header-buttons{flex-direction:column;align-items:stretch}}
+@media(prefers-reduced-motion:reduce){.sc-import *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
