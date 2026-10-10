@@ -98,4 +98,22 @@ assert(parsedOfx.statement.closingBalanceAt?.startsWith("2026-10-02"), "OFX clos
 const deferred = parseBankFile(csv, "csv", "EUR", null);
 assert(deferred.rows.length === 2, "CSV auto mapping path failed");
 
+// P36: never round fractional minor units into an apparently authoritative posting.
+const subcent = [
+  "Date,Description,Amount,Currency",
+  "2026-10-04,Subcent test,1.005,EUR",
+].join("\n");
+const subcentMap = autoMapCsv(inspectCsv(subcent).headers)!;
+let subcentRefused = false;
+try { parseCsv(subcent, subcentMap, "EUR"); }
+catch (error) { subcentRefused = String(error).includes("sub-cent") || String(error).includes("Ambiguous"); }
+assert(subcentRefused, "P36 sub-cent CSV must not silently round");
+const unsafe = [
+  "Date,Description,Amount,Currency",
+  "2026-10-04,Unsafe,999999999999999999.00,EUR",
+].join("\n");
+let unsafeRefused = false;
+try { parseCsv(unsafe, subcentMap, "EUR"); }
+catch { unsafeRefused = true; }
+assert(unsafeRefused, "P36 unsafe minor-unit CSV must be rejected");
 console.log("P17 CSV and OFX parser fixtures passed");
