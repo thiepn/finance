@@ -7,7 +7,7 @@ import { ActivityPage } from "../activity/ActivityPage.js";
 import { ActivityRecordPage } from "../activity/ActivityRecordPage.js";
 import { TransactionComposer } from "../activity/TransactionComposer.js";
 import { CapturePage } from "../capture/CapturePage.js";
-import { SpendingExplorerPage } from "../spending-explorer/SpendingExplorerPage.js";
+import { SignalInsightsPage } from "../spending-explorer/SignalInsights.js";
 import { MerchantsPage, RulesPage } from "./ClassificationPages.js";
 import { ProductIntelligencePage } from "../product-intelligence/ProductIntelligencePage.js";
 import { RecurringPage } from "../recurring/RecurringPage.js";
@@ -72,8 +72,8 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "merchants":return <MerchantsPage onNavigate={toLegacy}/>;
    case "rules":return <RulesPage/>;
    case "settings":return <FinanceSettingsPage/>;
-   case "explore":return <SpendingExplorerPage onNavigate={toLegacy} onOpenProduct={id=>navigate(id?"/explore/products/"+encodeURIComponent(id):"/explore/products")}/>;
-   case "categories":return <SpendingExplorerPage initialCategoryMode onNavigate={toLegacy} onOpenProduct={id=>navigate(id?"/explore/products/"+encodeURIComponent(id):"/explore/products")}/>;
+   case "explore":return <SignalInsightsPage search={route.search} onNavigate={navigate}/>;
+   case "categories":return <SignalInsightsPage search={route.search} onNavigate={navigate} categoryMode/>;
    case "products":
    case "product-detail":return <ProductIntelligencePage onNavigate={toLegacy}
      onProductChange={id=>navigate(id?"/explore/products/"+encodeURIComponent(id):"/explore/products")}

@@ -66,3 +66,5 @@ Target origin: `https://finance.thiepn.dev`
 - **P30** — [Signal Current Receipt Studio](docs/P30_RECEIPT_STUDIO.md): private receipt inbox, signed original evidence, manual reconciliation, device-local multi-page capture, and explicit extraction-correction limitations.
 
 - **P31** — [Signal Current Plan & Budget Workspace](docs/P31_PLAN_BUDGET_WORKSPACE.md): real period-specific budgets, exact category allocations/rollover, safe-to-spend distinction, spending pace, recurring and goal context; existing Goals route preserved.
+
+- **P32** — [Signal Current Insights and financial chart system](docs/P32_INSIGHTS_V2.md): real posted spending comparisons, source-labelled all-account income/cash flow, category and merchant drill-down, protected canonical URL filters, accessible source tables, synthetic React browser QA; authenticated real-device acceptance pending.
