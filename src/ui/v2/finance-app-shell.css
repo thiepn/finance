@@ -126,3 +126,13 @@
  .sc-app-main .sc-metric .sc-money--large{min-width:0;max-width:100%;font-variant-numeric:tabular-nums;}
  .sc-app-main .sc-metric:not(:first-child) .sc-money--large{font-size:clamp(16px,5vw,20px);white-space:normal;overflow-wrap:normal;}
 }
+
+/* P37 actual 320px browser diagnosis: the header's flex children must be
+   allowed to shrink. Preserve visible controls; ellipsize only the breadcrumb. */
+@media(max-width:349px){
+ .sc-app-header{gap:8px;padding-left:10px;padding-right:10px}
+ .sc-app-location{min-width:0;flex:1 1 auto;gap:5px}
+ .sc-app-location span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .sc-app-header-actions{flex:0 0 auto;gap:6px}
+ .sc-app-icon-button,.sc-app-more-button{padding-left:8px;padding-right:8px}
+}
