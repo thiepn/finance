@@ -34,6 +34,7 @@ jobs:
       - run: npm run validate:p32
       - run: npm run validate:p33
       - run: npm run validate:p34
+      - run: npm run validate:p35
       - run: npm run typecheck
       - run: npm test
       - run: npm run build

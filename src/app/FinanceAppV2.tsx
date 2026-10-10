@@ -15,7 +15,7 @@ import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js"
 import { ReceiptStudioDetail } from "../receipt-matching/ReceiptStudioDetail.js";
 import { PlanningPage } from "../planning/PlanningPage.js";
 import { SignalPlanPage } from "../planning/SignalPlan.js";
-import { WealthPage } from "../wealth/WealthPage.js";
+import { SignalWealthPage } from "../wealth/SignalWealth.js";
 import { ImportPage } from "../imports/ImportPage.js";
 import { AskFinancePage } from "../ask/AskFinancePage.js";
 import { FinanceSettingsPage } from "./FinanceSettingsPage.js";
@@ -79,11 +79,11 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "recurring":return <SignalRecurringPage onNavigate={navigate}/>;
    case "receipts":return <ReceiptMatchingPage onNavigate={navigate}/>;
    case "receipt-detail":return <ReceiptStudioDetail receiptId={route.params.receiptId!} onNavigate={navigate}/>;
-   case "accounts":return <WealthPage mode="accounts" onNavigate={toLegacy}/>;
-   case "account-detail":return <IncompleteDetail label="Account" onBack={()=>navigate("/wealth/accounts")}/>;
+   case "accounts":return <SignalWealthPage mode="accounts" selectedAccountId={null} onNavigate={navigate}/>;
+   case "account-detail":return <SignalWealthPage mode="detail" selectedAccountId={route.params.accountId!} onNavigate={navigate}/>;
    case "plan":return <SignalPlanPage onNavigate={navigate}/>;
    case "goals":return <PlanningPage mode="goals" onNavigate={toLegacy}/>;
-   case "net-worth":return <WealthPage mode="net-worth" onNavigate={toLegacy}/>;
+   case "net-worth":return <SignalWealthPage mode="net-worth" selectedAccountId={null} onNavigate={navigate}/>;
    case "imports":return <ImportPage onNavigate={toLegacy}/>;
    case "ask":return <AskFinancePage onNavigate={toLegacy}/>;
    default:return <FinancialState kind="empty" title="Page not found" description="This destination is not available." primaryAction={{label:"Home",onClick:()=>navigate("/")}}/>;
