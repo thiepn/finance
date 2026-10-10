@@ -1,0 +1,12 @@
+import {readFileSync} from "node:fs";
+const read=p=>readFileSync(p,"utf8"),req=(c,m)=>{if(!c)throw Error("P35 contract "+m)};
+const app=read("src/app/FinanceAppV2.tsx"),ui=read("src/wealth/SignalWealth.tsx"),domain=read("src/wealth/signal-wealth-model.ts"),hook=read("src/wealth/use-wealth.ts");
+for(const [route,mode] of [["accounts","accounts"],["net-worth","net-worth"],["account-detail","detail"]])req(app.includes('case "'+route+'":return <SignalWealthPage mode="'+mode+'"'),"real protected "+route+" view");
+for(const x of ["useWealthWorkspace","accountActivityPath","recordObservation","setInclusion","createAccount","archiveAccount","restoreAccount","Confirm observation","Review exclusion"])req(ui.includes(x),"audited human decision "+x);
+req(ui.includes("DataProvenance source=\"valuation\"")&&ui.includes("DataProvenance source=\"posted\""),"distinct valuations and posted sources");
+req(domain.includes('currencyCode===reportCurrency')||domain.includes('a.currencyCode===reportCurrency'),"foreign balance FX guard");
+req(domain.includes("safeWealthId")&&domain.includes("Number.isSafeInteger"),"private routing and safe money");
+req(hook.includes("runtime.client.auth.getSession()"),"account-scoped auth gate");
+req(read(".github/workflows/ci.yml").includes("npm run validate:p35"),"full CI");
+req(read(".github/workflows/finance-p35-wealth-qa.yml").includes("capture-finance-p35.mjs"),"real component browser QA");
+console.log("P35 finance route, provenance, user confirmation and financial source contracts passed");

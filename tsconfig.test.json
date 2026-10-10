@@ -77,6 +77,8 @@
     "src/product-intelligence/signal-product-model.ts",
     "src/product-intelligence/signal-product-model.test.ts",
     "src/recurring/signal-recurring-model.ts",
-    "src/recurring/signal-recurring-model.test.ts"
+    "src/recurring/signal-recurring-model.test.ts",
+    "src/wealth/signal-wealth-model.ts",
+    "src/wealth/signal-wealth-model.test.ts"
   ]
 }

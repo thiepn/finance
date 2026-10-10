@@ -23,7 +23,8 @@
     "validate:p31": "node scripts/validate-finance-p31.mjs",
     "validate:p32": "node scripts/validate-finance-p32.mjs",
     "validate:p33": "node scripts/validate-finance-p33.mjs",
-    "validate:p34": "node scripts/validate-finance-p34.mjs"
+    "validate:p34": "node scripts/validate-finance-p34.mjs",
+    "validate:p35": "node scripts/validate-finance-p35.mjs"
   },
   "devDependencies": {
     "typescript": "7.0.2",
