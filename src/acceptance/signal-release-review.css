@@ -61,3 +61,11 @@
 .sc-release,.sc-release-panel,.sc-release-reference,.sc-release-decision,.sc-release-reference-list{min-width:0;grid-template-columns:minmax(0,1fr)}
 .sc-release-panel>*,.sc-release-reference>*,.sc-release-decision>*,.sc-release-fields>*,.sc-release-finding>*,.sc-release-header>*{min-width:0;max-width:100%}
 .sc-release-fields input[type=date]{min-width:0;max-width:100%}
+
+/* Session witness digest must flow into a single column at 320px;
+   otherwise an auto-size second grid track leaks the SHA beyond the viewport. */
+@media(max-width:600px){
+ .sc-release-reference-list>div{grid-template-columns:minmax(0,1fr);gap:7px}
+ .sc-release-reference-list>div>*{min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+ .sc-release-reference-list span{word-break:break-all}
+}
