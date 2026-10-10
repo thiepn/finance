@@ -19,13 +19,13 @@ const analytics={profile,range:"1y",period:{start:"2026-01-01T00:00:00Z",end:"20
  {productId:"00000000-0000-4000-8000-000000000088",name:"Oat milk 500 ml",variantName:"500 ml",purchaseCount:4,basisLabel:"1 L",basisPriceMinor:199}],
  priceHistory:[{receiptItemId:"00000000-0000-4000-8000-000000000077",receiptId:receipt,currencyCode:"EUR",effectiveUnitPriceMinor:189,observedAt:"2026-10-05T10:00:00Z",merchantName:"Weekly Market"}],
  priceHistoryTruncated:false
-} as ProductAnalytics;
+} as unknown as ProductAnalytics;
 const evidence={product:{productId:id,name:product.name},period:{start:"2026-01-01T00:00:00Z",end:"2026-11-01T00:00:00Z"},
  purchases:[{receiptItemId:"00000000-0000-4000-8000-000000000077",receiptId:receipt,occurredAt:"2026-10-05T10:00:00Z",
  transactionIds:["00000000-0000-4000-8000-000000000055"],merchantName:"Weekly Market",quantity:2,effectiveTotalMinor:378}]
-} as ProductPurchaseEvidence;
-const merchants=[{id:merchant,name:"Weekly Market",merchantGroup:"Groceries",purchaseCount:6,netSpendMinor:20000,isArchived:false,aliases:[{id:receipt,rawName:"W. Market",source:"user",confidence:1,timesConfirmed:1}]} as MerchantSummary];
-const categories=[{id,name:"Groceries",namePath:["Groceries"],kind:"expense",isArchived:false} as CategoryNode];
+} as unknown as ProductPurchaseEvidence;
+const merchants=[{id:merchant,name:"Weekly Market",merchantGroup:"Groceries",purchaseCount:6,netSpendMinor:20000,isArchived:false,aliases:[{id:receipt,rawName:"W. Market",source:"user",confidence:1,timesConfirmed:1}]} as unknown as MerchantSummary];
+const categories=[{id,name:"Groceries",namePath:["Groceries"],kind:"expense",isArchived:false} as unknown as CategoryNode];
 const rules=[{id,name:"Groceries at Market",scope:"transaction",condition:{merchant_name_contains:"Market"},action:{category_id:id},
  priority:1000,matchCount:7,enabled:true,stopProcessing:false} as ClassificationRule];
 function Preview(){
@@ -41,7 +41,7 @@ function Preview(){
  <span data-testid="navigation">{route}</span></div>
  {tab==="products"?<SignalProductsView selectedProductId={selected} catalog={catalog} analytics={selected?analytics:null} evidence={evidence}
  query={query} onQuery={setQuery} range="1y" onRange={()=>{}} onNavigate={navigate}/>:
- tab==="merchants"?<SignalMerchantsView rows={merchantRows} currency={profile} onNavigate={navigate}
+ tab==="merchants"?<SignalMerchantsView rows={merchantRows} currency={{code:profile.currencyCode,locale:profile.locale}} onNavigate={navigate}
  onCreate={async name=>setMerchantRows(prev=>[...prev,{...merchants[0]!,id:"00000000-0000-4000-8000-000000000066",name}])}
  onAlias={async(_,name)=>setMerchantRows(prev=>prev.map(m=>({...m,aliases:[...m.aliases,{...m.aliases[0]!,id:"00000000-0000-4000-8000-000000000067",rawName:name}]})))}/>:
  <SignalRulesView rules={ruleRows} categories={categories}
