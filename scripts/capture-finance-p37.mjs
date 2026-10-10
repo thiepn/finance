@@ -42,7 +42,10 @@ try{
      theme:document.querySelector(".sc-root")?.getAttribute("data-sc-theme")}));
    const axe=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]).analyze();
    item.axe=axe.violations.map(v=>({id:v.id,nodes:v.nodes.length}));
-   if(item.geometry.overflow>1)failures.push(id+": overflow "+item.geometry.overflow);
+   if(item.geometry.overflow>1){
+    item.offenders=await page.evaluate(()=>[...document.querySelectorAll("*")].map(el=>({name:el.tagName.toLowerCase(),cls:typeof el.className==="string"?el.className.slice(0,100):"",right:Math.round(el.getBoundingClientRect().right),width:Math.round(el.getBoundingClientRect().width)})).filter(el=>el.right>window.innerWidth+1).slice(0,12));
+    failures.push(id+": overflow "+item.geometry.overflow+" offenders "+JSON.stringify(item.offenders));
+   }
    if(item.geometry.theme!==theme)failures.push(id+": wrong appearance");
    if(item.axe.length)failures.push(id+": axe "+item.axe.map(v=>v.id).join(","));
    if(errors.length)failures.push(id+": JavaScript "+errors.join("; "));

@@ -56,3 +56,8 @@
 @media(max-width:600px){.sc-release-header{flex-direction:column;align-items:stretch}.sc-release-panel{padding:13px}.sc-release-sources{grid-template-columns:repeat(2,minmax(0,1fr))}.sc-release-finding{grid-template-columns:1fr}.sc-release-finding-kind{justify-self:start}.sc-release-evidence article{flex-direction:column;gap:8px}.sc-release-evidence article>span{text-align:left}.sc-release-fields{grid-template-columns:1fr}.sc-release-journeys{grid-template-columns:1fr}}
 @media(max-width:340px){.sc-release-sources{grid-template-columns:1fr}.sc-release-actions{flex-direction:column;align-items:stretch}}
 @media(prefers-reduced-motion:reduce){.sc-release *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Avoid intrinsic form-control min-content forcing a narrow grid wider than its shell. */
+.sc-release,.sc-release-panel,.sc-release-reference,.sc-release-decision,.sc-release-reference-list{min-width:0;grid-template-columns:minmax(0,1fr)}
+.sc-release-panel>*,.sc-release-reference>*,.sc-release-decision>*,.sc-release-fields>*,.sc-release-finding>*,.sc-release-header>*{min-width:0;max-width:100%}
+.sc-release-fields input[type=date]{min-width:0;max-width:100%}
