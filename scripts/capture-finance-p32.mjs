@@ -1,4 +1,3 @@
-
 #!/usr/bin/env node
 /* Actual React SignalInsightsView with isolated, explicitly synthetic fixtures. */
 import {chromium} from "playwright";
