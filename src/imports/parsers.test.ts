@@ -102,7 +102,7 @@ assert(deferred.rows.length === 2, "CSV auto mapping path failed");
 const subcent = [
   "Date,Description,Amount,Currency",
   "2026-10-04,Subcent test,1.005,EUR",
-].join("\\n");
+].join("\n");
 const subcentMap = autoMapCsv(inspectCsv(subcent).headers)!;
 let subcentRefused = false;
 try { parseCsv(subcent, subcentMap, "EUR"); }
@@ -111,7 +111,7 @@ assert(subcentRefused, "P36 sub-cent CSV must not silently round");
 const unsafe = [
   "Date,Description,Amount,Currency",
   "2026-10-04,Unsafe,999999999999999999.00,EUR",
-].join("\\n");
+].join("\n");
 let unsafeRefused = false;
 try { parseCsv(unsafe, subcentMap, "EUR"); }
 catch { unsafeRefused = true; }
