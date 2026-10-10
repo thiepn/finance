@@ -24,6 +24,9 @@ assert.equal(resolveFinanceLocation("/explore/products/sku123").params.productId
 assert.equal(resolveFinanceLocation("/receipts/receipt123").id,"receipt-detail");
 assert.equal(resolveFinanceLocation("/wealth/accounts/ac123").id,"account-detail");
 assert.equal(resolveFinanceLocation("/activity/new?type=expense").id,"activity-new");
+assert.equal(resolveFinanceLocation("/settings/release").id,"release-review");
+assert.equal(resolveFinanceLocation("/settings/release").isPublic,false);
+assert.equal(safePrivatePath("/settings/release"),"/settings/release");
 assert.equal(resolveFinanceLocation("/sign-in").isPublic,true);
 assert.equal(resolveFinanceLocation("/auth/callback").isPublic,true);
 assert.equal(resolveFinanceLocation("/missing-page").id,"not-found");

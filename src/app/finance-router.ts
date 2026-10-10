@@ -21,6 +21,7 @@ export const financeRoutes = [
   { id:"imports", path:"/import", section:"activity", label:"Imports", legacy:"imports" },
   { id:"rules", path:"/settings/rules", section:"settings", label:"Rules", legacy:"rules" },
   { id:"settings", path:"/settings", section:"settings", label:"Settings", legacy:"settings" },
+  { id:"release-review", path:"/settings/release", section:"settings", label:"Release review" },
   { id:"ask", path:"/ask", section:"explore", label:"Ask Finance", legacy:"ask" },
   { id:"sign-in", path:"/sign-in", section:"auth", label:"Sign in", public:true },
   { id:"auth-callback", path:"/auth/callback", section:"auth", label:"Finishing sign in", public:true },

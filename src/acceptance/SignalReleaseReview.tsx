@@ -1,4 +1,4 @@
-import {useState,type MouseEvent,type ReactNode} from "react";
+import {useState,type MouseEvent,type ReactNode,type FormEvent} from "react";
 import {FinanceButton,FinancialState} from "../ui/v2/SignalCurrent.js";
 import {useFinanceAcceptance,type AcceptanceWorkspace} from "./use-finance-acceptance.js";
 import {analyzeFinanceSnapshot,decisionForStage,domains,releaseEvidenceRequirements,validateEvidenceReference,
@@ -24,7 +24,7 @@ export function SignalReleaseView({workspace,onNavigate}:{workspace:AcceptanceWo
  const [intakeError,setIntakeError]=useState<string|null>(null);
  const [showRaw,setShowRaw]=useState(false);
  const findings=analyzeFinanceSnapshot(workspace.snapshot),decision=decisionForStage(stage,workspace.snapshot,refs);
- const add=(e:React.FormEvent)=>{e.preventDefault();const next={id:draftId,reference:draftRef.trim(),reviewer:reviewer.trim(),date};
+ const add=(e:FormEvent)=>{e.preventDefault();const next={id:draftId,reference:draftRef.trim(),reviewer:reviewer.trim(),date};
   const err=validateEvidenceReference(next);if(err){setIntakeError(err);return}
   setRefs(list=>[...list.filter(x=>x.id!==next.id),next]);setIntakeError(null);setDraftRef("");setReviewer("");setDate("");
  };

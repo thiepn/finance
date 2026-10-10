@@ -18,7 +18,8 @@ const more: readonly {id:FinanceRouteId;label:string}[]=[
  {id:"imports",label:"Imports"},
  {id:"rules",label:"Classification rules"},
  {id:"ask",label:"Ask Finance"},
- {id:"settings",label:"Settings & account"}
+ {id:"settings",label:"Settings & account"},
+ {id:"release-review",label:"Acceptance & release review"}
 ];
 const secondary:Record<string,readonly {id:FinanceRouteId;label:string}[]>={
  activity:[{id:"activity",label:"Transactions"},{id:"activity-new",label:"New transaction"},{id:"imports",label:"Import"}],

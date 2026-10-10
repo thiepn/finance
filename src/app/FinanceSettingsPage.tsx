@@ -81,6 +81,10 @@ export function FinanceSettingsPage() {
       <p>Posted ledger entries determine balances and spending. Receipts are supporting evidence and do not create duplicate expenses. Ask Finance calculations are deterministic even when a language model interprets your question.</p>
       <p>Private receipts are stored in your Finance storage area. Unsynchronized capture drafts remain on this device until you finalize or discard them.</p>
     </Surface>
+    <Surface><h2>Release and financial evidence</h2>
+      <p>Inspect account-scoped data consistency, independent witness requirements and strictly separate default-denied staging, release and postrelease decisions. This cannot authorize deployment.</p>
+      <p><a href="/settings/release">Open acceptance & release review →</a></p>
+    </Surface>
     <Surface><h2>Support & policies</h2>
       <div className="f-settings-links">
         <a href="/support">Support</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a>
