@@ -69,3 +69,4 @@ Target origin: `https://finance.thiepn.dev`
 
 - **P32** — [Signal Current Insights and financial chart system](docs/P32_INSIGHTS_V2.md): real posted spending comparisons, source-labelled all-account income/cash flow, category and merchant drill-down, protected canonical URL filters, accessible source tables, synthetic React browser QA; authenticated real-device acceptance pending.
 - **P33** — [Signal Current Product & Merchant Intelligence](docs/P33_PRODUCT_MERCHANT_V2.md): real account-scoped products, source receipts, normalized variants, merchant directory and practical rules with explicit user actions; pending physical-device and authenticated real-account acceptance.
+- **P34** — [Signal Current Recurring & Commitments](docs/P34_RECURRING_V2.md): authenticated read-only recurring intelligence, explicit operator-gated synchronization, forecast/ledger separation and responsive synthetic browser qualification.

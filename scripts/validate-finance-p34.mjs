@@ -1,0 +1,15 @@
+import {readFileSync} from "node:fs";
+const rd=p=>readFileSync(p,"utf8"),must=(b,s)=>{if(!b)throw Error("P34: "+s)};
+const app=rd("src/app/FinanceAppV2.tsx"),hook=rd("src/recurring/use-recurring.ts"),ui=rd("src/recurring/SignalRecurring.tsx");
+const model=rd("src/recurring/signal-recurring-model.ts"),ci=rd(".github/workflows/ci.yml");
+const loader=hook.slice(hook.indexOf("const refresh = useCallback"),hook.indexOf("const confirmCandidate = useCallback"));
+must(!loader.includes(".syncPatterns("),"no implicit mutation on read/refresh");
+must(hook.includes("const syncPatterns = useCallback")&&ui.includes("Review reconciliation")&&ui.includes("Confirm reconciliation"),"manual explicit reconciliation");
+must(app.includes('case "recurring":return <SignalRecurringPage onNavigate={navigate}/>;'),"live authenticated route");
+must(ui.includes("statusChangeAllowed")&&ui.includes("candidateEligible")&&ui.includes("confirmEvidence"),"authorized confirmations");
+must(ui.includes("activityTransactionPath")&&ui.includes('href="/plan"'),"actual budget and transaction links");
+must(ui.includes('source="forecast"')&&ui.includes('source="posted"'),"source labels");
+must(model.includes('recurrenceKind(p)==="expense"')&&model.includes("currency===reportCurrency"),"no transfer/cross-currency conflation");
+must(ci.includes("npm run validate:p34"),"CI gated");
+must(rd(".github/workflows/finance-p34-recurring-qa.yml").includes("capture-finance-p34.mjs"),"browser QA");
+console.log("P34 immutable-read, financial provenance, human approval and CI contracts passed");
