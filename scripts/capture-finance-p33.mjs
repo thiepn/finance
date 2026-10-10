@@ -18,7 +18,7 @@ try{
  try{
  await page.goto(url,{waitUntil:"networkidle",timeout:30000});
  await page.getByRole("combobox",{name:"Preview screen"}).selectOption(screen);
- await page.getByRole("heading",{name:screen[0].toUpperCase()+screen.slice(1),exact:true}).waitFor({timeout:12000});
+ await page.getByRole("heading",{name:screen==="rules"?"Classification rules":screen[0].toUpperCase()+screen.slice(1),exact:true}).waitFor({timeout:12000});
  if(theme==="light")await page.getByRole("button",{name:"Switch to light appearance"}).first().click();
  if(screen==="products"){
   if(!await page.getByRole("link",{name:/View receipt/}).count())failures.push(id+": receipt provenance absent");
