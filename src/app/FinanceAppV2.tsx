@@ -8,8 +8,8 @@ import { ActivityRecordPage } from "../activity/ActivityRecordPage.js";
 import { TransactionComposer } from "../activity/TransactionComposer.js";
 import { CapturePage } from "../capture/CapturePage.js";
 import { SignalInsightsPage } from "../spending-explorer/SignalInsights.js";
-import { MerchantsPage, RulesPage } from "./ClassificationPages.js";
-import { ProductIntelligencePage } from "../product-intelligence/ProductIntelligencePage.js";
+import { SignalMerchantsPage, SignalRulesPage } from "../product-intelligence/SignalDirectory.js";
+import { SignalProductsPage } from "../product-intelligence/SignalProducts.js";
 import { RecurringPage } from "../recurring/RecurringPage.js";
 import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js";
 import { ReceiptStudioDetail } from "../receipt-matching/ReceiptStudioDetail.js";
@@ -69,15 +69,13 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "activity-new":return <TransactionComposer onCreated={id=>navigate(id?"/activity/transaction/"+encodeURIComponent(id):"/activity")} onClose={()=>navigate("/activity")}/>;
    case "activity-detail":return <ActivityRecordPage kind="transaction" recordId={route.params.transactionId!} onNavigate={navigate}/>;
    case "capture":return <CapturePage onNavigate={toLegacy}/>;
-   case "merchants":return <MerchantsPage onNavigate={toLegacy}/>;
-   case "rules":return <RulesPage/>;
+   case "merchants":return <SignalMerchantsPage onNavigate={navigate}/>;
+   case "rules":return <SignalRulesPage/>;
    case "settings":return <FinanceSettingsPage/>;
    case "explore":return <SignalInsightsPage search={route.search} onNavigate={navigate}/>;
    case "categories":return <SignalInsightsPage search={route.search} onNavigate={navigate} categoryMode/>;
    case "products":
-   case "product-detail":return <ProductIntelligencePage onNavigate={toLegacy}
-     onProductChange={id=>navigate(id?"/explore/products/"+encodeURIComponent(id):"/explore/products")}
-     selectedProductId={productId}/>;
+   case "product-detail":return <SignalProductsPage onNavigate={navigate} selectedProductId={productId}/>;
    case "recurring":return <RecurringPage onNavigate={toLegacy}/>;
    case "receipts":return <ReceiptMatchingPage onNavigate={navigate}/>;
    case "receipt-detail":return <ReceiptStudioDetail receiptId={route.params.receiptId!} onNavigate={navigate}/>;

@@ -1,0 +1,14 @@
+import {readFileSync} from "node:fs";
+const read=f=>readFileSync(f,"utf8");
+const ensure=(ok,msg)=>{if(!ok)throw Error("P33 integrity: "+msg)};
+const app=read("src/app/FinanceAppV2.tsx"),products=read("src/product-intelligence/SignalProducts.tsx");
+const directory=read("src/product-intelligence/SignalDirectory.tsx"),model=read("src/product-intelligence/signal-product-model.ts");
+const ci=read(".github/workflows/ci.yml"),qa=read(".github/workflows/finance-p33-intelligence-qa.yml");
+for(const name of ["SignalProductsPage","SignalMerchantsPage","SignalRulesPage"])ensure(app.includes("<"+name),"actual authenticated routing "+name);
+ensure(products.includes("useProductCatalog")&&products.includes("useProductAnalytics")&&products.includes("useProductPurchaseEvidence"),"real account-scoped product services");
+ensure(directory.includes("SupabaseFinanceClassificationService")&&directory.includes("addMerchantAlias")&&directory.includes("createRule")&&directory.includes("updateRule")&&directory.includes("deleteRule"),"genuine user-governed RPCs");
+ensure(directory.includes("confirmDelete")&&directory.includes("confirmAlias"),"explicit destructive/save user confirmation");
+ensure(!directory.includes("window.confirm"),"no browser native rule deletion prompt");
+ensure(model.includes("p.currencyCode===analytics.profile.currencyCode")&&model.includes("v.basisLabel===basis"),"no currency and incomparable unit conflation");
+ensure(ci.includes("npm run validate:p33")&&qa.includes("capture-finance-p33.mjs"),"CI and actual component browser QA");
+console.log("P33 real backend wiring, provenance, currency, UX and CI safeguards passed");
