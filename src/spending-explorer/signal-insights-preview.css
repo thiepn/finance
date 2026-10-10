@@ -1,0 +1,6 @@
+
+.sc-insight-preview-banner{display:flex;align-items:center;flex-wrap:wrap;gap:8px 20px;padding:10px 13px;margin-bottom:12px;background:var(--sc-subtle);font-size:11px;color:var(--sc-text);border:1px dashed var(--sc-accent);border-radius:5px}
+.sc-insight-preview-banner strong{font-size:10px;letter-spacing:.07em}
+.sc-insight-preview-banner label{display:flex;align-items:center;gap:8px}
+.sc-insight-preview-banner select{border:1px solid var(--sc-border);padding:8px;background:var(--sc-surface);color:var(--sc-text)}
+.sc-insight-preview-banner span{overflow-wrap:anywhere}
