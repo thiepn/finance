@@ -10,7 +10,7 @@ import { CapturePage } from "../capture/CapturePage.js";
 import { SignalInsightsPage } from "../spending-explorer/SignalInsights.js";
 import { SignalMerchantsPage, SignalRulesPage } from "../product-intelligence/SignalDirectory.js";
 import { SignalProductsPage } from "../product-intelligence/SignalProducts.js";
-import { RecurringPage } from "../recurring/RecurringPage.js";
+import { SignalRecurringPage } from "../recurring/SignalRecurring.js";
 import { ReceiptMatchingPage } from "../receipt-matching/ReceiptMatchingPage.js";
 import { ReceiptStudioDetail } from "../receipt-matching/ReceiptStudioDetail.js";
 import { PlanningPage } from "../planning/PlanningPage.js";
@@ -76,7 +76,7 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "categories":return <SignalInsightsPage search={route.search} onNavigate={navigate} categoryMode/>;
    case "products":
    case "product-detail":return <SignalProductsPage onNavigate={navigate} selectedProductId={productId}/>;
-   case "recurring":return <RecurringPage onNavigate={toLegacy}/>;
+   case "recurring":return <SignalRecurringPage onNavigate={navigate}/>;
    case "receipts":return <ReceiptMatchingPage onNavigate={navigate}/>;
    case "receipt-detail":return <ReceiptStudioDetail receiptId={route.params.receiptId!} onNavigate={navigate}/>;
    case "accounts":return <WealthPage mode="accounts" onNavigate={toLegacy}/>;

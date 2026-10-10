@@ -36,6 +36,7 @@ export interface RecurringWorkspace {
     patternId: string,
     status: RecurringStatus,
   ): Promise<void>;
+  syncPatterns(): Promise<void>;
 }
 
 export function useRecurringWorkspace(): RecurringWorkspace {
@@ -83,11 +84,7 @@ export function useRecurringWorkspace(): RecurringWorkspace {
     }
 
     try {
-      await runtime.recurring.syncPatterns(
-        null,
-        new Date().toISOString(),
-      );
-
+      // Read-only loader. Linking posted transactions is an explicit operator action.
       const [nextDashboard, nextDetection] = await Promise.all([
         runtime.recurring.getDashboard(null, 45),
         runtime.recurring.getDetectionCandidates(null, 18, 40),
@@ -164,6 +161,18 @@ export function useRecurringWorkspace(): RecurringWorkspace {
     [refresh, runtime],
   );
 
+  const syncPatterns = useCallback(async () => {
+    if (!runtime || busyKey !== null) return;
+    setBusyKey("sync");
+    setActionError(null);
+    try {
+      await runtime.recurring.syncPatterns(null, new Date().toISOString());
+      await refresh();
+    } catch (cause) {
+      setActionError(cause instanceof Error ? cause.message : "Recurring reconciliation failed.");
+    } finally { setBusyKey(null); }
+  }, [runtime, refresh, busyKey]);
+
   return {
     state,
     dashboard,
@@ -174,5 +183,6 @@ export function useRecurringWorkspace(): RecurringWorkspace {
     refresh,
     confirmCandidate,
     setPatternStatus,
+    syncPatterns,
   };
 }
