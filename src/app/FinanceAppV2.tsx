@@ -19,6 +19,7 @@ import { SignalWealthPage } from "../wealth/SignalWealth.js";
 import { SignalImportPage } from "../imports/SignalImport.js";
 import { AskFinancePage } from "../ask/AskFinancePage.js";
 import { FinanceSettingsPage } from "./FinanceSettingsPage.js";
+import { SignalReleaseReviewPage } from "../acceptance/SignalReleaseReview.js";
 import { FinanceAuthPage } from "./FinanceAuthPage.js";
 import {
   fromLegacyKey, resolveFinanceLocation, safePrivatePath,
@@ -72,6 +73,7 @@ function FinancePrivatePage({route,navigate}: {route:RouteLocation;navigate:(tar
    case "merchants":return <SignalMerchantsPage onNavigate={navigate}/>;
    case "rules":return <SignalRulesPage/>;
    case "settings":return <FinanceSettingsPage/>;
+   case "release-review":return <SignalReleaseReviewPage onNavigate={navigate}/>;
    case "explore":return <SignalInsightsPage search={route.search} onNavigate={navigate}/>;
    case "categories":return <SignalInsightsPage search={route.search} onNavigate={navigate} categoryMode/>;
    case "products":

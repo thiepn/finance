@@ -81,6 +81,8 @@
     "src/wealth/signal-wealth-model.ts",
     "src/wealth/signal-wealth-model.test.ts",
     "src/imports/signal-import-model.ts",
-    "src/imports/signal-import-model.test.ts"
+    "src/imports/signal-import-model.test.ts",
+    "src/acceptance/finance-acceptance-model.ts",
+    "src/acceptance/finance-acceptance-model.test.ts"
   ]
 }
